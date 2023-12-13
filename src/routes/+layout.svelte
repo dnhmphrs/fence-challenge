@@ -68,29 +68,10 @@
 {/if}
 
 <style>
-	main {
-		display: flex;
-		flex-direction: column;
-		height: 100dvh;
-	}
-	
-	header {
-		position: absolute;
-		top: 0;
-		width: 100%;
-	}
-
-	footer {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-	}
-
 	body {
 		display: flex;
 		flex-direction: column;
-		/* padding: calc(1 * var(--margin)); */
 		width: 100%;
-		height: 100%;
+		height: 100dvh;
 	}
 </style>

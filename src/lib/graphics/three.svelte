@@ -204,7 +204,7 @@ function updatePlaneGeometry() {
 
 		// run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-			testProcessFrame(video, pyodide);
+				processFrame(video, pyodide);
 		}
 	}
 </script>
