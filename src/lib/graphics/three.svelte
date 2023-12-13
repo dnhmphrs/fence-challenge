@@ -64,7 +64,7 @@ function updatePlaneGeometry() {
 
         // Create the frame
 				let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
-        let frameThickness = 1; // Adjust thickness to your preference
+        let frameThickness = .8; // Adjust thickness to your preference
         let frameGeometry = new THREE.PlaneGeometry(100 * aspectRatio + frameThickness, 100 + frameThickness);
         let frame = new THREE.Mesh(frameGeometry, frameMaterial);
         plane5.position.z = 1; // Position the frame behind the webcam feed
@@ -83,7 +83,7 @@ function updatePlaneGeometry() {
 		};
 
 		const colors = {
-			color1: new THREE.Color(0xfafafa),
+			color1: new THREE.Color(0xe0e0e0),
 			color2: new THREE.Color(0x5099b4 ),
 			color3: new THREE.Color(0x8fbd5a),
 		}
