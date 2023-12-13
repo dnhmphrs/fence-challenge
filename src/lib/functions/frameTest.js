@@ -1,5 +1,5 @@
 // frameProcessor.js
-export async function processFrame(videoElement, pyodide) {
+export async function testProcessFrame(videoElement, pyodide) {
 	if (!videoElement || !pyodide) return;
 
 	// console.log('Processing frame');
@@ -15,9 +15,8 @@ export async function processFrame(videoElement, pyodide) {
 	// Convert image data to a format that Pyodide can understand
 	const data = new Uint8ClampedArray(imageData.data.buffer);
 
-	await pyodide.runPythonAsync(`
-	    from Board import Board
-	    board = Board()
-	    board.process_frame(${JSON.stringify(Array.from(data))}, ${canvas.width}, ${canvas.height})
-	`);
+	// console.log(data);
+
+	const result = await pyodide.runPythonAsync('2 + 2');
+	alert(`Result from Python:${result}`);
 }

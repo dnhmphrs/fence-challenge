@@ -7,6 +7,7 @@
 	import * as THREE from 'three';
 
 	import { processFrame } from '$lib/functions/frameProcessor.js';
+	import { testProcessFrame } from '$lib/functions/frameTest.js';
 	
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
@@ -203,7 +204,7 @@ function updatePlaneGeometry() {
 
 		// run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-				processFrame(video, pyodide);
+			testProcessFrame(video, pyodide);
 		}
 	}
 </script>
