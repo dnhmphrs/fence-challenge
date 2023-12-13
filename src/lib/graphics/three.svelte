@@ -8,17 +8,12 @@
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
-	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
-	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
-	import fragmentShader_garrett from './shaders/fragmentShader-garrett.glsl';
-	import fragmentShader_silicon from './shaders/fragmentShader-silicon.glsl';
-	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
-	import fragmentShader_ml_network from './shaders/fragmentShader-ml-network.glsl';
 
 	let SIDEBAR_SIZE = 0;
 
-	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum, shaderMaterial_silicon, shaderMaterial_iota, shaderMaterial_closed_loop, shaderMaterial_ml_network, shaderMaterial_garrett;
+	let shaderMaterial_aufbau;
+
+	let video, videoTexture;
 
 	let container;
 
@@ -30,8 +25,56 @@
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
 
+
 	init();
 	animate();
+
+	function startWebcam() {
+    video = document.createElement('video');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(err => {
+            console.error('Error accessing the webcam', err);
+        });
+
+    videoTexture = new THREE.VideoTexture(video);
+    videoTexture.minFilter = THREE.LinearFilter;
+    videoTexture.magFilter = THREE.LinearFilter;
+    videoTexture.format = THREE.RGBFormat;
+
+    video.addEventListener('playing', () => {
+        // This event is triggered when the video starts playing
+        updatePlaneGeometry();
+    });
+}
+
+
+function updatePlaneGeometry() {
+    if (video.videoWidth && video.videoHeight) {
+        let aspectRatio = video.videoWidth / video.videoHeight;
+
+        let plane5Geometry = new THREE.PlaneGeometry(100 * aspectRatio, 100);
+        let plane5Material = new THREE.MeshBasicMaterial({ map: videoTexture });
+        let plane5 = new THREE.Mesh(plane5Geometry, plane5Material);
+        plane5.name = 'plane5'; // Name the plane for identification
+
+        // Create the frame
+				let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
+        let frameThickness = 1; // Adjust thickness to your preference
+        let frameGeometry = new THREE.PlaneGeometry(100 * aspectRatio + frameThickness, 100 + frameThickness);
+        let frame = new THREE.Mesh(frameGeometry, frameMaterial);
+        plane5.position.z = 1; // Position the frame behind the webcam feed
+
+        scene.add(frame);
+        scene.add(plane5);
+    }
+}
+
+
 
 	function setupShaderMaterials() {
 		const uniformsBase = {
@@ -41,16 +84,8 @@
 
 		const colors = {
 			color1: new THREE.Color(0xd0d0d0),
-			color2: new THREE.Color(0xbb4500),
-			color3: new THREE.Color(0xdaaa55),
-			color4: new THREE.Color(0x006994 ),
-			color5: new THREE.Color(0x5099b4 ),
-			color6: new THREE.Color(0x0000ff),
-			color7: new THREE.Color(0x00ff00),
-			color8: new THREE.Color(0x0b0b0b),
-			color9: new THREE.Color(0x8fbd5a),
-			color0: new THREE.Color(0x232323),
-			color11: new THREE.Color(0xe0e0d0),
+			color2: new THREE.Color(0x5099b4 ),
+			color3: new THREE.Color(0x8fbd5a),
 		}
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
@@ -59,86 +94,8 @@
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color1 },
-				color2: { value: colors.color5 },
-				color3: { value: colors.color9 },
-			}
-		});
-
-		shaderMaterial_niels = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_niels,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color2 },
-				color3: { value: colors.color6 },
-				color4: { value: colors.color7 },
-			}
-		});
-
-		shaderMaterial_raum = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_raum,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color2 },
-				color2: { value: colors.color3 },
-				color3: { value: colors.color3 },
-			}
-		});
-
-		
-		shaderMaterial_iota = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_iota,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color4 },
-				color3: { value: colors.color5 },
-			}
-		});
-
-		shaderMaterial_garrett = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_garrett,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color9 },
-				color2: { value: colors.color11 },
-				color3: { value: colors.color11 },
-			}
-		});
-
-		shaderMaterial_silicon = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_silicon,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color3 },
 				color2: { value: colors.color2 },
 				color3: { value: colors.color3 },
-			}
-		});
-
-		shaderMaterial_closed_loop = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_closed_loop,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color9 },
-				color2: { value: colors.color7 },
-				color3: { value: colors.color4 },
-			}
-		});
-
-		shaderMaterial_ml_network = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_ml_network,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color0 },
-				color2: { value: colors.color8 },
 			}
 		});
 
@@ -146,63 +103,8 @@
 
 	function updateShaderUniforms() {
 		const elapsedTime = clock.getElapsedTime();
-
-		if ($page.url.pathname == '/') {
-			if ($screenType == 1) {
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-				shaderMaterial_aufbau.uniforms.mouse.value = {
-					x: 4 * Math.cos(elapsedTime * 0.1),
-					y: 5 * Math.cos(elapsedTime * 0.1)
-				} 
-			} else {
-				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-			}
-		}
-
-		if ($page.url.pathname == '/niels') {
-			if ($screenType == 1) {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: clock.getElapsedTime() * 1,
-					y: clock.getElapsedTime() * 0.1
-				};
-			} else {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: mouse.x + clock.getElapsedTime() * 0.1,
-					y: mouse.y + clock.getElapsedTime() * 1
-				};
-			}
-		}
-
-		if ($page.url.pathname == '/raum') {
-			shaderMaterial_raum.uniforms.mouse.value = mouse;
-			shaderMaterial_raum.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/garrett') {
-			shaderMaterial_iota.uniforms.mouse.value = mouse;
-			shaderMaterial_iota.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/iota') {
-			shaderMaterial_iota.uniforms.mouse.value = mouse;
-			shaderMaterial_iota.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/silicon') {
-			shaderMaterial_silicon.uniforms.mouse.value = mouse;
-			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/closed-loop') {
-			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
-			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/ml-network') {
-			shaderMaterial_ml_network.uniforms.mouse.value = mouse;
-			shaderMaterial_ml_network.uniforms.time.value = elapsedTime;
-		}
+		// shaderMaterial_aufbau.uniforms.mouse.value = mouse;
+		shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
 	}
 
 	function init() {
@@ -212,6 +114,7 @@
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color(0x232323);
 
+		startWebcam();
 		setupShaderMaterials();
 		setScene();
 
@@ -229,105 +132,15 @@
 	}
 
 	function setHome () {
-
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_aufbau);
-		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_aufbau);
 		scene.add(plane4);
-
-		if ($screenType != 1) {
-			plane5.position.z = 200;
-			scene.add(plane5);
-
-		} else {
-			plane5.position.z = 100;
-			plane5.rotation.z = Math.PI / 2
-			scene.add(plane5);
-		}
-	}
-
-	function setNiels () {
-		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_niels);
-		plane3.position.z = -0.1;
-		scene.add(plane3)
-	}
-
-	function setRaum () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_raum);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setIOTA () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_iota);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_iota);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setGarrett () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_garrett);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_garrett);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setSilicon () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_silicon);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_silicon);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setClosedLoop () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_closed_loop);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_closed_loop);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setMLNewtork () {
-		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_ml_network);
-		plane3.position.z = -0.1;
-		scene.add(plane3)
 	}
 
 
 	function setScene () {
-
 		if ($page.url.pathname == '/') {
 			setHome();
 		}
-
-		if ($page.url.pathname == '/niels') {
-			setNiels();
-		}
-
-		if ($page.url.pathname == '/raum') {
-			setRaum();
-		}
-
-		
-		if ($page.url.pathname == '/garrett') {
-			setGarrett();
-		}
-
-		if ($page.url.pathname == '/iota') {
-			setIOTA();
-		}
-
-		if ($page.url.pathname == '/silicon') {
-			setSilicon();
-		}
-
-		if ($page.url.pathname == '/closed-loop') {
-			setClosedLoop();
-		}
-
-		if ($page.url.pathname == '/ml-network') {
-			setMLNewtork();
-		}
-
 	}
 
 	afterNavigate (onNavigate);
@@ -356,8 +169,8 @@
     var clientX = event.clientX;
     var clientY = event.clientY;
 
-    mouse.x = (clientX / window.innerWidth) * 2 - 1;
-		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+    // mouse.x = (clientX / window.innerWidth) * 2 - 1;
+		// mouse.y = -(clientY / window.innerHeight) * 2 + 1;
 
 	};
 

@@ -5,10 +5,6 @@
 	import { screenType, isIframe, darkMode, DARK_PAGES } from '$lib/store/store';
 	import { page } from '$app/stores';
 
-	import Header from '$lib/components/header/header.svelte';
-	import Sidebar from '$lib/components/sidebar/sidebar.svelte';
-	import Footer from '$lib/components/footer/footer.svelte';
-
 	let Geometry;
 
 	onMount(async () => {
@@ -46,16 +42,8 @@
 </script>
 
 <svelte:head>
-	<title>MAKE WEB FUN AGAIN</title>
-	<meta name="description" content="AUFBAU // Creative Website Development from London to the World" />
-
-	<link
-	rel="preload"
-	href="/fonts/Dahlia-bold.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin="anonymous"
-/>
+	<title>MPI MiS // PENTOMINOES</title>
+	<meta name="description" content="PENTOMINOES GAME" />
 
 	<link
 		rel="preload"
@@ -73,39 +61,14 @@
 		crossorigin="anonymous"
 	/>
 
-	<link rel="preload" href="/icons/cv.svg" as="image">
-	<link rel="preload" href="/icons/insta.svg" as="image">
-	<link rel="preload" href="/icons/mail.svg" as="image">
-
-	<link rel="prefetch" href="/icons/cv-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/insta-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/mail-dark.svg" as="image">
-
-	<link rel="prefetch" href="/system_diagram.png" as="image">
-
 </svelte:head>
 
 <svelte:component this={Geometry} />
 
 {#if $screenType}
-	<main>
-		<header>
-			<Header />
-		</header>
-
-		<body>
-			<slot />
-		</body>
-
-		{#if $screenType == 3}
-		<footer>
-			<Footer />
-		</footer>
-		{/if}
-
-		<Sidebar />
-
-	</main>
+	<body>
+		<slot />
+	</body>
 {/if}
 
 <style>
