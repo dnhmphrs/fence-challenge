@@ -42,12 +42,15 @@
 	animate();
 
 	function startWebcam() {
-    video = document.createElement('video');
+		video = document.createElement('video');
+    video.autoplay = true;
+    video.muted = true; // Mute the video
+    video.playsInline = true; // Ensure inline play on iOS devices
 
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
             video.srcObject = stream;
-            video.play();
+            video.play().catch(e => console.error('Error playing the video', e));
         })
         .catch(err => {
             console.error('Error accessing the webcam', err);
