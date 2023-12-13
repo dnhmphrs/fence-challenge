@@ -83,9 +83,9 @@ function updatePlaneGeometry() {
 		};
 
 		const colors = {
-			color1: new THREE.Color(0xd0d0d0),
-			color2: new THREE.Color(0x5099b4 ),
-			color3: new THREE.Color(0x8fbd5a),
+			color1: new THREE.Color(0xf0f0f0),
+			color2: new THREE.Color(0x346c9c),
+			color3: new THREE.Color(0x6f5580),
 		}
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
