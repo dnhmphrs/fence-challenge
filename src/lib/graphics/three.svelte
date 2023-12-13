@@ -47,7 +47,7 @@
     video.muted = true; // Mute the video
     video.playsInline = true; // Ensure inline play on iOS devices
 
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
         .then(stream => {
             video.srcObject = stream;
             video.play().catch(e => console.error('Error playing the video', e));
