@@ -4,7 +4,7 @@ export const userType = writable(null);
 export const screenType = writable(null);
 export const isIframe = writable(true);
 
-export const DARK_PAGES = ['/ml-network'];
+export const pyodideLoaded = writable(false);
 export const darkMode = writable(false);
 
 export const lobbySelected = writable(false);

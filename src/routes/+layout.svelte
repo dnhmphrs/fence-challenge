@@ -2,10 +2,19 @@
 	import './app.css';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, darkMode, DARK_PAGES } from '$lib/store/store';
+	import { screenType, isIframe, pyodideLoaded } from '$lib/store/store';
 	import { page } from '$app/stores';
 
 	let Geometry;
+
+	async function loadPyodide() {
+			const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
+			await pyodide.runPythonAsync(`
+					import sys
+					sys.path.append('/python')
+			`);
+			pyodideLoaded.set(true);
+	}
 
 	onMount(async () => {
 
@@ -16,10 +25,6 @@
 			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
 			console.log($page.url.pathname)
-			if (DARK_PAGES.includes($page.url.pathname)) {
-        darkMode.set(true);
-				document.querySelector(':root').classList.add('dark-mode');
-			}
 
 			if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
 				// This is a device which supports touch

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { screenType } from '$lib/store/store';
+	import { pyodideLoaded } from '$lib/store/store';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 
@@ -26,17 +26,6 @@
 
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
-
-	let pyodideLoaded = false;
-
-	// async function loadPyodide() {
-	// 		const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-	// 		await pyodide.runPythonAsync(`
-	// 				import sys
-	// 				sys.path.append('/python')
-	// 		`);
-	// 		pyodideLoaded = true;
-	// }
 
 	init();
 	animate();
@@ -199,9 +188,9 @@ function updatePlaneGeometry() {
 		renderer.render(scene, camera);
 
 		// run pyodide script
-		// if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-		// 		processFrame(video, window.pyodide);
-		// }
+		if ($pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
+				processFrame(video, window.pyodide);
+		}
 	}
 </script>
 

@@ -19,10 +19,11 @@
 		"lil-gui": "^0.18.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
+		"pyodide": "^0.24.1",
+		"regl": "^2.1.0",
 		"svelte": "^3.54.0",
 		"vite": "^4.0.0",
-		"vite-plugin-glsl": "^1.1.2",
-		"regl": "^2.1.0"
+		"vite-plugin-glsl": "^1.1.2"
 	},
 	"type": "module",
 	"dependencies": {
