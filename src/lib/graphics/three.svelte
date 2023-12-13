@@ -29,14 +29,14 @@
 
 	let pyodideLoaded = false;
 
-	async function loadPyodide() {
-			const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-			await pyodide.runPythonAsync(`
-					import sys
-					sys.path.append('/python')
-			`);
-			pyodideLoaded = true;
-	}
+	// async function loadPyodide() {
+	// 		const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
+	// 		await pyodide.runPythonAsync(`
+	// 				import sys
+	// 				sys.path.append('/python')
+	// 		`);
+	// 		pyodideLoaded = true;
+	// }
 
 	init();
 	animate();
@@ -196,9 +196,9 @@ function updatePlaneGeometry() {
 		renderer.render(scene, camera);
 
 		// run pyodide script
-		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-				processFrame(video, window.pyodide);
-		}
+		// if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
+		// 		processFrame(video, window.pyodide);
+		// }
 	}
 </script>
 
