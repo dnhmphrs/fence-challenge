@@ -13,7 +13,7 @@ export async function testProcessFrame(videoElement, pyodide) {
 	const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
 	// Convert image data to a format that Pyodide can understand
-	const data = new Uint8ClampedArray(imageData.data.buffer);
+	// const data = new Uint8ClampedArray(imageData.data.buffer);
 
 	// console.log(data);
 
