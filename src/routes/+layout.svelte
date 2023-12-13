@@ -2,19 +2,10 @@
 	import './app.css';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, pyodideLoaded } from '$lib/store/store';
+	import { screenType, isIframe } from '$lib/store/store';
 	import { page } from '$app/stores';
 
 	let Geometry;
-
-	async function loadPyodide() {
-			const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-			await pyodide.runPythonAsync(`
-					import sys
-					sys.path.append('/python')
-			`);
-			pyodideLoaded.set(true);
-	}
 
 	onMount(async () => {
 

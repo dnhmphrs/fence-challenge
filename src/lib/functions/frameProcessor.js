@@ -2,6 +2,8 @@
 export async function processFrame(videoElement, pyodide) {
 	if (!videoElement || !pyodide) return;
 
+	// console.log('Processing frame');
+
 	// Capture a frame from the video element
 	const canvas = document.createElement('canvas');
 	canvas.width = videoElement.videoWidth;

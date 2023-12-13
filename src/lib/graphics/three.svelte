@@ -7,11 +7,14 @@
 	import * as THREE from 'three';
 
 	import { processFrame } from '$lib/functions/frameProcessor.js';
+	
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
 	let SIDEBAR_SIZE = 0;
+
+	let pyodide;
 
 	let shaderMaterial_aufbau;
 
@@ -26,6 +29,16 @@
 
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
+
+	async function loadPyodidePy() {
+			//const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
+			pyodide = await loadPyodide();
+			await pyodide.runPythonAsync(`
+					import sys
+					sys.path.append('/python')
+			`);
+			pyodideLoaded.set(true);
+	}
 
 	init();
 	animate();
@@ -127,6 +140,7 @@ function updatePlaneGeometry() {
 		renderer.setSize(width, height);
 
 		onMount(() => {
+			loadPyodidePy();
 			container.appendChild(renderer.domElement);
 		});
 
@@ -188,8 +202,8 @@ function updatePlaneGeometry() {
 		renderer.render(scene, camera);
 
 		// run pyodide script
-		if ($pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-				processFrame(video, window.pyodide);
+		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
+				processFrame(video, pyodide);
 		}
 	}
 </script>
