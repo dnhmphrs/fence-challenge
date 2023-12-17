@@ -8,10 +8,9 @@
 
 	import { processFrame } from '$lib/functions/frameProcessor.js';
 	import { testProcessFrame } from '$lib/functions/frameTest.js';
-	
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
-	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
+	import fragmentShader_aufbau from './shaders/fragmentShader-iota.glsl';
 
 	let SIDEBAR_SIZE = 0;
 
@@ -32,13 +31,13 @@
 	const clock = new THREE.Clock();
 
 	async function loadPyodidePy() {
-			//const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-			pyodide = await loadPyodide();
-			await pyodide.runPythonAsync(`
+		//const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
+		pyodide = await loadPyodide();
+		await pyodide.runPythonAsync(`
 					import sys
 					sys.path.append('/python')
 			`);
-			pyodideLoaded.set(true);
+		pyodideLoaded.set(true);
 	}
 
 	init();
@@ -46,53 +45,54 @@
 
 	function startWebcam() {
 		video = document.createElement('video');
-    video.autoplay = true;
-    video.muted = true; // Mute the video
-    video.playsInline = true; // Ensure inline play on iOS devices
+		video.autoplay = true;
+		video.muted = true; // Mute the video
+		video.playsInline = true; // Ensure inline play on iOS devices
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-        .then(stream => {
-            video.srcObject = stream;
-            video.play().catch(e => console.error('Error playing the video', e));
-        })
-        .catch(err => {
-            console.error('Error accessing the webcam', err);
-        });
+		navigator.mediaDevices
+			.getUserMedia({ video: { facingMode: 'environment' } })
+			.then((stream) => {
+				video.srcObject = stream;
+				video.play().catch((e) => console.error('Error playing the video', e));
+			})
+			.catch((err) => {
+				console.error('Error accessing the webcam', err);
+			});
 
-    videoTexture = new THREE.VideoTexture(video);
-    videoTexture.minFilter = THREE.LinearFilter;
-    videoTexture.magFilter = THREE.LinearFilter;
-    videoTexture.format = THREE.RGBAFormat;
+		videoTexture = new THREE.VideoTexture(video);
+		videoTexture.minFilter = THREE.LinearFilter;
+		videoTexture.magFilter = THREE.LinearFilter;
+		videoTexture.format = THREE.RGBAFormat;
 
-    video.addEventListener('playing', () => {
-        // This event is triggered when the video starts playing
-        updatePlaneGeometry();
-    });
-}
+		video.addEventListener('playing', () => {
+			// This event is triggered when the video starts playing
+			updatePlaneGeometry();
+		});
+	}
 
+	function updatePlaneGeometry() {
+		if (video.videoWidth && video.videoHeight) {
+			let aspectRatio = video.videoWidth / video.videoHeight;
 
-function updatePlaneGeometry() {
-    if (video.videoWidth && video.videoHeight) {
-        let aspectRatio = video.videoWidth / video.videoHeight;
+			let plane5Geometry = new THREE.PlaneGeometry(100 * aspectRatio, 100);
+			let plane5Material = new THREE.MeshBasicMaterial({ map: videoTexture });
+			let plane5 = new THREE.Mesh(plane5Geometry, plane5Material);
+			plane5.name = 'plane5'; // Name the plane for identification
 
-        let plane5Geometry = new THREE.PlaneGeometry(100 * aspectRatio, 100);
-        let plane5Material = new THREE.MeshBasicMaterial({ map: videoTexture });
-        let plane5 = new THREE.Mesh(plane5Geometry, plane5Material);
-        plane5.name = 'plane5'; // Name the plane for identification
+			// Create the frame
+			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
+			let frameThickness = 0.8; // Adjust thickness to your preference
+			let frameGeometry = new THREE.PlaneGeometry(
+				100 * aspectRatio + frameThickness,
+				100 + frameThickness
+			);
+			let frame = new THREE.Mesh(frameGeometry, frameMaterial);
+			plane5.position.z = 1; // Position the frame behind the webcam feed
 
-        // Create the frame
-				let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
-        let frameThickness = .8; // Adjust thickness to your preference
-        let frameGeometry = new THREE.PlaneGeometry(100 * aspectRatio + frameThickness, 100 + frameThickness);
-        let frame = new THREE.Mesh(frameGeometry, frameMaterial);
-        plane5.position.z = 1; // Position the frame behind the webcam feed
-
-        scene.add(frame);
-        scene.add(plane5);
-    }
-}
-
-
+			scene.add(frame);
+			scene.add(plane5);
+		}
+	}
 
 	function setupShaderMaterials() {
 		const uniformsBase = {
@@ -101,10 +101,10 @@ function updatePlaneGeometry() {
 		};
 
 		const colors = {
-			color1: new THREE.Color(0xe0e0e0),
-			color2: new THREE.Color(0x5099b4 ),
-			color3: new THREE.Color(0x8fbd5a),
-		}
+			color3: new THREE.Color(0x1b1458),
+			color2: new THREE.Color(0x563f91),
+			color1: new THREE.Color(0x232323)
+		};
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
@@ -113,10 +113,9 @@ function updatePlaneGeometry() {
 				...uniformsBase,
 				color1: { value: colors.color1 },
 				color2: { value: colors.color2 },
-				color3: { value: colors.color3 },
+				color3: { value: colors.color3 }
 			}
 		});
-
 	}
 
 	function updateShaderUniforms() {
@@ -150,28 +149,25 @@ function updatePlaneGeometry() {
 		// window.addEventListener('navigate', onNavigate);
 	}
 
-	function setHome () {
+	function setHome() {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_aufbau);
 		scene.add(plane4);
 	}
 
-
-	function setScene () {
+	function setScene() {
 		if ($page.url.pathname == '/') {
 			setHome();
 		}
 	}
 
-	afterNavigate (onNavigate);
+	afterNavigate(onNavigate);
 	function onNavigate() {
-
-		for( var i = scene.children.length - 1; i >= 0; i--) { 
-				let obj = scene.children[i];
-				scene.remove(obj); 
+		for (var i = scene.children.length - 1; i >= 0; i--) {
+			let obj = scene.children[i];
+			scene.remove(obj);
 		}
 
 		setScene();
-
 	}
 
 	function onWindowResize() {
@@ -185,13 +181,12 @@ function updatePlaneGeometry() {
 	}
 
 	function onDocumentMouseMove(event) {
-    var clientX = event.clientX;
-    var clientY = event.clientY;
+		var clientX = event.clientX;
+		var clientY = event.clientY;
 
-    // mouse.x = (clientX / window.innerWidth) * 2 - 1;
+		// mouse.x = (clientX / window.innerWidth) * 2 - 1;
 		// mouse.y = -(clientY / window.innerHeight) * 2 + 1;
-
-	};
+	}
 
 	function animate() {
 		requestAnimationFrame(animate);
@@ -204,7 +199,7 @@ function updatePlaneGeometry() {
 
 		// run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-				processFrame(video, pyodide);
+			// processFrame(video, pyodide);
 		}
 	}
 </script>

@@ -15,6 +15,15 @@ export async function processFrame(videoElement, pyodide) {
 	// Convert image data to a format that Pyodide can understand
 	const data = new Uint8ClampedArray(imageData.data.buffer);
 
+	await pyodide.loadPackage('numpy');
+	await pyodide.loadPackage('opencv-python');
+	const response = await fetch('/python/board.py');
+	const boardPy = await response.text();
+	pyodide.runPython(`
+			with open('/board.py', 'w') as file:
+					file.write(${JSON.stringify(boardPy)})
+	`);
+
 	// await pyodide.runPythonAsync(`
 	//     from Board import Board
 	//     board = Board()

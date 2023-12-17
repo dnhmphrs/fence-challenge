@@ -8,16 +8,20 @@
 	let Geometry;
 
 	onMount(async () => {
-
 		const module = await import('$lib/graphics/three.svelte');
 		Geometry = module.default;
 
 		function getDeviceType() {
-			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			const width =
+				window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-			console.log($page.url.pathname)
+			console.log($page.url.pathname);
 
-			if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+			if (
+				'ontouchstart' in window ||
+				navigator.maxTouchPoints > 0 ||
+				navigator.msMaxTouchPoints > 0
+			) {
 				// This is a device which supports touch
 				if (width <= 767) {
 					// Mobile
@@ -56,7 +60,6 @@
 		type="font/woff"
 		crossorigin="anonymous"
 	/>
-
 </svelte:head>
 
 <svelte:component this={Geometry} />
