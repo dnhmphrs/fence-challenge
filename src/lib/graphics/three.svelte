@@ -16,6 +16,8 @@
 
 	let pyodide;
 
+	let TMP = 0;
+
 	let shaderMaterial_aufbau;
 
 	let video, videoTexture;
@@ -198,8 +200,9 @@
 		renderer.render(scene, camera);
 
 		// run pyodide script
-		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-			// processFrame(video, pyodide);
+		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA && TMP == 0) {
+			processFrame(video, pyodide);
+			TMP = 1;
 		}
 	}
 </script>

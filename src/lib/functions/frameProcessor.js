@@ -16,13 +16,18 @@ export async function processFrame(videoElement, pyodide) {
 	const data = new Uint8ClampedArray(imageData.data.buffer);
 
 	await pyodide.loadPackage('numpy');
+	await pyodide.loadPackage('pandas');
 	await pyodide.loadPackage('opencv-python');
-	const response = await fetch('/python/board.py');
-	const boardPy = await response.text();
-	pyodide.runPython(`
-			with open('/board.py', 'w') as file:
-					file.write(${JSON.stringify(boardPy)})
+	const wheelUrl = '/python/FenceChallenge-0.0.1-py3-none-any.whl';
+	await pyodide.loadPackage(wheelUrl);
+
+	const result = await pyodide.runPythonAsync(`
+			import FenceChallenge.board_new
+			dir(FenceChallenge.board_new)
+			# FenceChallenge.board_new.GetPentominos(${JSON.stringify(Array.from(data))})
+			FenceChallenge.board_new.GetPentominos('/test.jpg')
 	`);
+	alert(`Result from Python:${result}`);
 
 	// await pyodide.runPythonAsync(`
 	//     from Board import Board
