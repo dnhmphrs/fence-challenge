@@ -150,6 +150,15 @@ function startWebcam() {
 //  LOAD & RENDER PENTOMINOS
 // -----------------------------------------------------------------------------
 
+function createGrid() {
+	const grid = new THREE.GridHelper(1.25, 20, 0xf0f0f0, 0xf0f0f0);
+	grid.rotateX(Math.PI / 2);
+	grid.position.z = 0.001;
+	grid.material.opacity = 0.5;
+	grid.material.transparent = true;
+	nonParallaxGroup.add(grid);
+}
+
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
 function createPentominos() {
 	const loader = new THREE.TextureLoader();
@@ -159,7 +168,7 @@ function createPentominos() {
 
 	for (let i = 0; i < 12; i++) {
 		const texture = loader.load(`/pentominos/${pentominosDict[i]}.png`);
-		const geometry = new THREE.PlaneGeometry(.5, .5);
+		const geometry = new THREE.PlaneGeometry(.25, .25);
 		const material = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
@@ -167,7 +176,7 @@ function createPentominos() {
 		});
 		const plane = new THREE.Mesh(geometry, material);
 		plane.position.z = 0.001;
-		plane.position.x = Math.random() * 2 - 1;
+		plane.position.x = Math.random() * 1 - .5;
 		plane.position.y = Math.random() * 1 - .5;
 		plane.name = `pentomino${i}`;
 
@@ -175,7 +184,7 @@ function createPentominos() {
 	}
 
 	for (let i = 0; i < 12; i++) {
-		parallaxGroup.add(pentominos[i]);
+		nonParallaxGroup.add(pentominos[i]);
 	}
 
 
@@ -216,6 +225,7 @@ function createStars() {
 // -----------------------------------------------------------------------------
 
 createStars();
+createGrid();
 createPentominos();
 startWebcam();
 id = window.requestAnimationFrame(render);
