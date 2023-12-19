@@ -128,11 +128,13 @@ function startWebcam() {
 
 			let plane5Geometry = new THREE.PlaneGeometry(SIZE * aspectRatio, SIZE);
 			let plane5Material = new THREE.MeshBasicMaterial({ map: videoTexture });
+			plane5Material.transparent = true;
+			plane5Material.opacity = .8;
 			let plane5 = new THREE.Mesh(plane5Geometry, plane5Material);
 			plane5.name = 'plane5'; // Name the plane for identification
 
 			// Create the frame
-			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xf0f0f0 }); // Black frame
+			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
 			let frameThickness = 0.005; // Adjust thickness to your preference
 			let frameGeometry = new THREE.PlaneGeometry(
 				SIZE * aspectRatio + frameThickness,
@@ -154,7 +156,7 @@ function createGrid() {
 	const grid = new THREE.GridHelper(1.25, 20, 0xf0f0f0, 0xf0f0f0);
 	grid.rotateX(Math.PI / 2);
 	grid.position.z = 0.001;
-	grid.material.opacity = 0.5;
+	grid.material.opacity = .5;
 	grid.material.transparent = true;
 	nonParallaxGroup.add(grid);
 }
