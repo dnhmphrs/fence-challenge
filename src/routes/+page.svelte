@@ -25,12 +25,12 @@
 	}
 
 	.sidebar.left {
-		border-right: 1px solid var(--primary-50);
+		border-right: 1px solid #000000;
 		left: 0;
 	}
 
 	.sidebar.right {
-		border-left: 1px solid var(--primary-50);
+		border-left: 1px solid #000000;
 		right: 0;
 	}
 </style>
