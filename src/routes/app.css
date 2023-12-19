@@ -5,30 +5,24 @@
 	--font-header: nb-architekt, sans-serif;
 	--column-width: 42rem;
 	--margin: 20px;
-
 	font-family: var(--font-body);
-	color: var(--color-text);
 }
 
 :root {
 	--background: #232323;
 	--background-50: #23232380;
-	--primary: #d0d0d0;
-	--primary-50: #d0d0d080;
-
-	--green: #008080;
-	--white: #d0d0d0;
-	--black: #1b1b1b;
+	--primary: #fffbe6;
+	--primary-50: #fffbe680;
 
 	--border: solid 1px var(--background);
 }
 
-:root.dark-mode {
+/* :root.dark-mode {
 	--background: #d0d0d0;
 	--background-50: #d0d0d080;
 	--primary: #232323;
 	--primary-50: #23232380;
-}
+} */
 
 @font-face {
 	font-family: nb-architekt;
@@ -64,6 +58,7 @@ h5,
 h6 {
 	font-family: var(--font-header);
 	letter-spacing: 0.1em;
+	color: var(--primary);
 }
 
 h1 {

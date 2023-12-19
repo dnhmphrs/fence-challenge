@@ -252,7 +252,7 @@ function render() {
 
     // run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA && TMP == 0) {
-			// processFrame(video, pyodide);
+			processFrame(video, pyodide);
 			TMP = 1;
 		}
 }
