@@ -8,7 +8,7 @@
 	let Geometry;
 
 	onMount(async () => {
-		const module = await import('$lib/graphics/three.svelte');
+		const module = await import('$lib/graphics/scene.svelte');
 		Geometry = module.default;
 
 		function getDeviceType() {
@@ -42,8 +42,8 @@
 </script>
 
 <svelte:head>
-	<title>MPI MiS // PENTOMINOES</title>
-	<meta name="description" content="PENTOMINOES GAME" />
+	<title>FENCE CHALLENGE</title>
+	<meta name="description" content="FENCE CHALLENGE" />
 
 	<link
 		rel="preload"
