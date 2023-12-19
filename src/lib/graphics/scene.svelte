@@ -121,7 +121,7 @@ function startWebcam() {
 	}
 
   function updatePlaneGeometry() {
-    let SIZE = .75;
+    let SIZE = 1;
 
 		if (video.videoWidth && video.videoHeight) {
 			let aspectRatio = video.videoWidth / video.videoHeight;
@@ -129,22 +129,30 @@ function startWebcam() {
 			let plane5Geometry = new THREE.PlaneGeometry(SIZE * aspectRatio, SIZE);
 			let plane5Material = new THREE.MeshBasicMaterial({ map: videoTexture });
 			plane5Material.transparent = true;
-			plane5Material.opacity = .8;
-			let plane5 = new THREE.Mesh(plane5Geometry, plane5Material);
-			plane5.name = 'plane5'; // Name the plane for identification
+			plane5Material.opacity = .75;
+			let videoPlane = new THREE.Mesh(plane5Geometry, plane5Material);
+			videoPlane.name = 'plane5'; // Name the plane for identification
+
+			// create Background behnd video
+			let bgMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
+			let bgGeometry = new THREE.PlaneGeometry(
+				SIZE * aspectRatio,
+				SIZE
+			);
+			let bg = new THREE.Mesh(bgGeometry, bgMaterial);
+			bg.position.z = -0.00001; // Position the frame behind the webcam feed	
 
 			// Create the frame
-			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
-			let frameThickness = 0.005; // Adjust thickness to your preference
+			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xf0f0f0 }); // Black frame
+			let frameThickness = 0.002; // Adjust thickness to your preference
 			let frameGeometry = new THREE.PlaneGeometry(
 				SIZE * aspectRatio + frameThickness,
 				SIZE + frameThickness
 			);
 			let frame = new THREE.Mesh(frameGeometry, frameMaterial);
-			plane5.position.z = 0.00001; // Position the frame behind the webcam feed
+			frame.position.z = -0.00002; // Position the frame behind the webcam feed
 
-      nonParallaxGroup.add(plane5);
-      nonParallaxGroup.add(frame);
+      nonParallaxGroup.add(videoPlane, bg, frame);
 		}
 	}
 
@@ -156,7 +164,7 @@ function createGrid() {
 	const grid = new THREE.GridHelper(1.25, 20, 0xf0f0f0, 0xf0f0f0);
 	grid.rotateX(Math.PI / 2);
 	grid.position.z = 0.001;
-	grid.material.opacity = .5;
+	grid.material.opacity = 1;
 	grid.material.transparent = true;
 	nonParallaxGroup.add(grid);
 }
