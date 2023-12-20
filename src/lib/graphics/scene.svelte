@@ -269,7 +269,7 @@ function createPentominos() {
 		// create points for line
 		let points = [];
 		for (let j = 0; j < pentominosDict[i].cornerVertices.length; j++) {
-			console.log(pentominosDict[i].cornerVertices[j])
+			// console.log(pentominosDict[i].cornerVertices[j])
 			let x = (pentominosDict[i].cornerVertices[j][0] - 0.5) * scale;
 			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
 			points.push(new THREE.Vector3(x, y, 0.001));
