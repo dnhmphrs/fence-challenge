@@ -248,7 +248,7 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 11; i < 12; i++) {
+	for (let i = 0; i < 12; i++) {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
@@ -262,7 +262,7 @@ function createPentominos() {
 			opacity: 1,
 		});
 		const plane = new THREE.Mesh(geometry, material);
-		plane.position.z = 0.001;
+		plane.position.z = 0.002;
 		plane.name = `pentomino${i}`;
 
 		// create frame around pentomino using lineGeometry and pentomino.shape (which defines the 5 cell x,y coords)
@@ -277,7 +277,7 @@ function createPentominos() {
 		const lineMaterial = new THREE.LineBasicMaterial({color: 0xFFFBE6});
 		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 		const frame = new THREE.Line( lineGeometry, lineMaterial );
-		frame.position.z = 0.001;
+		frame.position.z = 0.002;
 		// frame.scale.x = scale;
 		// frame.scale.y = scale;
 		// frame.rotateX(Math.PI / 2);
@@ -285,12 +285,13 @@ function createPentominos() {
 
 
 		pentominoTile.add(plane, frame);
-		// pentominoTile.position.x = Math.random() * 1 - .5;
-		// pentominoTile.position.y = Math.random() * 1 - .5;
+		pentominoTile.position.x = Math.random() * 1 - .5;
+		pentominoTile.position.y = Math.random() * 1 - .5;
+		pentominoTile.position.z = Math.random() * 0.1;
 
 		pentominoTile.position.x -= .094;
 		pentominoTile.position.y -= .0925;
-		pentominoTile.position.z = 0.001;
+
 
 		pentominos.push(pentominoTile);
 	}
