@@ -43,7 +43,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 		const result = await pyodide.runPythonAsync(`
 				import numpy as np
 				import FenceChallenge.board_new
-				
+
 				imageBuffer = np.array(globals().get('imageBuffer'))
 				width = globals().get('width')
 				height = globals().get('height')
@@ -53,6 +53,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 
 				# Convert RGBA to BGR for OpenCV
 				img_bgr = img_array[..., [2, 1, 0]]
+				img_bgr = img_bgr.astype(np.uint8)
 
 				result = FenceChallenge.board_new.GetPentominos(img_bgr)
 				result
