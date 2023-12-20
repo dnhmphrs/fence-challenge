@@ -54,25 +54,25 @@ let pentominosDict = {
 			letter: 'T',
 			width: 3,
 			height: 3,
-			cornerVertices: [[0, 2], [3, 2], [3, 1], [2, 1], [2, 0], [1, 0], [1, 1], [0, 1]]
+			cornerVertices: [[-1, 2], [2, 2], [2, 1], [1, 1], [1, -1], [0, -1], [0, 1], [-1, 1], [-1, 2]]
 		},
 		6: {
 			letter: 'U',
 			width: 3,
 			height: 3,
-			cornerVertices: [[0, 2], [3, 2], [3, 0], [2, 0], [2, 1], [1, 1], [1, 0], [0, 0]]
+			cornerVertices: [[-1, 1], [0, 1], [0, 0], [1, 0], [1, 1], [2, 1], [2, -1], [-1, -1], [-1, 1]]
 		},
 		7: {
 			letter: 'V',
 			width: 3,
 			height: 3,
-			cornerVertices: [[0, 2], [1, 2], [1, 0], [3, 0], [3, -1], [0, -1]]
+			cornerVertices: [[-1, 2], [0, 2], [0, 0], [1, 0], [2, 0], [2, -1], [-1, -1], [-1, 2]]
 		},
 		8: {
 			letter: 'W',
 			width: 3,
 			height: 3,
-			cornerVertices: [[0, 2], [1, 2], [1, 1], [2, 1], [2, 0], [3, 0], [3, -1], [0, -1]]
+			cornerVertices: [[0, 2], [0,0]]
 		},
 		9: {
 			letter: 'X',
@@ -248,7 +248,7 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 4; i < 5; i++) {
+	for (let i = 8; i < 9; i++) {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
