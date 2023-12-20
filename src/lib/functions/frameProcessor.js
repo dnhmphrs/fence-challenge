@@ -48,10 +48,10 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				img_array = np.frombuffer(imageBuffer, dtype=np.uint8).reshape((height*2, width*2, 4))
 
 				# Convert RGBA to BGR for OpenCV
-				img_bgr = img_array[..., :3][:,:,::-1]
+				# img_bgr = img_array[..., :3][:,:,::-1]
 
 				import FenceChallenge.board_new
-				result = FenceChallenge.board_new.GetPentominos(img_bgr)
+				result = FenceChallenge.board_new.GetPentominos(img_array)
 				result
 		`);
 		alert(`Result from Python: ${result}`);
