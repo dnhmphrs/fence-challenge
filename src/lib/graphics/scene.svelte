@@ -251,7 +251,7 @@ function createPentominos() {
 	for (let i = 0; i < 12; i++) {
 		let pentominoTile = new THREE.Group();
 
-		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
+		const texture = loader.load(`/pentominos-s/${pentominosDict[i].letter}.png`);
 		let scale = .062
 		let width = pentominosDict[i].width * scale;
 		let height = pentominosDict[i].height * scale;
