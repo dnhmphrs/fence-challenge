@@ -17,7 +17,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 	// get videoElement aspect ratio for scale
 	// console.log(devicePixelRatio, videoElement.videoWidth, videoElement.videoHeight, scale);
 
-	const imageData = ctx.getImageData(0, 0, canvas.width / scale, canvas.height / scale);
+	const imageData = ctx.getImageData(0, 0, canvas.width / 2, canvas.height / 2);
 	const dataBuffer = imageData.data.buffer;
 
 	// Convert RGBA to BGR
