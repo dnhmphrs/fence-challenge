@@ -130,10 +130,10 @@ if ($screenType == 1) {
 camera.lookAt(0, 0, 0);
 
 const parallaxGroup = new THREE.Group();
+const semiParallaxGroup = new THREE.Group();
 const nonParallaxGroup = new THREE.Group();
 
-scene.add(parallaxGroup);
-scene.add(nonParallaxGroup);
+scene.add(parallaxGroup, semiParallaxGroup, nonParallaxGroup);
 
 // -----------------------------------------------------------------------------
 //  LOAD PYODIDE
@@ -297,7 +297,7 @@ function createPentominos() {
 	}
 
 	for (let i = 0; i < 12; i++) {
-		parallaxGroup.add(pentominos[i]);
+		semiParallaxGroup.add(pentominos[i]);
 	}
 
 
@@ -347,6 +347,9 @@ function render() {
     // Parallax effect
     parallaxGroup.position.x += (-cursor.x - parallaxGroup.position.x * 1) * .02;
     parallaxGroup.position.y += (cursor.y - parallaxGroup.position.y * 1) * .02;
+
+		semiParallaxGroup.position.x += (-cursor.x - semiParallaxGroup.position.x * 1) * .005;
+    semiParallaxGroup.position.y += (cursor.y - semiParallaxGroup.position.y * 1) * .0025;
 
     // Camera always looks at the center of the scene
     camera.lookAt(scene.position);
