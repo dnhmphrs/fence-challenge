@@ -235,7 +235,7 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 3; i < 4; i++) {
+	for (let i = 4; i < 5; i++) {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);

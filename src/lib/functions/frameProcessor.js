@@ -51,6 +51,7 @@ export async function processFrame(videoElement, pyodide) {
 		alert(`Result from Python: ${result}`);
 	} catch (error) {
 		console.error('Error in processFrame:', error);
+		alert(`Result from Python: ${error}`);
 	}
 
 	// const result = await pyodide.runPythonAsync(`
