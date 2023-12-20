@@ -238,7 +238,7 @@ function createGrid() {
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
-	nonParallaxGroup.add(grid);
+	// nonParallaxGroup.add(grid);
 }
 
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
@@ -296,7 +296,7 @@ function createPentominos() {
 	}
 
 	for (let i = 0; i < 12; i++) {
-		nonParallaxGroup.add(pentominos[i]);
+		parallaxGroup.add(pentominos[i]);
 	}
 
 
