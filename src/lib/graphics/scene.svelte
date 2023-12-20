@@ -12,6 +12,7 @@ import { testProcessFrame } from '$lib/functions/frameTest.js';
 
 let pyodide;
 let video, videoTexture;
+let actualVideoWidth, actualVideoHeight;
 const cursor = {
   x: 0,
   y: 0,
@@ -158,15 +159,20 @@ function startWebcam() {
 		video.muted = true; // Mute the video
 		video.playsInline = true; // Ensure inline play on iOS devices
 
-		navigator.mediaDevices
-			.getUserMedia({ video: { facingMode: 'environment' } })
-			.then((stream) => {
-				video.srcObject = stream;
-				video.play().catch((e) => console.error('Error playing the video', e));
-			})
-			.catch((err) => {
-				console.error('Error accessing the webcam', err);
-			});
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then((stream) => {
+            video.srcObject = stream;
+            video.play().catch((e) => console.error('Error playing the video', e));
+
+            // Get the actual video track and its settings
+            const videoTrack = stream.getVideoTracks()[0];
+            const settings = videoTrack.getSettings();
+            actualVideoWidth = settings.width;
+            actualVideoHeight = settings.height;
+        })
+        .catch((err) => {
+            console.error('Error accessing the webcam', err);
+        });
 
 		videoTexture = new THREE.VideoTexture(video);
 		videoTexture.minFilter = THREE.LinearFilter;
@@ -180,7 +186,7 @@ function startWebcam() {
 	}
 
   function updatePlaneGeometry() {
-    let SIZE = 1;
+    let SIZE = 10;
 
 		if (video.videoWidth && video.videoHeight) {
 			let aspectRatio = video.videoWidth / video.videoHeight;
@@ -344,7 +350,7 @@ function render() {
 function onProcessFrame() {
 	    // run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-			processFrame(video, pyodide);
+			processFrame(video, actualVideoWidth, actualVideoHeight, pyodide);
 		} else {
 			console.log('not ready')
 			alert('not ready')

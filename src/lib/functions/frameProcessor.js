@@ -1,17 +1,21 @@
 // frameProcessor.js
-export async function processFrame(videoElement, pyodide) {
+export async function processFrame(videoElement, actualVideoWidth, actualVideoHeight, pyodide) {
 	if (!videoElement || !pyodide) return;
+
+	console.log(videoElement);
 
 	// console.log('Processing frame');
 
 	// Capture a frame from the video element
 	const canvas = document.createElement('canvas');
-	// const scale = window.devicePixelRatio;
-	const scale = 1;
-	canvas.width = videoElement.videoWidth * scale;
-	canvas.height = videoElement.videoHeight * scale;
+	canvas.width = actualVideoWidth;
+	canvas.height = actualVideoHeight;
 	const ctx = canvas.getContext('2d');
 	ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+	// get videoElement aspect ratio for scale
+	// console.log(devicePixelRatio, videoElement.videoWidth, videoElement.videoHeight, scale);
+
 	const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 	const dataBuffer = imageData.data.buffer;
 
@@ -32,8 +36,8 @@ export async function processFrame(videoElement, pyodide) {
 
 	try {
 		pyodide.globals.set('imageBuffer', new Uint8ClampedArray(dataBuffer));
-		pyodide.globals.set('width', canvas.width * scale);
-		pyodide.globals.set('height', canvas.height * scale);
+		pyodide.globals.set('width', canvas.width);
+		pyodide.globals.set('height', canvas.height);
 
 		const result = await pyodide.runPythonAsync(`
 				import numpy as np
