@@ -195,8 +195,8 @@ function startWebcam() {
   function updatePlaneGeometry() {
     let SIZE = 1;
 
-		if (video.videoWidth && video.videoHeight) {
-			let aspectRatio = video.videoWidth / video.videoHeight;
+		if (actualVideoWidth && actualVideoHeight) {
+			let aspectRatio = actualVideoWidth / actualVideoHeight;
 
 			let videoPlaneGeometry = new THREE.PlaneGeometry(SIZE * aspectRatio, SIZE);
 			let videoPlaneMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
