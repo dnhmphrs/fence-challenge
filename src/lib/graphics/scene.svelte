@@ -193,7 +193,7 @@ function startWebcam() {
 	}
 
   function updatePlaneGeometry() {
-    let SIZE = 10;
+    let SIZE = 1;
 
 		if (video.videoWidth && video.videoHeight) {
 			let aspectRatio = video.videoWidth / video.videoHeight;
