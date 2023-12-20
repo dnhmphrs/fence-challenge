@@ -3,8 +3,21 @@
 </script>
 
 <div class="sidebar left">
-	<h1>FENCE CHALLENGE</h1>
-	<p>This is TEXT.</p>
+	<div class="title">
+		<h1>FENCE CHALLENGE</h1>
+		<p>This is a short piece of text that will maybe be a description of sorts.</p>
+	</div>
+	<hr>
+	<div class="leaderboard">
+		<h2>Leaderboard</h2>
+		{#each Array(30) as _, i}
+			<div class="leaderboard-entry">
+				<p class="leaderboard-entry-name">Player {i}</p>
+				<p class="leaderboard-entry-name">Germany</p>
+				<p class="leaderboard-entry-score">{i * 100}</p>
+			</div>
+		{/each}
+	</div>
 </div>
 
 <div class="sidebar right">
@@ -25,6 +38,28 @@
 		width: 280px;
 		border-right: 1px solid #000000;
 		left: 0;
+
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 20px;
+	}
+
+	.title {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 10px;
+	}
+
+	.leaderboard {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 10px;
+	}
+
+	.leaderboard-entry {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
 	}
 
 	.sidebar.right {
