@@ -1,23 +1,16 @@
-import { dev } from '$app/environment';
+// import { dev } from '$app/environment';
 
 // frameProcessor.js
 export async function processFrame(videoElement, actualVideoWidth, actualVideoHeight, pyodide) {
 	if (!videoElement || !pyodide) return;
-
-	console.log(
-		actualVideoWidth,
-		actualVideoHeight,
-		videoElement.videoWidth,
-		videoElement.videoHeight
-	);
 
 	// console.log('Processing frame');
 
 	// Capture a frame from the video element
 	const canvas = document.createElement('canvas');
 	const scale = devicePixelRatio;
-	canvas.width = actualVideoWidth * scale;
-	canvas.height = actualVideoHeight * scale;
+	canvas.width = actualVideoWidth;
+	canvas.height = actualVideoHeight;
 	const ctx = canvas.getContext('2d');
 	ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
