@@ -2,15 +2,13 @@
 	import { onMount } from 'svelte';
 </script>
 
-<div class="sidebar left">
+<!-- <div class="sidebar left">
 	<h1>FENCE CHALLENGE</h1>
 	<p>This is TEXT.</p>
 </div>
 
 <div class="sidebar right">
-	<!-- <h1>sidebar right</h1>
-	<p>This is TEXT.</p> -->
-</div>
+</div> -->
 
 
 <style>

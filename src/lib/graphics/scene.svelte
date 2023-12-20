@@ -20,18 +20,78 @@ const cursor = {
 
 
 let pentominosDict = {
-		0: 'F',
-		1: 'I',
-		2: 'L',
-		3: 'N',
-		4: 'P',
-		5: 'T',
-		6: 'U',
-		7: 'V',
-		8: 'W',
-		9: 'X',	
-		10: 'Y',
-		11: 'Z'
+		0: {
+			letter: 'F',
+			width: 3,
+			height: 3,
+			cornerVertices: [[-1, 0], [-1, 2], [0, 2], [0, 1], [2, 1], [2, 0], [1, 0], [1, -1], [0, -1], [0, 0], [-1, 0], [-1, 0]]
+		},
+		1: {
+			letter: 'I',
+			width: 1,
+			height: 5,
+			cornerVertices: [[0, 3], [1, 3], [1, -2], [0, -2], [0, 3]]
+		},
+		2: {
+			letter: 'L',
+			width: 2,
+			height: 4,
+			cornerVertices: [[-.5, 2.5], [1.5, 2.5], [1.5, 1], [2, 1], [2, 0], [0, 0]]
+		},
+		3: {
+			letter: 'N',
+			width: 4,
+			height: 2,
+			cornerVertices: [[0, 1], [2, 1], [2, 0], [3, 0], [3, -1], [1, -1], [1, 0], [0, 0]]
+		},
+		4: {
+			letter: 'P',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [2, 2], [2, 1], [1, 1], [1, 0], [0, 0]]
+		},
+		5: {
+			letter: 'T',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [3, 2], [3, 1], [2, 1], [2, 0], [1, 0], [1, 1], [0, 1]]
+		},
+		6: {
+			letter: 'U',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [3, 2], [3, 0], [2, 0], [2, 1], [1, 1], [1, 0], [0, 0]]
+		},
+		7: {
+			letter: 'V',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [1, 2], [1, 0], [3, 0], [3, -1], [0, -1]]
+		},
+		8: {
+			letter: 'W',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [1, 2], [1, 1], [2, 1], [2, 0], [3, 0], [3, -1], [0, -1]]
+		},
+		9: {
+			letter: 'X',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [2, 2], [2, 1], [3, 1], [3, 0], [2, 0], [2, -1], [0, -1], [0, 0], [1, 0], [1, 2]]
+		},
+		10: {
+			letter: 'Y',
+			width: 4,
+			height: 2,
+			cornerVertices: [[0, 1], [3, 1], [3, 0], [4, 0], [4, -1], [1, -1], [1, 0], [0, 0]]
+		},
+		11: {
+			letter: 'Z',
+			width: 3,
+			height: 3,
+			cornerVertices: [[0, 2], [1, 2], [1, 1], [3, 1], [3, 0], [2, 0], [2, 1], [0, 1]]
+		},
 	}
 
 
@@ -151,7 +211,8 @@ function startWebcam() {
 			let frame = new THREE.Mesh(frameGeometry, frameMaterial);
 			frame.position.z = -0.00002; // Position the frame behind the webcam feed
 
-      nonParallaxGroup.add(videoPlane, bg, frame);
+
+      // nonParallaxGroup.add(videoPlane, bg, frame);
 		}
 	}
 
@@ -175,9 +236,14 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 0; i < 12; i++) {
-		const texture = loader.load(`/pentominos/${pentominosDict[i]}.png`);
-		const geometry = new THREE.PlaneGeometry(.25, .25);
+	for (let i = 2; i < 2; i++) {
+		let pentominoTile = new THREE.Group();
+
+		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
+		let scale = .062
+		let width = pentominosDict[i].width * scale;
+		let height = pentominosDict[i].height * scale;
+		const geometry = new THREE.PlaneGeometry(width, height);
 		const material = new THREE.MeshBasicMaterial({
 			map: texture,
 			transparent: true,
@@ -185,11 +251,36 @@ function createPentominos() {
 		});
 		const plane = new THREE.Mesh(geometry, material);
 		plane.position.z = 0.001;
-		plane.position.x = Math.random() * 1 - .5;
-		plane.position.y = Math.random() * 1 - .5;
 		plane.name = `pentomino${i}`;
 
-		pentominos.push(plane);
+		// create frame around pentomino using lineGeometry and pentomino.shape (which defines the 5 cell x,y coords)
+		// create points for line
+		let points = [];
+		for (let j = 0; j < pentominosDict[i].cornerVertices.length; j++) {
+			console.log(pentominosDict[i].cornerVertices[j])
+			let x = (pentominosDict[i].cornerVertices[j][0] - 0.5) * scale;
+			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
+			points.push(new THREE.Vector3(x, y, 0.001));
+		}
+		const lineMaterial = new THREE.LineBasicMaterial({color: 0xFFFBE6});
+		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+		const frame = new THREE.Line( lineGeometry, lineMaterial );
+		frame.position.z = 0.001;
+		// frame.scale.x = scale;
+		// frame.scale.y = scale;
+		// frame.rotateX(Math.PI / 2);
+		// frame.rotateY(Math.PI / 2);
+
+
+		pentominoTile.add(plane, frame);
+		// pentominoTile.position.x = Math.random() * 1 - .5;
+		// pentominoTile.position.y = Math.random() * 1 - .5;
+
+		pentominoTile.position.x -= .094;
+		pentominoTile.position.y -= .0925;
+		pentominoTile.position.z = 0.001;
+
+		pentominos.push(pentominoTile);
 	}
 
 	for (let i = 0; i < 12; i++) {
