@@ -10,7 +10,6 @@ import { testProcessFrame } from '$lib/functions/frameTest.js';
 // INIT SCENE & CAMERA
 // -----------------------------------------------------------------------------
 
-let TMP = 0;
 let pyodide;
 let video, videoTexture;
 const cursor = {
@@ -42,7 +41,7 @@ let pentominosDict = {
 			letter: 'N',
 			width: 4,
 			height: 2,
-			cornerVertices: [[0, 1], [1,1], [0,1]]
+			cornerVertices: [[-1.5, 0.5], [-0.5,0.5], [-0.5,1.5], [2.5,1.5], [2.5,0.5], [0.5,0.5], [0.5,-0.5], [-1.5,-0.5], [-1.5,0.5]]
 		},
 		4: {
 			letter: 'P',
@@ -340,12 +339,16 @@ function render() {
 
     renderer.render(scene, camera);
     id = window.requestAnimationFrame(render);
+}
 
-    // run pyodide script
-		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA && TMP == 100) {
+function onProcessFrame() {
+	    // run pyodide script
+		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
 			processFrame(video, pyodide);
+		} else {
+			console.log('not ready')
+			alert('not ready')
 		}
-		TMP += 1;
 }
 
 
@@ -371,6 +374,8 @@ window.addEventListener("mousemove", (event) => {
 
 </script>
 
+<button on:click={onProcessFrame}>Process Frame</button>
+
 <div bind:this={container} class:geometry={true} />
 
 <style>
@@ -379,5 +384,15 @@ window.addEventListener("mousemove", (event) => {
 		right: 0;
 		overflow: hidden;
 		z-index: -1;
+	}
+
+	button {
+		position: absolute;
+		top: 5%;
+		left: 50%;
+		transform: translate(-50%, 0);
+		z-index: 100;
+		background: var(--primary);
+		padding: 5px;
 	}
 </style>
