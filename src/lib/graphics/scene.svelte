@@ -42,7 +42,7 @@ let pentominosDict = {
 			letter: 'N',
 			width: 4,
 			height: 2,
-			cornerVertices: [[0, 1], [2, 1], [2, 0], [3, 0], [3, -1], [1, -1], [1, 0], [0, 0]]
+			cornerVertices: [[0, 1], [1,1], [0,1]]
 		},
 		4: {
 			letter: 'P',
@@ -236,7 +236,7 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 2; i < 3; i++) {
+	for (let i = 3; i < 4; i++) {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
@@ -342,10 +342,10 @@ function render() {
     id = window.requestAnimationFrame(render);
 
     // run pyodide script
-		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA && TMP == 0) {
+		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA && TMP == 100) {
 			processFrame(video, pyodide);
-			TMP = 1;
 		}
+		TMP += 1;
 }
 
 

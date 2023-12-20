@@ -27,7 +27,7 @@ export async function processFrame(videoElement, pyodide) {
 	await pyodide.loadPackage(wheelUrl);
 
 	// console.log(JSON.stringify(Array.from(data)));
-	console.log(dataBuffer);
+	// console.log(dataBuffer);
 
 	try {
 		pyodide.globals.set('imageBuffer', new Uint8ClampedArray(dataBuffer));
