@@ -17,7 +17,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 	// get videoElement aspect ratio for scale
 	// console.log(devicePixelRatio, videoElement.videoWidth, videoElement.videoHeight, scale);
 
-	const imageData = ctx.getImageData(0, 0, canvas.width / 2, canvas.height / 2);
+	const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 	const dataBuffer = imageData.data.buffer;
 
 	// Convert RGBA to BGR
@@ -45,7 +45,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				imageBuffer = np.array(globals().get('imageBuffer'))
 				width = globals().get('width')
 				height = globals().get('height')
-				img_array = np.frombuffer(imageBuffer, dtype=np.uint8).reshape((height, width, 4))
+				img_array = np.frombuffer(imageBuffer, dtype=np.uint8).reshape((height*2, width*2, 4))
 
 				# Convert RGBA to BGR for OpenCV
 				img_bgr = img_array[..., :3][:,:,::-1]
