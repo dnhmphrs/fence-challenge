@@ -36,7 +36,7 @@ let pentominosDict = {
 			letter: 'L',
 			width: 2,
 			height: 4,
-			cornerVertices: [[-.5, 2.5], [1.5, 2.5], [1.5, 1], [2, 1], [2, 0], [0, 0]]
+			cornerVertices: [[-.5, 2.5], [1.5, 2.5], [1.5, 1], [1.5, -1.5], [0.5, -1.5], [0.5, 1.5], [-.5, 1.5], [-.5, 2.5]]
 		},
 		3: {
 			letter: 'N',
@@ -212,7 +212,7 @@ function startWebcam() {
 			frame.position.z = -0.00002; // Position the frame behind the webcam feed
 
 
-      // nonParallaxGroup.add(videoPlane, bg, frame);
+      nonParallaxGroup.add(videoPlane, bg, frame);
 		}
 	}
 
@@ -236,7 +236,7 @@ function createPentominos() {
 
 	// transparent plane, visible image
 
-	for (let i = 2; i < 2; i++) {
+	for (let i = 2; i < 3; i++) {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos/${pentominosDict[i].letter}.png`);
