@@ -8,7 +8,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 
 	// Capture a frame from the video element
 	const canvas = document.createElement('canvas');
-	const scale = devicePixelRatio;
+	// const scale = devicePixelRatio;
 	canvas.width = actualVideoWidth;
 	canvas.height = actualVideoHeight;
 	const ctx = canvas.getContext('2d');
