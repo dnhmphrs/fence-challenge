@@ -159,16 +159,23 @@ function startWebcam() {
 		video.muted = true; // Mute the video
 		video.playsInline = true; // Ensure inline play on iOS devices
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+		navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: 9999 } })
         .then((stream) => {
             video.srcObject = stream;
             video.play().catch((e) => console.error('Error playing the video', e));
 
-            // Get the actual video track and its settings
-            const videoTrack = stream.getVideoTracks()[0];
-            const settings = videoTrack.getSettings();
-            actualVideoWidth = settings.width;
-            actualVideoHeight = settings.height;
+            video.addEventListener('loadedmetadata', () => {
+                // Extract video dimensions once the metadata is loaded
+                const videoTrack = stream.getTracks()[0];
+                const settings = videoTrack.getSettings();
+                actualVideoWidth = settings.width;
+                actualVideoHeight = settings.height;
+
+								console.log(actualVideoWidth, actualVideoHeight)
+                
+                // Additional setup can be done here if needed
+                // setupVideoTexture();
+            });
         })
         .catch((err) => {
             console.error('Error accessing the webcam', err);

@@ -2,7 +2,12 @@
 export async function processFrame(videoElement, actualVideoWidth, actualVideoHeight, pyodide) {
 	if (!videoElement || !pyodide) return;
 
-	console.log(videoElement);
+	console.log(
+		actualVideoWidth,
+		actualVideoHeight,
+		videoElement.videoWidth,
+		videoElement.videoHeight
+	);
 
 	// console.log('Processing frame');
 
