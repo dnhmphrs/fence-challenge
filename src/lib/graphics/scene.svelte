@@ -314,7 +314,7 @@ function createPentominos() {
 
 		pentominoTile.add(plane, frame);
 		pentominoTile.position.x = Math.random() * .8 - .4;
-		pentominoTile.position.y = Math.random() * 1 - .225;
+		pentominoTile.position.y = Math.random() * 1 - .22;
 		pentominoTile.position.z = Math.random() * 0.1;
 
 		pentominoTile.position.x -= .094;
