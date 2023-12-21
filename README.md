@@ -16,6 +16,9 @@
   - Option to Upload Fence Area to Database & Render Leaderboard
   - Make Website/Tablet/Mobile Fully Responsive
   - Prerendering/static-serving correctly (vercel)
+  - Make Python run in WebWorker
+  - Load and Initiate Pyodide on site loading
+  - Add Loading Bar on Site Loading
 - Post Dan
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
   - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
