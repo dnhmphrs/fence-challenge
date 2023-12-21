@@ -9,8 +9,8 @@
 
 ### DOCS
 - Front-End
-  -- TODO
+  - TODO
 - Python
- -- TODO
+ - TODO
 - Database
- -- TODO
+ - TODO
