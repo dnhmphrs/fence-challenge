@@ -27,9 +27,9 @@
 <div class="sidebar right">
 	<button  on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
 		<h4>
-			<span class:hidden={$cvMode}>Camera Mode</span>
+			<span class:hidden={!$cvMode}>Camera Mode</span>
 			//
-			<span class:hidden={!$cvMode}>Game Mode</span>
+			<span class:hidden={$cvMode}>Game Mode</span>
 		</h4>
 </button>
 </div>
@@ -47,7 +47,7 @@
 
 	.sidebar.left {
 		width: 280px;
-		border-right: 1px solid var(--primary-50);
+		border-right: .5px solid var(--primary-50);
 		left: 0;
 
 		display: flex;
@@ -76,7 +76,7 @@
 
 	.sidebar.right {
 		width: 280px;
-		border-left: 1px solid var(--primary-50);
+		border-left: .5px solid var(--primary-50);
 		right: 0;
 	}
 

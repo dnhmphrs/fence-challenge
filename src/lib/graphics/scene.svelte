@@ -132,6 +132,8 @@ camera.lookAt(0, 0, 0);
 
 const parallaxGroup = new THREE.Group();
 const nonParallaxGroup = new THREE.Group();
+const webcamGroup = new THREE.Group();
+const webgameGroup = new THREE.Group();
 
 scene.add(parallaxGroup, nonParallaxGroup);
 
@@ -224,7 +226,8 @@ function startWebcam() {
 			frame.position.z = -0.00002; // Position the frame behind the webcam feed
 
 
-      nonParallaxGroup.add(videoPlane, bg, frame);
+      webcamGroup.add(videoPlane, bg, frame);
+			nonParallaxGroup.add(webcamGroup);
 		}
 	}
 
@@ -238,7 +241,8 @@ function createGrid() {
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
-	nonParallaxGroup.add(grid);
+	webgameGroup.add(grid);
+	nonParallaxGroup.add(webgameGroup);
 }
 
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
@@ -336,19 +340,90 @@ function createStars() {
 }
 
 // -----------------------------------------------------------------------------
-// START SCENE & ANIMATE
+// START SCENE & HANDLE MODE CHANGES
 // -----------------------------------------------------------------------------
 
-createStars();
-createPentominos();
-if ($cvMode) {
-startWebcam();
-} else {
-	createGrid();
+	basicSetup();
+	// Reactive statement to handle mode changes
+	$: {
+			if ($cvMode) {
+					startCVMode();
+			} else {
+					startWebgameMode();
+			}
+	}
+
+	function basicSetup() {
+			createStars();
+			createPentominos();
+	};
+
+	function startCVMode() {
+			// Initialize resources for CV mode
+			startWebcam();
+			cleanUpWebgameMode(); // Ensure to cleanup the other mode
+	}
+
+	function startWebgameMode() {
+			// Initialize resources for Webgame mode
+			createGrid();
+			cleanUpCVMode(); // Ensure to cleanup the other mode
+	}
+
+	function cleanUpCVMode() {
+    // Stop the video stream
+    if (video && video.srcObject) {
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+    }
+
+    // Remove video texture if exists
+    if (videoTexture) {
+        videoTexture.dispose();
+        videoTexture = null;
+    }
+
+    // Remove video plane and related elements from the scene
+    webcamGroup.children.forEach(child => {
+        if (child.material) {
+            child.material.dispose(); // Dispose material
+        }
+        if (child.geometry) {
+            child.geometry.dispose(); // Dispose geometry
+        }
+        webcamGroup.remove(child); // Remove from scene
+    });
+
+    // Perform additional clean-up if necessary
+		nonParallaxGroup.remove(webcamGroup);
+}
+
+
+function cleanUpWebgameMode() {
+    // Assuming the grid is directly added to nonParallaxGroup or scene
+    webgameGroup.children.forEach(child => {
+        if (child.material) {
+            child.material.dispose(); // Dispose material
+        }
+        if (child.geometry) {
+            child.geometry.dispose(); // Dispose geometry
+        }
+        webgameGroup.remove(child); // Remove from scene
+    });
+		nonParallaxGroup.remove(webgameGroup);
+
+    // Remove other webgame-specific elements if they exist
+    // For example, pentominos or other objects added to the scene for the webgame mode
 }
 
 
 id = window.requestAnimationFrame(render);
+
+// -----------------------------------------------------------------------------
+// ANIMATE
+// -----------------------------------------------------------------------------
+
 
 function render() {
     // Parallax effect
