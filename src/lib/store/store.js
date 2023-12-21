@@ -6,6 +6,6 @@ export const isIframe = writable(true);
 export const pyodideLoaded = writable(false);
 export const darkMode = writable(false);
 
-export const cvMode = writable(true);
+export const cvMode = writable(false);
 
 export const mousePosition = writable({ x: 0, y: 0, z: 0 });

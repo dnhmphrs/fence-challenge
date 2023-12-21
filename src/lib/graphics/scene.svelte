@@ -213,13 +213,13 @@ function startWebcam() {
 				SIZE
 			);
 			let bg = new THREE.Mesh(bgGeometry, bgMaterial);
-			bg.position.z = -0.00001; // Position the frame behind the webcam feed	
+			bg.position.z = -0.0000; // Position the frame behind the webcam feed	
 
 			// Create the frame
-			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 }); // Black frame
+			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFBE6 }); // Black frame
 			let frameThickness = 0.002; // Adjust thickness to your preference
 			let frameGeometry = new THREE.PlaneGeometry(
-				SIZE * aspectRatio + frameThickness,
+				SIZE * aspectRatio + frameThickness + frameThickness,
 				SIZE + frameThickness
 			);
 			let frame = new THREE.Mesh(frameGeometry, frameMaterial);
@@ -231,19 +231,33 @@ function startWebcam() {
 		}
 	}
 
+	
 // -----------------------------------------------------------------------------
-//  LOAD & RENDER PENTOMINOS
+//  LOAD & WEBGAME ELEMENTS
 // -----------------------------------------------------------------------------
 
 function createGrid() {
+	const backgroundGeo = new THREE.BoxGeometry(1.25, 1.25, 0.001);
+	const backgroundMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 });
+	const background = new THREE.Mesh(backgroundGeo, backgroundMaterial);
+	// background.rotateX(Math.PI / 2);
+	background.position.z = 0.00;
+	background.material.opacity = .75;
+	background.material.transparent = true;
+
 	const grid = new THREE.GridHelper(1.25, 20, 0xFFFBE6, 0xFFFBE6);
 	grid.rotateX(Math.PI / 2);
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
-	webgameGroup.add(grid);
+
+	webgameGroup.add(grid, background);
 	nonParallaxGroup.add(webgameGroup);
 }
+
+// -----------------------------------------------------------------------------
+//  LOAD & RENDER PENTOMINOS
+// -----------------------------------------------------------------------------
 
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
 function createPentominos() {
