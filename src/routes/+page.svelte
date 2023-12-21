@@ -21,7 +21,7 @@
 			<div class="leaderboard-entry">
 				<p class="leaderboard-entry-name">Player {i}</p>
 				<p class="leaderboard-entry-name">Germany</p>
-				<p class="leaderboard-entry-score">{i * 100}</p>
+				<p class="leaderboard-entry-score">{Math.floor((Math.random() * 128))}</p>
 			</div>
 		{/each}
 	</div>
@@ -116,6 +116,20 @@
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
+		gap: 20px;
+	}
+
+	.leaderboard-entry-name {
+ 		width: 40%;
+	}
+
+	.leaderboard-entry-country {
+ 		width: 30%;
+	}
+
+	.leaderboard-entry-score {
+ 		width: 10%;
+		text-align: right;
 	}
 
 	.sidebar.right {
