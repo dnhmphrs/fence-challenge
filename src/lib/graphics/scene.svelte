@@ -246,6 +246,8 @@ function createGrid() {
 	background.material.transparent = true;
 
 	const grid = new THREE.GridHelper(1.25, 20, 0xFFFBE6, 0xFFFBE6);
+	grid.transparent = true;
+	grid.opacity = 0.5;
 	grid.rotateX(Math.PI / 2);
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;

@@ -35,6 +35,7 @@
 			<span class:hidden={$cvMode}>Game Mode</span>
 		</h4>
 </button>
+<div class="pentominos"></div>
 </div>
 
 
@@ -46,16 +47,16 @@
 		backdrop-filter: blur(10px);
 		padding: 20px;
 		box-sizing: border-box;
+
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 20px;
 	}
 
 	.sidebar.left {
 		width: 280px;
 		/* border-right: .5px solid #000; */
 		left: 0;
-
-		display: flex;
-		flex-flow: column nowrap;
-		gap: 20px;
 	}
 
 	h1 {
@@ -121,6 +122,15 @@
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.pentominos {
+		width: 100%;
+		height: 100%;
+
+		border: 1px  solid var(--dark-purple);
+		padding: 10px;
+		border-radius: 10px;
 	}
 
 
