@@ -227,7 +227,8 @@ function startWebcam() {
 			);
 			let frame = new THREE.Mesh(frameGeometry, frameMaterial);
 			frame.position.z = -0.00002; // Position the frame behind the webcam feed
-
+			
+			if ( $screenType != 3 )	webcamGroup.position.y = 0.225
 
       webcamGroup.add(videoPlane, bg);
 			nonParallaxGroup.add(webcamGroup);
@@ -255,6 +256,8 @@ function createGrid() {
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
+
+	if ( $screenType != 3 )	webgameGroup.position.y = 0.225
 
 	webgameGroup.add(grid, background);
 	nonParallaxGroup.add(webgameGroup);
