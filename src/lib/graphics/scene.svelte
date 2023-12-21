@@ -241,7 +241,7 @@ function startWebcam() {
 // -----------------------------------------------------------------------------
 
 function createGrid() {
-	const backgroundGeo = new THREE.BoxGeometry(1.25, 1.25, 0.001);
+	const backgroundGeo = new THREE.BoxGeometry(1.1, 1.1, 0.001);
 	const backgroundMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 });
 	const background = new THREE.Mesh(backgroundGeo, backgroundMaterial);
 	// background.rotateX(Math.PI / 2);
@@ -249,7 +249,7 @@ function createGrid() {
 	background.material.opacity = .75;
 	background.material.transparent = true;
 
-	const grid = new THREE.GridHelper(1.25, 20, 0xd0d0d0, 0xd0d0d0);
+	const grid = new THREE.GridHelper(1.1, 20, 0xd0d0d0, 0xd0d0d0);
 	grid.transparent = true;
 	grid.opacity = 0.5;
 	grid.rotateX(Math.PI / 2);
