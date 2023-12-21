@@ -36,7 +36,7 @@
 		</h4>
 	</button>
 	<div class="pentominos">
-		{#if $screenType == 3}
+		{#if ( $screenType == 3 && window.innerWidth > 800 )}
 		<img src="tmp2.png" alt="tmp"/>
 		{:else}
 		<img src="tmp2-rotated.png" alt="tmp"/>
@@ -146,7 +146,7 @@
 		opacity: .5;
 	}
 
-	@media (max-width: 1024px) {
+	@media (max-width: 800px) {
 		.sidebar.left {
 			max-height: 0;
 			overflow: hidden;
