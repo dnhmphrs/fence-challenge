@@ -161,8 +161,11 @@ function startWebcam() {
 		video.muted = true; // Mute the video
 		video.playsInline = true; // Ensure inline play on iOS devices
 
-		navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: 9999 } })
-        .then((stream) => {
+		navigator.mediaDevices.getUserMedia({ video: { 
+			facingMode: 'environment',
+			width: { ideal: 1920 },
+      height: { ideal: 1080 }
+		}}).then((stream) => {
             video.srcObject = stream;
             video.play().catch((e) => console.error('Error playing the video', e));
 
