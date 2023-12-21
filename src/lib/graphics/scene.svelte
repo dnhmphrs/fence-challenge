@@ -216,7 +216,7 @@ function startWebcam() {
 			bg.position.z = -0.0000; // Position the frame behind the webcam feed	
 
 			// Create the frame
-			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFBE6 }); // Black frame
+			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x0b0b0b }); // Black frame
 			let frameThickness = 0.002; // Adjust thickness to your preference
 			let frameGeometry = new THREE.PlaneGeometry(
 				SIZE * aspectRatio + frameThickness + frameThickness,
@@ -245,7 +245,7 @@ function createGrid() {
 	background.material.opacity = .75;
 	background.material.transparent = true;
 
-	const grid = new THREE.GridHelper(1.25, 20, 0xFFFBE6, 0xFFFBE6);
+	const grid = new THREE.GridHelper(1.25, 20, 0xd0d0d0, 0xd0d0d0);
 	grid.transparent = true;
 	grid.opacity = 0.5;
 	grid.rotateX(Math.PI / 2);
