@@ -1,2 +1,4 @@
-# 2023-WEB-TEMPLATE
-2023 WEB TEMPLATE (SVELTE, THREE.JS, GLSL)
+# Fence Challenge for ScaDS.ai/MPS MiS
+
+- list
+- list
