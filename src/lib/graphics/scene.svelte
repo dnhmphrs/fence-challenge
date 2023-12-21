@@ -324,7 +324,7 @@ function createPentominos() {
 }
 
 // -----------------------------------------------------------------------------
-// CREATE BACKGROUND SCENE ELEMENTS
+// CREATE STARS
 // -----------------------------------------------------------------------------
 
 function createStars() {
@@ -346,7 +346,7 @@ function createStars() {
 
   const particlesMaterial = new THREE.PointsMaterial({
     color: 0xFFFBE6,
-    size: 0.02,
+    size: 0.015,
   });
 
   const stars = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -374,12 +374,14 @@ function createStars() {
 
 	function startCVMode() {
 			// Initialize resources for CV mode
+			cleanUpCVMode();
 			startWebcam();
 			cleanUpWebgameMode(); // Ensure to cleanup the other mode
 	}
 
 	function startWebgameMode() {
 			// Initialize resources for Webgame mode
+			cleanUpWebgameMode();
 			createGrid();
 			cleanUpCVMode(); // Ensure to cleanup the other mode
 	}

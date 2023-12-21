@@ -11,8 +11,11 @@
 		<h1>FENCE CHALLENGE</h1>
 		<p>This is a short piece of text that will maybe be a description of sorts.</p>
 	</div>
-	<hr style="border: .5px solid var(--primary-50);" />
-	<h2>Leaderboard</h2>
+	<!-- <hr style="border: .5px solid var(--primary-50);" /> -->
+	<div class="leaderboard-title">
+		<h2>Leaderboard</h2>
+		<h4>ORDER: FILNPTUVWXYZ</h4>
+	</div>
 	<div class="leaderboard no-scrollbar">
 		{#each Array(30) as _, i}
 			<div class="leaderboard-entry">
@@ -47,7 +50,7 @@
 
 	.sidebar.left {
 		width: 280px;
-		border-right: .5px solid var(--primary-50);
+		/* border-right: .5px solid #000; */
 		left: 0;
 
 		display: flex;
@@ -55,10 +58,39 @@
 		gap: 20px;
 	}
 
+	h1 {
+		font-size: 20px;
+	}
+
 	.title {
+		border: 1px solid var(--dark-purple);
+		padding: 10px;
+		border-radius: 10px;
+
 		display: flex;
+		text-align: center;
+		justify-content: center;
 		flex-flow: column nowrap;
 		gap: 10px;
+	}
+
+	.leaderboard-title {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		border: 1px  solid var(--dark-purple);
+		
+		padding: 10px;
+		border-radius: 10px;
+	}
+
+	h2 {
+		font-size: 20px;
+	}
+
+	h4 {
+		font-size: 11.75px;
 	}
 
 	.leaderboard {
@@ -66,6 +98,10 @@
 		flex-flow: column nowrap;
 		gap: 10px;
 		overflow: auto;
+
+		border: 1px  solid var(--dark-purple);
+		padding: 10px;
+		border-radius: 10px;
 	}
 
 	.leaderboard-entry {
@@ -76,7 +112,7 @@
 
 	.sidebar.right {
 		width: 280px;
-		border-left: .5px solid var(--primary-50);
+		/* border-left: .5px solid #000; */
 		right: 0;
 	}
 
