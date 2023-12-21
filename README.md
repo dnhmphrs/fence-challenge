@@ -6,3 +6,11 @@
 ### TODO
 - list
 - list
+
+### DOCS
+- Front-End
+  -- TODO
+- Python
+ -- TODO
+- Database
+ -- TODO
