@@ -1,5 +1,5 @@
 <script>
-	import { cvMode } from '$lib/store/store';
+	import { cvMode, screenType } from '$lib/store/store';
 
 	let toggleCvMode = () => {
 		cvMode.update(value => !value);
@@ -34,8 +34,15 @@
 			//
 			<span class:hidden={$cvMode}>Game Mode</span>
 		</h4>
-</button>
-<div class="pentominos"></div>
+	</button>
+	<div class="pentominos">
+		{#if $screenType == 3}
+		<img src="tmp2.png" alt="tmp"/>
+		{:else}
+		<img src="tmp2-rotated.png" alt="tmp"/>
+		{/if}
+	</div>
+
 </div>
 
 
@@ -121,6 +128,7 @@
 		font-size: 12px;
 		width: 100%;
 		display: flex;
+		flex-flow: row nowrap;
 		justify-content: space-between;
 	}
 
@@ -140,16 +148,23 @@
 
 	@media (max-width: 1024px) {
 		.sidebar.left {
+			max-height: 0;
+			overflow: hidden;
+			opacity: 0;
+		}
+		.sidebar.left {
 			width: 100%;
-			height: 20%;
+			height: 10%;
 			top: 0;
+			gap: 10px;
 			border-left: none;
 			border-bottom: 1px solid #000000;
 		}
 		.sidebar.right {
 			width: 100%;
-			height: 20%;
-			top: 80%;
+			height: 30%;
+			top: 70%;
+			gap: 10px;
 			border-right: none;
 			border-top: 1px solid #000000;
 		}
