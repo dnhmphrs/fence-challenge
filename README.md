@@ -1,4 +1,8 @@
-# Fence Challenge for ScaDS.ai/MPS MiS
+# Fence Challenge for ScaDS.AI/MPS MiS
 
+### DONE
+- list
+
+### TODO
 - list
 - list
