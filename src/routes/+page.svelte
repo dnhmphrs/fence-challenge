@@ -37,9 +37,9 @@
 	</button>
 	<div class="pentominos">
 		{#if ( $screenType == 3 && window.innerWidth > 800 )}
-		<img src="tmp2.png" alt="tmp"/>
+		<img src="tmp4.png" alt="tmp"/>
 		{:else}
-		<img src="tmp2-rotated.png" alt="tmp"/>
+		<img src="tmp4-rotated.png" alt="tmp"/>
 		{/if}
 	</div>
 
