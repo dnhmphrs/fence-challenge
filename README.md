@@ -11,6 +11,6 @@
 - Front-End
   - TODO
 - Python
- - TODO
+  - TODO
 - Database
- - TODO
+  - TODO
