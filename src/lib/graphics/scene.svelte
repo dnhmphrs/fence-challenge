@@ -206,7 +206,7 @@ function startWebcam() {
 			let videoPlaneGeometry = new THREE.PlaneGeometry(SIZE * aspectRatio, SIZE);
 			let videoPlaneMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
 			videoPlaneMaterial.transparent = true;
-			videoPlaneMaterial.opacity = .5;
+			videoPlaneMaterial.opacity = .75;
 			let videoPlane = new THREE.Mesh(videoPlaneGeometry, videoPlaneMaterial);
 
 			// create Background behnd video
