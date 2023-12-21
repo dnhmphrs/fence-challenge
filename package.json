@@ -1,6 +1,6 @@
 {
-	"name": "aufbau",
-	"version": "0.5.0",
+	"name": "fence-challenge",
+	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",
