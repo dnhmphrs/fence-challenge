@@ -163,8 +163,8 @@ function startWebcam() {
 
 		navigator.mediaDevices.getUserMedia({ video: { 
 			facingMode: 'environment',
-			width: { ideal: 1920 },
-      height: { ideal: 1080 }
+			width: ($screenType == 3) ? { ideal: 1920 } : { ideal: 720 }, // Smaller width for mobile
+      height: ($screenType == 3) ? { ideal: 1080 } : { ideal: 1280 }  // Smaller height for mobile
 		}}).then((stream) => {
             video.srcObject = stream;
             video.play().catch((e) => console.error('Error playing the video', e));
