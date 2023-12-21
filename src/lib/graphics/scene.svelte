@@ -216,7 +216,7 @@ function startWebcam() {
 				SIZE
 			);
 			let bg = new THREE.Mesh(bgGeometry, bgMaterial);
-			bg.position.z = -0.0000; // Position the frame behind the webcam feed	
+			// bg.position.z = -0.0000; // Position the frame behind the webcam feed	
 
 			// Create the frame
 			let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x0b0b0b }); // Black frame
@@ -229,7 +229,7 @@ function startWebcam() {
 			frame.position.z = -0.00002; // Position the frame behind the webcam feed
 
 
-      webcamGroup.add(videoPlane, bg, frame);
+      webcamGroup.add(videoPlane, bg);
 			nonParallaxGroup.add(webcamGroup);
 		}
 	}
