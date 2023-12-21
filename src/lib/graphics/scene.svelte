@@ -299,7 +299,7 @@ function createPentominos() {
 			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
 			points.push(new THREE.Vector3(x, y, 0.001));
 		}
-		const lineMaterial = new THREE.LineBasicMaterial({color: 0xD4B7D7});
+		const lineMaterial = new THREE.LineBasicMaterial({color: 0xd0d0d0});
 		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 		const frame = new THREE.Line( lineGeometry, lineMaterial );
 		frame.position.z = 0.002;
