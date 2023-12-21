@@ -23,6 +23,8 @@
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
   - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
   - Set up a long-term solution for the backend (Dan isn't going to pay for you sorry)
+      - Backend - Supabase
+      - Frontend - Vercel
   - Make Website work in Multiple Languages
   - Add Map of where people have uploaded results from
 
