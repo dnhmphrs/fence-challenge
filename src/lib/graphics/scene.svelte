@@ -1,6 +1,6 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
-import { screenType, pyodideLoaded } from '$lib/store/store';
+import { screenType, pyodideLoaded, cvMode } from '$lib/store/store';
 import * as THREE from 'three';
 
 import { processFrame } from '$lib/functions/frameProcessor.js';
@@ -103,7 +103,8 @@ let sizes = {
   height: window.innerHeight,
 };
 
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({antialias: false});
+renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(sizes.width, sizes.height);
 renderer.setClearColor(0x232323, 1);
 
@@ -130,10 +131,9 @@ if ($screenType == 1) {
 camera.lookAt(0, 0, 0);
 
 const parallaxGroup = new THREE.Group();
-const semiParallaxGroup = new THREE.Group();
 const nonParallaxGroup = new THREE.Group();
 
-scene.add(parallaxGroup, semiParallaxGroup, nonParallaxGroup);
+scene.add(parallaxGroup, nonParallaxGroup);
 
 // -----------------------------------------------------------------------------
 //  LOAD PYODIDE
@@ -233,12 +233,12 @@ function startWebcam() {
 // -----------------------------------------------------------------------------
 
 function createGrid() {
-	const grid = new THREE.GridHelper(1.25, 20, 0x000000, 0x000000);
+	const grid = new THREE.GridHelper(1.25, 20, 0xFFFBE6, 0xFFFBE6);
 	grid.rotateX(Math.PI / 2);
 	grid.position.z = 0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
-	// nonParallaxGroup.add(grid);
+	nonParallaxGroup.add(grid);
 }
 
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
@@ -252,6 +252,8 @@ function createPentominos() {
 		let pentominoTile = new THREE.Group();
 
 		const texture = loader.load(`/pentominos-s/${pentominosDict[i].letter}.png`);
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
 		let scale = .062
 		let width = pentominosDict[i].width * scale;
 		let height = pentominosDict[i].height * scale;
@@ -274,7 +276,7 @@ function createPentominos() {
 			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
 			points.push(new THREE.Vector3(x, y, 0.001));
 		}
-		const lineMaterial = new THREE.LineBasicMaterial({color: 0xFFFBE6});
+		const lineMaterial = new THREE.LineBasicMaterial({color: 0xD4B7D7});
 		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 		const frame = new THREE.Line( lineGeometry, lineMaterial );
 		frame.position.z = 0.002;
@@ -297,7 +299,7 @@ function createPentominos() {
 	}
 
 	for (let i = 0; i < 12; i++) {
-		semiParallaxGroup.add(pentominos[i]);
+		nonParallaxGroup.add(pentominos[i]);
 	}
 
 
@@ -338,18 +340,20 @@ function createStars() {
 // -----------------------------------------------------------------------------
 
 createStars();
-createGrid();
 createPentominos();
+if ($cvMode) {
 startWebcam();
+} else {
+	createGrid();
+}
+
+
 id = window.requestAnimationFrame(render);
 
 function render() {
     // Parallax effect
     parallaxGroup.position.x += (-cursor.x - parallaxGroup.position.x * 1) * .02;
     parallaxGroup.position.y += (cursor.y - parallaxGroup.position.y * 1) * .02;
-
-		semiParallaxGroup.position.x += (-cursor.x - semiParallaxGroup.position.x * 1) * .005;
-    semiParallaxGroup.position.y += (cursor.y - semiParallaxGroup.position.y * 1) * .0025;
 
     // Camera always looks at the center of the scene
     camera.lookAt(scene.position);
@@ -391,7 +395,7 @@ window.addEventListener("mousemove", (event) => {
 
 </script>
 
-<button on:click={onProcessFrame}>Process Frame</button>
+<button on:click={onProcessFrame}><h4>Process Frame</h4></button>
 
 <div bind:this={container} class:geometry={true} />
 
@@ -405,11 +409,16 @@ window.addEventListener("mousemove", (event) => {
 
 	button {
 		position: absolute;
-		top: 5%;
+		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);
 		z-index: 100;
-		background: var(--primary);
-		padding: 5px;
+	}
+
+	h4 {
+		font-size: 12px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

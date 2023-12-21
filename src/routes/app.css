@@ -14,6 +14,8 @@
 	--primary: #fffbe6;
 	--primary-50: #fffbe680;
 
+	--dark-purple: #563f8f;
+
 	--border: solid 1px var(--background);
 }
 
@@ -84,6 +86,18 @@ a:hover {
 	text-decoration: underline;
 }
 
+button {
+	background: var(--dark-purple);
+	color: var(--primary);
+	border: solid 1px var(--primary);
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	justify-content: space-between;
+}
+
 /* pre {
 	font-size: 14px;
 	font-family: var(--font-mono);
@@ -136,4 +150,15 @@ button:focus:not(:focus-visible) {
 		letter-spacing: 0.08em;
 		font-size: 13px;
 	}
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
