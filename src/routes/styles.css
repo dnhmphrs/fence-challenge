@@ -102,6 +102,17 @@ a:hover {
 	text-decoration: underline;
 }
 
+button {
+	font-size: 12px;
+	/* width: 100%; */
+	display: flex;
+	justify-content: space-around;
+
+	border: 1px solid var(--dark-purple);
+	border-radius: 10px;
+	padding: 10px;
+}
+
 input,
 button {
 	font-size: inherit;

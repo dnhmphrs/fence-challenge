@@ -140,18 +140,6 @@
 		right: 0;
 	}
 
-	.sidebar.right button{
-		font-size: 12px;
-		width: 100%;
-		display: flex;
-		justify-content: space-around;
-
-
-		border: 1px  solid var(--dark-purple);
-		border-radius: 10px;
-		padding: 10px;
-	}
-
 	.sidebar.right button h4, .sidebar.right button h4 span {
 		font-size: 12px;
 	}
