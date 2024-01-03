@@ -359,7 +359,7 @@ function createStars() {
 
   const particlesMaterial = new THREE.PointsMaterial({
     color: 0xFFFBE6,
-    size: 0.015,
+    size: 0.01,
   });
 
   const stars = new THREE.Points(particlesGeometry, particlesMaterial);
