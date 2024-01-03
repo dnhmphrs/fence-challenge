@@ -119,6 +119,12 @@
 		cursor: pointer;
 	}
 
+	.loading button:hover {
+		/* background: var(--dark-purple);
+		color: var(--primary); */
+		border-color: var(--primary);
+	}
+
 	main {
 		flex: 1;
 		display: flex;
