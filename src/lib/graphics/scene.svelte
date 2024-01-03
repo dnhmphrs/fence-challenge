@@ -3,7 +3,7 @@ import { onMount, onDestroy } from 'svelte';
 import { screenType, pyodideLoaded, cvMode } from '$lib/store/store';
 import * as THREE from 'three';
 
-import { processFrame } from '$lib/functions/frameProcessor.js';
+import { processFrame } from '$lib/functions/pyodide.js';
 import { testProcessFrame } from '$lib/functions/frameTest.js';
 
 // -----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ renderer.setClearColor(0x232323, 1);
 const scene = new THREE.Scene();
 
 onMount(() => {
-    loadPyodidePy();
+    // loadPyodidePy();
 		container.appendChild(renderer.domElement);
 		// make .geometry class opacity 1
 		setTimeout(() => {
@@ -147,15 +147,14 @@ scene.add(parallaxGroup, nonParallaxGroup);
 //  LOAD PYODIDE
 // -----------------------------------------------------------------------------
 
-async function loadPyodidePy() {
-		//const pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-		pyodide = await loadPyodide();
-		await pyodide.runPythonAsync(`
-					import sys
-					sys.path.append('/python')
-			`);
-		pyodideLoaded.set(true);
-	}
+// async function loadPyodidePy() {
+// 		pyodide = await loadPyodide();
+// 		await pyodide.runPythonAsync(`
+// 					import sys
+// 					sys.path.append('/python')
+// 			`);
+// 		pyodideLoaded.set(true);
+// 	}
 
 // -----------------------------------------------------------------------------
 //  CREATE WEBCAM ELEMENT & VIDEO TEXTURE
@@ -469,7 +468,7 @@ function render() {
 function onProcessFrame() {
 	    // run pyodide script
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
-			processFrame(video, actualVideoWidth, actualVideoHeight, pyodide);
+			processFrame(video, actualVideoWidth, actualVideoHeight);
 		} else {
 			console.log('not ready')
 			alert('not ready')

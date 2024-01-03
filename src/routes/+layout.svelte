@@ -6,8 +6,9 @@
 	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, screenSize } from '$lib/store/store';
+	import { screenType, isIframe, screenSize, pyodideLoaded } from '$lib/store/store';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
+	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
 	export let data;
 	let Geometry;
@@ -37,7 +38,13 @@
 
 		handleScreen();
 		window.addEventListener('resize', () => handleScreen());
-		document.querySelector('main').style.opacity = 1;
+
+
+		// load pyodide
+		await handleLoadPyodide().then(() => {
+			pyodideLoaded.set(true);
+			document.querySelector('main').style.opacity = 1;
+		});
 
 		return () => {
 			window.removeEventListener('resize', () => handleScreen());
@@ -53,7 +60,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
-{#if Geometry}
+{#if $pyodideLoaded}
     <svelte:component this={Geometry} />
 {:else}
     <div class="loading">loading.</div>
