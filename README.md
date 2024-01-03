@@ -10,7 +10,7 @@
 - Prerendering/static-serving correctly (vercel)
 - Add Loading Bar on Site Loading
 - Load and Initiate Pyodide on site loading
-- Setup and connect to Supabse DataBase
+- Setup and connect to Supabse Database
 
 ### TODO
 - By Dan
