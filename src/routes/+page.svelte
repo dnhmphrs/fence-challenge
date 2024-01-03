@@ -1,8 +1,8 @@
 <script>
-	import { cvMode, screenType } from '$lib/store/store';
+	import { isCvMode, screenType } from '$lib/store/store';
 
 	let toggleCvMode = () => {
-		cvMode.update(value => !value);
+		isCvMode.update(value => !value);
 	};
 </script>
 
@@ -30,9 +30,9 @@
 <div class="sidebar right">
 	<button  on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
 		<h4>
-			<span class:hidden={!$cvMode}>Camera Mode</span>
+			<span class:hidden={!$isCvMode}>Camera Mode</span>
 			//
-			<span class:hidden={$cvMode}>Game Mode</span>
+			<span class:hidden={$isCvMode}>Game Mode</span>
 		</h4>
 	</button>
 	<div class="pentominos">

@@ -6,7 +6,7 @@
 	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, screenSize, pyodideLoaded } from '$lib/store/store';
+	import { screenType, isIframe, screenSize, appReady, isCvMode, pyodideLoaded } from '$lib/store/store';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
@@ -31,6 +31,11 @@
 		isIframe.set(window.location !== window.parent.location);
 	} 
 
+	function setUpApp(bool) {
+			isCvMode.set(bool);
+			appReady.set(true);
+			document.querySelector('main').style.opacity = 1;
+		}
 
 	onMount(async () => {
 		// webgl
@@ -44,11 +49,9 @@
 		handleScreen();
 		window.addEventListener('resize', () => handleScreen());
 
-
 		// load pyodide
 		await handleLoadPyodide().then(() => {
 			pyodideLoaded.set(true);
-			document.querySelector('main').style.opacity = 1;
 		});
 
 		return () => {
@@ -65,8 +68,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
-{#if $pyodideLoaded}
+{#if $appReady }
 	<svelte:component this={Geometry} />
+{:else if $pyodideLoaded}
+<div class="loading">
+ <button on:click={() => setUpApp(true)}>start app using camera</button>
+ <button on:click={() => setUpApp(false)}>start app using game mode</button>
+</div>
 {:else if geometryLoaded}
 	<div class="loading">loading python and initialising.</div>
 {:else}
@@ -94,6 +102,9 @@
 
 	.loading {
 		position: absolute;
+		display: flex;
+		flex-flow: column;
+		gap: 20px;
 		/* font-style: italic;
 		font-family: serif; */
 		top: 50%;
@@ -101,6 +112,11 @@
 		transform: translate(-50%, -50%);
 		padding: 10px;
 		font-size: 12px;
+		z-index: 10;
+	}
+
+	.loading button {
+		cursor: pointer;
 	}
 
 	main {

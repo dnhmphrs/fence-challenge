@@ -1,6 +1,6 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
-import { screenType, pyodideLoaded, cvMode } from '$lib/store/store';
+import { screenType, pyodideLoaded, isCvMode } from '$lib/store/store';
 import * as THREE from 'three';
 
 import { processFrame } from '$lib/functions/pyodide.js';
@@ -373,7 +373,7 @@ function createStars() {
 	basicSetup();
 	// Reactive statement to handle mode changes
 	$: {
-			if ($cvMode) {
+			if ($isCvMode) {
 					startCVMode();
 			} else {
 					startWebgameMode();

@@ -8,4 +8,5 @@ export const darkMode = writable(false);
 export const screenSize = writable({ width: 0, height: 0 });
 
 export const pyodideLoaded = writable(false);
-export const cvMode = writable(false);
+export const isCvMode = writable(false);
+export const appReady = writable(false);
