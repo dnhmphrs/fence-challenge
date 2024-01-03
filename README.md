@@ -1,36 +1,36 @@
-# SvelteKit Demo app
+# Fence Challenge for ScaDS.AI/MPS MiS
 
-The official demo app for SvelteKit, hosted on Vercel.
+### DONE
+- Python WHL Demo loaded in JavaScript
+- Graphics Loaded and Rendered
+- Python CV Detects Pentominos & Calculates Area
+- Web App works on Laptop & Mobile
+- Camera Resolution is Constrained on Mobile
+- Basic Structure for CV & WebGame Modes
+- Prerendering/static-serving correctly (vercel)
+- Add Loading Bar on Site Loading
+- Load and Initiate Pyodide on site loading
+- Setup and connect to Supabse DataBase
 
-## Deploy Your Own
+### TODO
+- By Dan
+  - Make WebGame Work Properly
+  - Make python CV Arrange Fence & Display Calculated Area
+  - Option to Upload Fence Area to Database & Get and Show Leaderboard
+  - Make Website/Tablet/Mobile Fully Responsive
+- Post Dan
+  - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
+  - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
+  - Set up a long-term solution for the backend (Dan isn't going to pay for you sorry)
+      - Backend - Supabase
+      - Frontend - Vercel
+  - Make Website work in Multiple Languages
+  - Add Map of where people have uploaded results from
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel%2Ftree%2Fmain%2Fexamples%2Fsveltekit-1&project-name=sveltekit-vercel&repository-name=sveltekit-vercel&demo-title=SvelteKit%20%2B%20Vercel&demo-url=https%3A%2F%2Fsveltekit-template.vercel.app%2F)
-
-_Live Example: https://sveltekit-template.vercel.app_
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-## Speed Insights
-
-Once deployed on Vercel, you can benefit from [Speed Insights](https://vercel.com/docs/concepts/speed-insights) simply by navigating to Vercel's dashboard, clicking on the 'Speed Insights' tab, and enabling the product.
-
-You will get data once your application will be re-deployed and will receive visitors.
+### DOCS
+- Front-End
+  - TODO
+- Python
+  - TODO
+- Database
+  - TODO
