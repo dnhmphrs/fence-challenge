@@ -1,9 +1,10 @@
 @import 'normalize.css';
 @import '$lib/styles/fonts.css';
+@import '$lib/styles/resets.css';
 
 :root {
-	--font-header: dahlia, serif;
-	--font-body: nb-architekt, serif;
+	--font-body: nb-architekt, sans-serif;
+	--font-header: nb-architekt, sans-serif;
 	--column-width: 42rem;
 	--margin: 20px;
 
@@ -14,8 +15,10 @@
 :root {
 	--background: #232323;
 	--background-50: #23232380;
-	--primary: #d0d0d0;
-	--primary-50: #d0d0d0;
+	--primary: #e0e0e0;
+	--primary-50: #e0e0e080;
+
+	--dark-purple: #563f8f;
 }
 
 :root {
@@ -47,14 +50,14 @@
 	font-size: 14px;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
 	display: none;
 }
 
 html {
 	scrollbar-width: none;
 	-ms-overflow-style: none;
-} */
+}
 
 ::-moz-selection {
 	color: red;
@@ -80,6 +83,15 @@ h6 {
 h1 {
 	font-size: 22px;
 	font-weight: 400;
+}
+
+p,
+a,
+pre {
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: 0.08em;
+	font-size: 12px;
 }
 
 a {
@@ -116,13 +128,5 @@ button:focus:not(:focus-visible) {
 	h1 {
 		font-size: 18px;
 		font-weight: 400;
-	}
-
-	p,
-	a {
-		font-weight: 400;
-		text-transform: none;
-		letter-spacing: 0.08em;
-		font-size: 13px;
 	}
 }

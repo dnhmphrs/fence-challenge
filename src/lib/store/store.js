@@ -6,3 +6,6 @@ export const isIframe = writable(true);
 export const darkMode = writable(false);
 
 export const screenSize = writable({ width: 0, height: 0 });
+
+export const pyodideLoaded = writable(false);
+export const cvMode = writable(false);
