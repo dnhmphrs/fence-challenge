@@ -52,10 +52,14 @@ pnpm create svelte@latest my-app
 Once you've created a project and installed dependencies with `pnpm install`, start a development server:
 
 ```bash
-pnpm dev
+# Install dependencies
+yarn
+
+# start development server
+yarn dev
 
 # or start the server and open the app in a new browser tab
-pnpm dev --open
+yarn dev --open
 ```
 
 ## Building
@@ -63,9 +67,9 @@ pnpm dev --open
 To create a production version of your app:
 
 ```bash
-pnpm build
+yarn build
 ```
 
-You can preview the production build with `pnpm preview`.
+You can preview the production build with `yarn preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
