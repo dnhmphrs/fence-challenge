@@ -116,6 +116,7 @@ onMount(() => {
 		// make .geometry class opacity 1
 		setTimeout(() => {
 			document.querySelector('.geometry').style.opacity = 1;
+			document.querySelector('button').style.opacity = 1;
 		}, 500);
 
 	});
@@ -498,7 +499,7 @@ window.addEventListener("mousemove", (event) => {
 
 </script>
 
-<button on:click={onProcessFrame}><h4>Process Frame</h4></button>
+<button class="button" on:click={onProcessFrame}><h4>Process Frame</h4></button>
 
 <div bind:this={container} class:geometry={true} />
 
@@ -526,6 +527,10 @@ window.addEventListener("mousemove", (event) => {
 		left: 50%;
 		transform: translate(-50%, 0);
 		z-index: 100;
+
+		/* animations */
+		opacity: 0; /* start invisible */
+ 		transition: opacity 0.5s ease-in-out;
 	}
 
 	h4 {

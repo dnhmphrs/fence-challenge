@@ -37,6 +37,7 @@
 
 		handleScreen();
 		window.addEventListener('resize', () => handleScreen());
+		document.querySelector('main').style.opacity = 1;
 
 		return () => {
 			window.removeEventListener('resize', () => handleScreen());
@@ -96,6 +97,8 @@
 		padding: 1rem;
 		width: 100%;
 		height: 100%;
+		opacity: 0; /* hide until loaded */
+		transition: opacity 0.5s 0.5s ease-in-out;
 	}
 
 </style>
