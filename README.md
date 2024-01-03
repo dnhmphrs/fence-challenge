@@ -29,8 +29,14 @@
 
 ### DOCS
 - Front-End
-  - TODO
+  - The front-end is hosted and served on vercel.
+  - Email (d.humphries@ucl.ac.uk) for access
+  - Vercel Project Link: https://vercel.com/citizen-science/fence-challenge
+  - Vercel Docs: https://vercel.com/docs
 - Python
-  - TODO
+  - TODO (Leaving to Miguel)
 - Database
-  - TODO
+  - The back-end is hosted and served on supabase.
+  - Email (d.humphries@ucl.ac.uk) for access
+  - Supabase link: https://supabase.com/dashboard/project/czhamgokmbbbkdxqddru
+  - Supabase Docs: https://supabase.com/docs
