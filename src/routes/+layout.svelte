@@ -12,6 +12,7 @@
 
 	export let data;
 	let Geometry;
+	let geometryLoaded = false;
 
 	$: if (browser && data?.analyticsId) {
 		webVitals({
@@ -35,6 +36,10 @@
 		// webgl
 		const module = await import('$lib/graphics/scene.svelte');
     Geometry = module.default;
+		// set timeout
+		setTimeout(() => {
+			geometryLoaded = true;
+		}, 1000);
 
 		handleScreen();
 		window.addEventListener('resize', () => handleScreen());
@@ -61,9 +66,11 @@
 </svelte:head>
 
 {#if $pyodideLoaded}
-    <svelte:component this={Geometry} />
+	<svelte:component this={Geometry} />
+{:else if geometryLoaded}
+	<div class="loading">loading python and initialising.</div>
 {:else}
-    <div class="loading">loading.</div>
+	<div class="loading">loading app.</div>
 {/if}
 
 <div class="app">
@@ -87,8 +94,8 @@
 
 	.loading {
 		position: absolute;
-		font-style: italic;
-		font-family: serif;
+		/* font-style: italic;
+		font-family: serif; */
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
