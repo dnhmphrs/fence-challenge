@@ -31,7 +31,6 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/supabase-js": "^2.39.2",
-		"gl-matrix": "^3.4.3",
 		"three": "^0.148.0"
 	}
 }

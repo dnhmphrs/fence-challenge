@@ -75,6 +75,7 @@
 		justify-content: center;
 		height: 100dvh;
 		width: 100%;
+		overflow: hidden;
 	}
 
 	.loading {
@@ -99,6 +100,7 @@
 		height: 100%;
 		opacity: 0; /* hide until loaded */
 		transition: opacity 0.5s 0.5s ease-in-out;
+		overflow: hidden;
 	}
 
 </style>
