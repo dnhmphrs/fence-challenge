@@ -19,6 +19,8 @@ const cursor = {
 };
 
 
+$: buttonText = ($isCvMode) ? 'Process Frame' : 'Upload Result';
+
 let pentominosDict = {
 		0: {
 			letter: 'F',
@@ -498,7 +500,7 @@ window.addEventListener("mousemove", (event) => {
 
 </script>
 
-<button class="button" on:click={onProcessFrame}><h4>Process Frame</h4></button>
+<button class="button" on:click={onProcessFrame}><h4>{buttonText}</h4></button>
 
 <div bind:this={container} class:geometry={true} />
 

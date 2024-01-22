@@ -11,4 +11,4 @@ export const pyodideLoaded = writable(false);
 export const isCvMode = writable(false);
 export const appReady = writable(false);
 
-export const selectedPentominos = writable(['F', 'I']);
+export const selectedPentominos = writable([]);
