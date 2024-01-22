@@ -13,16 +13,16 @@
 - Setup and connect to Supabse Database
 
 ### TODO
-- By Dan
+- By Dan (by end of Jan)
   - Make WebGame Work Properly
   - Make python CV Arrange Fence & Display Calculated Area
   - Option to Upload Fence Area to Database & Get and Show Leaderboard
   - Make Website/Tablet/Mobile Fully Responsive
-- Post Dan
+- Post Dan (by end of Feb)
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
   - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
-  - Set up a long-term solution for the backend (Dan isn't going to pay for you sorry)
-      - Backend - Supabase
+  - Set up a long-term solution for the backend
+      - Backend - Supabase provisionally, to be rebuilt by Alfredo
       - Frontend - Vercel
   - Make Website work in Multiple Languages
   - Add Map of where people have uploaded results from
