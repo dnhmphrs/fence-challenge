@@ -179,7 +179,7 @@
 
     cursor: pointer;
     border-radius: 10px;
-    border: 2px solid var(--primary-50);
+    border: 3px double var(--primary-50);
   }
 
   .pentomino:hover {
@@ -191,7 +191,12 @@
     border-color: var(--primary);
   }
 
-  .pentomino:hover .cell {
+  /* stay dark after click release */
+  .pentomino.selected {
+    border-color: var(--primary);
+  }
+
+  .pentomino:hover .cell::after {
     background-color: var(--dark-purple);
   }
 

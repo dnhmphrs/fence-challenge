@@ -70,7 +70,7 @@
 	}
 
 	.title {
-		border: 1px solid var(--dark-purple);
+		border: 3px double var(--dark-purple);
 		padding: 10px;
 		border-radius: 10px;
 
@@ -86,7 +86,7 @@
 		flex-flow: column nowrap;
 		align-items: center;
 		justify-content: center;
-		border: 1px  solid var(--dark-purple);
+		border: 3px double var(--dark-purple);
 		
 		padding: 10px;
 		border-radius: 10px;
@@ -106,7 +106,7 @@
 		gap: 10px;
 		overflow: auto;
 
-		border: 1px  solid var(--dark-purple);
+		border: 3px double var(--dark-purple);
 		padding: 10px;
 		border-radius: 10px;
 	}
@@ -147,7 +147,7 @@
 		width: 100%;
 		height: 100%;
 
-		/* border: 1px  solid var(--dark-purple); */
+		/* border: 3px double var(--dark-purple); */
 		/* padding: 10px; */
 		border-radius: 10px;
 	}

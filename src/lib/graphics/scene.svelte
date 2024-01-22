@@ -10,7 +10,6 @@ import { testProcessFrame } from '$lib/functions/frameTest.js';
 // INIT SCENE & CAMERA
 // -----------------------------------------------------------------------------
 
-let pyodide;
 let video, videoTexture;
 let actualVideoWidth, actualVideoHeight;
 const cursor = {
@@ -331,9 +330,9 @@ function createPentominos() {
 		pentominos.push(pentominoTile);
 	}
 
-	for (let i = 0; i < 12; i++) {
-		nonParallaxGroup.add(pentominos[i]);
-	}
+	// for (let i = 0; i < 12; i++) {
+	// 	nonParallaxGroup.add(pentominos[i]);
+	// }
 
 
 }
