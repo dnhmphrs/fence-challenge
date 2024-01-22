@@ -19,6 +19,7 @@
 	--primary-50: #e0e0e080;
 
 	--dark-purple: #563f8f;
+	--dark-purple-50: #563f8f80;
 }
 
 :root {
@@ -60,13 +61,13 @@ html {
 }
 
 ::-moz-selection {
-	color: red;
-	background: yellow;
+	color: none;
+	background: none;
 }
 
 ::selection {
-	color: red;
-	background: yellow;
+	color: none;
+	background: none;
 }
 
 h1,

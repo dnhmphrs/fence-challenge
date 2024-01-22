@@ -214,7 +214,7 @@ function startWebcam() {
 			videoPlaneMaterial.opacity = .75;
 			let videoPlane = new THREE.Mesh(videoPlaneGeometry, videoPlaneMaterial);
 
-			// // create Background behnd video
+			// // create Background behind video
 			// let bgMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
 			// let bgGeometry = new THREE.PlaneGeometry(
 			// 	SIZE * aspectRatio,
@@ -282,7 +282,7 @@ function createPentominos() {
 	for (let i = 0; i < 12; i++) {
 		let pentominoTile = new THREE.Group();
 
-		const texture = loader.load(`/pentominos-s/${pentominosDict[i].letter}.png`);
+		const texture = loader.load(`/pentominos-blank/${pentominosDict[i].letter}.png`);
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
 		let scale = .062
@@ -307,7 +307,7 @@ function createPentominos() {
 			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
 			points.push(new THREE.Vector3(x, y, 0.001));
 		}
-		const lineMaterial = new THREE.LineBasicMaterial({color: 0xd0d0d0});
+		const lineMaterial = new THREE.LineBasicMaterial({color: 0x232323});
 		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 		const frame = new THREE.Line( lineGeometry, lineMaterial );
 		frame.position.z = 0.002;
@@ -317,7 +317,7 @@ function createPentominos() {
 		// frame.rotateY(Math.PI / 2);
 
 
-		pentominoTile.add(plane, frame);
+		pentominoTile.add(plane); //, frame);
 		($screenType != 3) ? pentominoTile.position.x = Math.random() * .8 - .4 : pentominoTile.position.x = Math.random() * 1.2 - .6;
 		($screenType != 3) ? pentominoTile.position.y = Math.random() * 1 - .22 : pentominoTile.position.y = Math.random() * 1 - .5;
 		pentominoTile.position.z = Math.random() * 0.1;

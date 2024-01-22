@@ -1,5 +1,6 @@
 <script>
 	import { isCvMode, screenType } from '$lib/store/store';
+	import PentominoSelection from '../lib/components/pentominoSelection.svelte';
 
 	let toggleCvMode = () => {
 		isCvMode.update(value => !value);
@@ -36,11 +37,7 @@
 		</h4>
 	</button>
 	<div class="pentominos">
-		<!-- {#if ( $screenType == 3 && window.innerWidth > 800 )}
-		<img src="tmp4.png" alt="tmp"/>
-		{:else}
-		<img src="tmp4-rotated.png" alt="tmp"/>
-		{/if} -->
+		<PentominoSelection />
 	</div>
 
 </div>
@@ -138,6 +135,7 @@
 		width: 280px;
 		/* border-left: 1px solid var(--dark-purple); */
 		right: 0;
+
 	}
 
 	.sidebar.right button h4, .sidebar.right button h4 span {
@@ -149,8 +147,8 @@
 		width: 100%;
 		height: 100%;
 
-		border: 1px  solid var(--dark-purple);
-		padding: 10px;
+		/* border: 1px  solid var(--dark-purple); */
+		/* padding: 10px; */
 		border-radius: 10px;
 	}
 
