@@ -157,7 +157,7 @@
 		opacity: .5;
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 1024px) {
 		.sidebar.left {
 			max-height: 0;
 			overflow: hidden;

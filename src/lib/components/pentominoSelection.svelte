@@ -221,7 +221,7 @@
     border-color: var(--primary-50);
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1024px) {
     .grid {
       flex-flow: row wrap;
       gap: 10px 5px;
