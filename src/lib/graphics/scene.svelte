@@ -499,7 +499,7 @@ window.addEventListener("mousemove", (event) => {
 
 </script>
 
-<button class="button" on:click={onProcessFrame}><h4>{buttonText}</h4></button>
+<button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
 
 <div bind:this={container} class:geometry={true} />
 
@@ -533,7 +533,7 @@ window.addEventListener("mousemove", (event) => {
  		transition: opacity 0.5s ease-in-out;
 	}
 
-	h4 {
+	p {
 		font-size: 14px;
 		width: 100%;
 		display: flex;

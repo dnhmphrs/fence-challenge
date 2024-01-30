@@ -104,6 +104,8 @@
 		position: absolute;
 		display: flex;
 		flex-flow: column;
+		align-items: center;
+		text-align: center;
 		gap: 20px;
 		/* font-style: italic;
 		font-family: serif; */
@@ -111,12 +113,13 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		padding: 10px;
-		font-size: 12px;
+		font-size: 14px;
 		z-index: 10;
 	}
 
 	.loading button {
 		cursor: pointer;
+		font-size: 14px;
 	}
 
 	.loading button:hover {

@@ -30,11 +30,11 @@
 
 <div class="sidebar right">
 	<button  on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
-		<h4>
+		<p>
 			<span class:hidden={!$isCvMode}>Camera Mode</span>
 			<span>//</span>
 			<span class:hidden={$isCvMode}>Game Mode</span>
-		</h4>
+		</p>
 	</button>
 	<div class="pentominos">
 		<PentominoSelection />
@@ -93,7 +93,13 @@
 	}
 
 	h2 {
+		font-family: var(--font-body);
 		font-size: 20px;
+	}
+
+	h4 {
+		font-family: var(--font-body);
+		font-size: 14px;
 	}
 
 	.leaderboard {
@@ -134,7 +140,7 @@
 
 	}
 
-	button, button h4 {
+	button, button p {
 		display: flex;
 		width: 100%;
 		justify-content: space-around;
