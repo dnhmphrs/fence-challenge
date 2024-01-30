@@ -32,7 +32,7 @@
 	<button  on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
 		<h4>
 			<span class:hidden={!$isCvMode}>Camera Mode</span>
-			//
+			<span>//</span>
 			<span class:hidden={$isCvMode}>Game Mode</span>
 		</h4>
 	</button>
@@ -96,10 +96,6 @@
 		font-size: 20px;
 	}
 
-	h4 {
-		font-size: 11.75px;
-	}
-
 	.leaderboard {
 		display: flex;
 		flex-flow: column nowrap;
@@ -132,14 +128,21 @@
 	}
 
 	.sidebar.right {
-		width: 280px;
+		width: 300px;
 		/* border-left: 1px solid var(--dark-purple); */
 		right: 0;
 
 	}
 
+	button, button h4 {
+		display: flex;
+		width: 100%;
+		justify-content: space-around;
+	}
+
 	.sidebar.right button h4, .sidebar.right button h4 span {
-		font-size: 12px;
+		font-size: 14px;
+
 	}
 
 

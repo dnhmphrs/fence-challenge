@@ -534,7 +534,7 @@ window.addEventListener("mousemove", (event) => {
 	}
 
 	h4 {
-		font-size: 12px;
+		font-size: 14px;
 		width: 100%;
 		display: flex;
 		justify-content: space-between;

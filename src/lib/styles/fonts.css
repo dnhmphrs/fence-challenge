@@ -11,9 +11,8 @@
 }
 
 @font-face {
-	font-family: dahlia;
-	src: url(/fonts/Dahlia-Medium.woff2) format('woff2');
-	font-weight: 500;
+	font-family: cubano;
+	src: url(/fonts/Cubano.woff2) format('woff2');
 }
 
 /* @font-face {
