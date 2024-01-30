@@ -94,12 +94,12 @@
 
 	h2 {
 		font-family: var(--font-body);
-		font-size: 20px;
+		font-size: 16px;
 	}
 
 	h4 {
-		font-family: var(--font-body);
-		font-size: 14px;
+		/* font-family: var(--font-body); */
+		font-size: 16px;
 	}
 
 	.leaderboard {

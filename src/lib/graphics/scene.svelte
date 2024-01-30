@@ -1,14 +1,17 @@
 <script>
-import { onMount, onDestroy } from 'svelte';
+import { onMount, onDestroy, getContext  } from 'svelte';
 import { screenType, pyodideLoaded, isCvMode } from '$lib/store/store';
 import * as THREE from 'three';
 
+import Board from './board.svelte';
 import { processFrame } from '$lib/functions/pyodide.js';
 import { testProcessFrame } from '$lib/functions/frameTest.js';
 
 // -----------------------------------------------------------------------------
 // INIT SCENE & CAMERA
 // -----------------------------------------------------------------------------
+
+let board;
 
 let video, videoTexture;
 let actualVideoWidth, actualVideoHeight;
@@ -17,84 +20,7 @@ const cursor = {
   y: 0,
 };
 
-
 $: buttonText = ($isCvMode) ? 'Process Frame' : 'Upload Result';
-
-let pentominosDict = {
-		0: {
-			letter: 'F',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, 0], [-1, 2], [0, 2], [0, 1], [2, 1], [2, 0], [1, 0], [1, -1], [0, -1], [0, 0], [-1, 0], [-1, 0]]
-		},
-		1: {
-			letter: 'I',
-			width: 1,
-			height: 5,
-			cornerVertices: [[0, 3], [1, 3], [1, -2], [0, -2], [0, 3]]
-		},
-		2: {
-			letter: 'L',
-			width: 2,
-			height: 4,
-			cornerVertices: [[-.5, 2.5], [1.5, 2.5], [1.5, 1], [1.5, -1.5], [0.5, -1.5], [0.5, 1.5], [-.5, 1.5], [-.5, 2.5]]
-		},
-		3: {
-			letter: 'N',
-			width: 4,
-			height: 2,
-			cornerVertices: [[-1.5, 0.5], [-0.5,0.5], [-0.5,1.5], [2.5,1.5], [2.5,0.5], [0.5,0.5], [0.5,-0.5], [-1.5,-0.5], [-1.5,0.5]]
-		},
-		4: {
-			letter: 'P',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, -1], [-1, 0], [0, 0], [0, 1], [2, 1], [2, -1], [-1, -1]]
-		},
-		5: {
-			letter: 'T',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, 2], [2, 2], [2, 1], [1, 1], [1, -1], [0, -1], [0, 1], [-1, 1], [-1, 2]]
-		},
-		6: {
-			letter: 'U',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, 1], [0, 1], [0, 0], [1, 0], [1, 1], [2, 1], [2, -1], [-1, -1], [-1, 1]]
-		},
-		7: {
-			letter: 'V',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, 2], [0, 2], [0, 0], [1, 0], [2, 0], [2, -1], [-1, -1], [-1, 2]]
-		},
-		8: {
-			letter: 'W',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, -1], [-1,1], [0,1], [0,2], [2,2], [2,1], [1,1], [1, 0], [0,0], [0,-1], [-1,-1]]
-		},
-		9: {
-			letter: 'X',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, 1], [0,1], [0,2], [1,2], [1,1], [2,1], [2,0], [1,0], [1,-1], [0,-1], [0,0], [-1,0], [-1,1]]
-		},
-		10: {
-			letter: 'Y',
-			width: 4,
-			height: 2,
-			cornerVertices: [[-1.5, 1.5], [2.5, 1.5], [2.5, 0.5], [1.5, 0.5], [1.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-1.5, 0.5], [-1.5, 1.5]]
-		},
-		11: {
-			letter: 'Z',
-			width: 3,
-			height: 3,
-			cornerVertices: [[-1, -1], [-1,1], [1,1], [1,2], [2,2], [2,0], [0,0], [0,-1], [-1,-1]]
-		},
-	}
-
 
 let container, id;
 	onDestroy(() => cancelAnimationFrame(id));
@@ -119,7 +45,6 @@ onMount(() => {
 			document.querySelector('.geometry').style.opacity = 1;
 			document.querySelector('button').style.opacity = 1;
 		}, 500);
-
 	});
 
 const camera = new THREE.PerspectiveCamera(
@@ -140,22 +65,8 @@ camera.lookAt(0, 0, 0);
 const parallaxGroup = new THREE.Group();
 const nonParallaxGroup = new THREE.Group();
 const webcamGroup = new THREE.Group();
-const webgameGroup = new THREE.Group();
 
 scene.add(parallaxGroup, nonParallaxGroup);
-
-// -----------------------------------------------------------------------------
-//  LOAD PYODIDE
-// -----------------------------------------------------------------------------
-
-// async function loadPyodidePy() {
-// 		pyodide = await loadPyodide();
-// 		await pyodide.runPythonAsync(`
-// 					import sys
-// 					sys.path.append('/python')
-// 			`);
-// 		pyodideLoaded.set(true);
-// 	}
 
 // -----------------------------------------------------------------------------
 //  CREATE WEBCAM ELEMENT & VIDEO TEXTURE
@@ -214,25 +125,6 @@ function startWebcam() {
 			videoPlaneMaterial.transparent = true;
 			videoPlaneMaterial.opacity = .75;
 			let videoPlane = new THREE.Mesh(videoPlaneGeometry, videoPlaneMaterial);
-
-			// // create Background behind video
-			// let bgMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 }); // Black frame
-			// let bgGeometry = new THREE.PlaneGeometry(
-			// 	SIZE * aspectRatio,
-			// 	SIZE
-			// );
-			// let bg = new THREE.Mesh(bgGeometry, bgMaterial);
-			// bg.position.z = -0.0000; // Position the frame behind the webcam feed	
-
-			// // Create the frame
-			// let frameMaterial = new THREE.MeshBasicMaterial({ color: 0x0b0b0b }); // Black frame
-			// let frameThickness = 0.002; // Adjust thickness to your preference
-			// let frameGeometry = new THREE.PlaneGeometry(
-			// 	SIZE * aspectRatio + frameThickness + frameThickness,
-			// 	SIZE + frameThickness
-			// );
-			// let frame = new THREE.Mesh(frameGeometry, frameMaterial);
-			// frame.position.z = -0.00002; // Position the frame behind the webcam feed
 			
 			if ( $screenType != 3 )	webcamGroup.position.y = 0.225
 
@@ -240,102 +132,6 @@ function startWebcam() {
 			nonParallaxGroup.add(webcamGroup);
 		}
 	}
-
-	
-// -----------------------------------------------------------------------------
-//  LOAD & WEBGAME ELEMENTS
-// -----------------------------------------------------------------------------
-
-function createGrid() {
-	const backgroundGeo = new THREE.BoxGeometry(1.1, 1.1, 0.001);
-	const backgroundMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 });
-	const background = new THREE.Mesh(backgroundGeo, backgroundMaterial);
-	// background.rotateX(Math.PI / 2);
-	background.position.z = 0.00;
-	background.material.opacity = .75;
-	background.material.transparent = true;
-
-	const grid = new THREE.GridHelper(1.1, 20, 0xd0d0d0, 0xd0d0d0);
-	grid.transparent = true;
-	grid.opacity = 0.5;
-	grid.rotateX(Math.PI / 2);
-	grid.position.z = 0.001;
-	grid.material.opacity = 1;
-	grid.material.transparent = true;
-
-	if ( $screenType != 3 )	webgameGroup.position.y = 0.225
-
-	webgameGroup.add(grid, background);
-	nonParallaxGroup.add(webgameGroup);
-}
-
-// -----------------------------------------------------------------------------
-//  LOAD & RENDER PENTOMINOS
-// -----------------------------------------------------------------------------
-
-// for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
-function createPentominos() {
-	const loader = new THREE.TextureLoader();
-	const pentominos = [];
-
-	// transparent plane, visible image
-
-	for (let i = 0; i < 12; i++) {
-		let pentominoTile = new THREE.Group();
-
-		const texture = loader.load(`/pentominos-blank/${pentominosDict[i].letter}.png`);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.LinearFilter;
-		let scale = .062
-		let width = pentominosDict[i].width * scale;
-		let height = pentominosDict[i].height * scale;
-		const geometry = new THREE.PlaneGeometry(width, height);
-		const material = new THREE.MeshBasicMaterial({
-			map: texture,
-			transparent: true,
-			opacity: 1,
-		});
-		const plane = new THREE.Mesh(geometry, material);
-		plane.position.z = 0.002;
-		plane.name = `pentomino${i}`;
-
-		// create frame around pentomino using lineGeometry and pentomino.shape (which defines the 5 cell x,y coords)
-		// create points for line
-		let points = [];
-		for (let j = 0; j < pentominosDict[i].cornerVertices.length; j++) {
-			// console.log(pentominosDict[i].cornerVertices[j])
-			let x = (pentominosDict[i].cornerVertices[j][0] - 0.5) * scale;
-			let y = (pentominosDict[i].cornerVertices[j][1] - 0.5) * scale;
-			points.push(new THREE.Vector3(x, y, 0.001));
-		}
-		const lineMaterial = new THREE.LineBasicMaterial({color: 0x232323});
-		const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-		const frame = new THREE.Line( lineGeometry, lineMaterial );
-		frame.position.z = 0.002;
-		// frame.scale.x = scale;
-		// frame.scale.y = scale;
-		// frame.rotateX(Math.PI / 2);
-		// frame.rotateY(Math.PI / 2);
-
-
-		pentominoTile.add(plane); //, frame);
-		($screenType != 3) ? pentominoTile.position.x = Math.random() * .8 - .4 : pentominoTile.position.x = Math.random() * 1.2 - .6;
-		($screenType != 3) ? pentominoTile.position.y = Math.random() * 1 - .22 : pentominoTile.position.y = Math.random() * 1 - .5;
-		pentominoTile.position.z = Math.random() * 0.1;
-
-		pentominoTile.position.x -= .094;
-		pentominoTile.position.y -= .0925;
-
-
-		pentominos.push(pentominoTile);
-	}
-
-	// for (let i = 0; i < 12; i++) {
-	// 	nonParallaxGroup.add(pentominos[i]);
-	// }
-
-
-}
 
 // -----------------------------------------------------------------------------
 // CREATE STARS
@@ -383,21 +179,26 @@ function createStars() {
 
 	function basicSetup() {
 			createStars();
-			createPentominos();
+			// board.createPentominos();
 	};
 
 	function startCVMode() {
 			// Initialize resources for CV mode
 			cleanUpCVMode();
 			startWebcam();
-			cleanUpWebgameMode(); // Ensure to cleanup the other mode
+			if (board) {
+				board.cleanUpBoard(); // Ensure to cleanup the other mode
+			};
 	}
 
 	function startWebgameMode() {
 			// Initialize resources for Webgame mode
-			cleanUpWebgameMode();
-			createGrid();
 			cleanUpCVMode(); // Ensure to cleanup the other mode
+			if (board) {
+				board.cleanUpBoard();
+				board.createBoard();
+			};
+
 	}
 
 	function cleanUpCVMode() {
@@ -427,24 +228,6 @@ function createStars() {
 
     // Perform additional clean-up if necessary
 		nonParallaxGroup.remove(webcamGroup);
-}
-
-
-function cleanUpWebgameMode() {
-    // Assuming the grid is directly added to nonParallaxGroup or scene
-    webgameGroup.children.forEach(child => {
-        if (child.material) {
-            child.material.dispose(); // Dispose material
-        }
-        if (child.geometry) {
-            child.geometry.dispose(); // Dispose geometry
-        }
-        webgameGroup.remove(child); // Remove from scene
-    });
-		nonParallaxGroup.remove(webgameGroup);
-
-    // Remove other webgame-specific elements if they exist
-    // For example, pentominos or other objects added to the scene for the webgame mode
 }
 
 id = window.requestAnimationFrame(render);
@@ -501,7 +284,9 @@ window.addEventListener("mousemove", (event) => {
 
 <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
 
-<div bind:this={container} class:geometry={true} />
+<div bind:this={container} class:geometry={true}>
+  <Board bind:this={board} {nonParallaxGroup} {screenType} />
+</div>
 
 <style>
 	.geometry {
