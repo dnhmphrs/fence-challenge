@@ -110,7 +110,9 @@ function startWebcam() {
 
 		video.addEventListener('playing', () => {
 			// This event is triggered when the video starts playing
-			updatePlaneGeometry();
+			if ($isCvMode) {
+				updatePlaneGeometry();
+			};
 		});
 	}
 
@@ -179,7 +181,6 @@ function createStars() {
 
 	function basicSetup() {
 			createStars();
-			// board.createPentominos();
 	};
 
 	function startCVMode() {
@@ -193,12 +194,11 @@ function createStars() {
 
 	function startWebgameMode() {
 			// Initialize resources for Webgame mode
-			cleanUpCVMode(); // Ensure to cleanup the other mode
 			if (board) {
 				board.cleanUpBoard();
 				board.createBoard();
-			};
-
+			}
+			cleanUpCVMode(); // Ensure to cleanup the other mode
 	}
 
 	function cleanUpCVMode() {
@@ -285,7 +285,7 @@ window.addEventListener("mousemove", (event) => {
 <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
 
 <div bind:this={container} class:geometry={true}>
-  <Board bind:this={board} {nonParallaxGroup} {screenType} />
+  <Board bind:this={board} {nonParallaxGroup} {screenType} gameMode={!$isCvMode} />
 </div>
 
 <style>

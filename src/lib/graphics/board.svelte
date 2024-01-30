@@ -2,8 +2,10 @@
   import { onMount, onDestroy, setContext } from 'svelte';
   import * as THREE from 'three';
 
+	let pentominos = [];
   export let nonParallaxGroup;
   export let screenType;
+	export let gameMode;
 
   const webgameGroup = new THREE.Group();
 
@@ -83,7 +85,11 @@
 	}
 
   onMount(() => {
-    createBoard();
+		createPentominos();
+		if (gameMode & !webgameGroup.children.length) {
+			cleanUpBoard();
+			createBoard();
+		}
   });
 
   onDestroy(() => {
@@ -124,8 +130,6 @@ function createGrid() {
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
 export function createPentominos() {
 	const loader = new THREE.TextureLoader();
-	const pentominos = [];
-
 	// transparent plane, visible image
 
 	for (let i = 0; i < 12; i++) {
@@ -158,17 +162,15 @@ export function createPentominos() {
 
 		pentominos.push(pentominoTile);
 	}
-
-	for (let i = 0; i < 12; i++) {
-    // nonParallaxGroup.add(pentominos[i]);
-    webgameGroup.add(pentominos[i]);
-	}
-
 }
 
 export function createBoard() {
   createGrid();
-  createPentominos();
+	
+	for (let i = 0; i < 12; i++) {
+    // nonParallaxGroup.add(pentominos[i]);
+    webgameGroup.add(pentominos[i]);
+	}
 }
 
 export function cleanUpBoard() {
