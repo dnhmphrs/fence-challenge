@@ -154,7 +154,7 @@
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 10px 8px;
     width: 100%;
     height: 100%;

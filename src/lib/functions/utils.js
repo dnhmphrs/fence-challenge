@@ -1,3 +1,5 @@
+const DESKTOP_CUTOFF = 1024;
+
 export function getDeviceType() {
 	const width =
 		window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -13,11 +15,16 @@ export function getDeviceType() {
 		}
 	} else {
 		// This is likely a laptop or desktop
+		if (window.innerWidth <= DESKTOP_CUTOFF) {
+			// Laptop, but small enough to render tablet
+			return 2;
+		}
 		return 3;
 	}
 }
 
-export function getScreenSize() {
+export function getScreenSize(screenSize) {
+	console.log(screenSize);
 	const width = window.innerWidth;
 	const height = window.innerHeight;
 	return { width, height };

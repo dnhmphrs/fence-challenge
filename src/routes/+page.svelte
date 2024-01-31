@@ -5,6 +5,9 @@
 	let toggleCvMode = () => {
 		isCvMode.update(value => !value);
 	};
+
+	let hideSidebar = true;
+	$: hideSidebarText = hideSidebar ? 'Show' : 'Hide';
 </script>
 
 <div class="sidebar left">
@@ -28,14 +31,19 @@
 	</div>
 </div>
 
-<div class="sidebar right">
-	<button  on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
-		<p>
-			<span class:hidden={!$isCvMode}>Camera Mode</span>
-			<span>//</span>
-			<span class:hidden={$isCvMode}>Game Mode</span>
-		</p>
-	</button>
+<div class="sidebar right" class:hidden={hideSidebar} on:click={() => hideSidebar = !hideSidebar} on:keydown={() => hideSidebar = !hideSidebar}>
+	<div class="button holder">
+		{#if $screenType !=3}
+			<button class="width-33">{hideSidebarText}</button>
+		{/if}
+		<button on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
+			<p>
+				<span class:hidden={!$isCvMode}>Camera Mode</span>
+				<span>//</span>
+				<span class:hidden={$isCvMode}>Game Mode</span>
+			</p>
+		</button>
+	</div>
 	<div class="pentominos">
 		<PentominoSelection />
 	</div>
@@ -137,7 +145,6 @@
 		width: 300px;
 		/* border-left: 1px solid var(--dark-purple); */
 		right: 0;
-
 	}
 
 	button, button p {
@@ -146,23 +153,19 @@
 		justify-content: space-around;
 	}
 
-	.sidebar.right button h4, .sidebar.right button h4 span {
+	.sidebar.right button h4 span {
 		font-size: 14px;
 
 	}
 
-
 	.pentominos {
 		width: 100%;
 		height: 100%;
-
-		/* border: 3px double var(--dark-purple); */
-		/* padding: 10px; */
 		border-radius: 10px;
 	}
 
 
-	.hidden {
+	span.hidden {
 		opacity: .5;
 	}
 
@@ -180,13 +183,40 @@
 			border-left: none;
 			border-bottom: 1px solid #000000;
 		}
+
 		.sidebar.right {
 			width: 100%;
+
 			height: 30%;
 			top: 70%;
 			gap: 10px;
 			border-right: none;
 			border-top: 1px solid #000000;
+			transition: top 0.5s ease-in-out;
 		}
+
+		.sidebar.right button {
+			margin-bottom: 5px;
+		}
+
+		.sidebar.right.hidden {
+			top: calc(100% - 80px);
+			transition: top 0.5s ease-in-out;
+		}
+
+		.button.holder {
+			max-width: 100%;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			width: 100%;
+			padding: 0 0px;
+			gap: 20px;
+		}
+
+		.width-33 {
+			width: 33%;
+		}
+
 	}
 </style>
