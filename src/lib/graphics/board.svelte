@@ -9,6 +9,8 @@
   export let screenType;
 	export let gameMode;
 
+  let PLANE;
+
   const webgameGroup = new THREE.Group();
 
   onMount(() => {

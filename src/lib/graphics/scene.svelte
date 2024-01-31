@@ -30,6 +30,7 @@ let SELECTED = null; // Currently selected object
 const RAYCASTER = new THREE.Raycaster(); // Raycaster for mouse interaction
 const INTERSECTS = new THREE.Vector3(); // Point of intersection
 let PLANE; // Invisible plane for raycasting
+let OFFSET = new THREE.Vector3(); // Offset between object and intersection point
 
 // -----------------------------------------------------------------------------
 //  BASIC SETUP
@@ -43,11 +44,14 @@ renderer.setClearColor(0x232323, 1);
 const scene = new THREE.Scene();
 
 function createInvisiblePlane() {
-  const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
-  const planeMaterial = new THREE.MeshBasicMaterial({visible: false});
+  // const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
+  // const planeMaterial = new THREE.MeshBasicMaterial({visible: true});
 
-  PLANE = new THREE.Mesh(planeGeometry, planeMaterial);
-  PLANE.position.z = 1.0;
+  // PLANE = new THREE.Mesh(planeGeometry, planeMaterial);
+  // PLANE.position.z = 0.0;
+
+  PLANE = new THREE.Plane();
+  // PLANE.setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
   scene.add(PLANE);
 }
 
@@ -59,6 +63,7 @@ onMount(() => {
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     document.addEventListener('mousedown', onDocumentMouseDown, false);
     document.addEventListener('mouseup', onDocumentMouseUp, false);
+    
 		// make .geometry class opacity 1
 		setTimeout(() => {
 			document.querySelector('.geometry').style.opacity = 1;
@@ -107,6 +112,8 @@ function onDocumentMouseMove(event) {
     // console.log('PLANE:', PLANE);
     RAYCASTER.setFromCamera(cursor, camera);
 
+
+
     if (SELECTED) {
       RAYCASTER.setFromCamera(cursor, camera);
       if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
@@ -127,12 +134,18 @@ function onDocumentMouseMove(event) {
 
 
     console.log('Raycaster origin:', RAYCASTER.ray.origin);
-  console.log('Raycaster direction:', RAYCASTER.ray.direction);
-  console.log('Intersects:', intersects);
-
+    console.log('Raycaster direction:', RAYCASTER.ray.direction);
+    console.log('Intersects:', intersects);
+    console.log('INTERSECTS:', INTERSECTS);
+    console.log('PLANE:', PLANE);
+    console.log('cursor:', cursor);
+  
     if (intersects.length > 0) {
       SELECTED = intersects[0].object;
 
+      // console.log('SELECTED:', SELECTED);
+      // let test = RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS);
+      // console.log('test:', test);
       if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
         OFFSET.copy(INTERSECTS).sub(SELECTED.position);
       }
