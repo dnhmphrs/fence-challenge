@@ -1,32 +1,54 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-	import {pentominosDict} from './pentominos.js';
+  import { selectedPentominos } from '$lib/store/pentominos.js';
+	import { pentominosKey, pentominosDict } from './pentominos.js';
   import * as THREE from 'three';
 
-	let pentominos = [];
+  let pentominoObjects = {}; 
   export let nonParallaxGroup;
   export let screenType;
 	export let gameMode;
 
   const webgameGroup = new THREE.Group();
 
-	onMount(() => {
-    createPentominos();
-    if (gameMode & !webgameGroup.children.length) {
-        cleanUpBoard();
-        createBoard();
-        pentominos.forEach((pentomino, i) => {
-            const gridX = Math.floor(Math.random() * gridSize);
-            const gridY = Math.floor(Math.random() * gridSize);
-            placePentomino(pentomino, gridX, gridY);
-        });
-    }
-});
+  onMount(() => {
+		createPentominos();
+		if (gameMode & !webgameGroup.children.length) {
+			cleanUpBoard();
+			createBoard();
+		}
+  });
 
 
   onDestroy(() => {
     cleanUpBoard();
   });
+
+  // -----------------------------------------------------------------------------
+	//  HANDLE PENTOMINO SELECTION
+	// -----------------------------------------------------------------------------
+
+  $: {
+  // Add selected pentominos to the board
+  $selectedPentominos.forEach(letter => {
+    if (pentominoObjects[letter] && !webgameGroup.children.includes(pentominoObjects[letter])) {
+      const pentomino = pentominoObjects[letter];
+      const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
+      const gridY = Math.floor(Math.random() * gridSize);
+      placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
+    }
+  });
+
+  // Remove deselected pentominos from the board
+  Object.keys(pentominoObjects).forEach(key => {
+    const pentomino = pentominoObjects[key];
+    if (!$selectedPentominos.includes(key) && webgameGroup.children.includes(pentomino)) {
+      webgameGroup.remove(pentomino);
+      // Update grid or other state as needed
+    }
+  });
+}
+
 
 	// -----------------------------------------------------------------------------
 	//  BOARD REPRESENTATION
@@ -74,17 +96,20 @@ function createGrid() {
 // for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
 export function createPentominos() {
 	const loader = new THREE.TextureLoader();
-	// transparent plane, visible image
-
-	for (let i = 0; i < 12; i++) {
+  
+	for (let i = 1; i < 13; i++) {
 		let pentominoTile = new THREE.Group();
 
-		const texture = loader.load(`/pentominos-graphic/${pentominosDict[i].letter}.png`);
+    let pentominoID  = pentominosKey[i];
+    console.log(i)
+    console.log(pentominoID)
+
+		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
 		let scale = .062
-		let width = pentominosDict[i].width * scale;
-		let height = pentominosDict[i].height * scale;
+		let width = pentominosDict[pentominoID].width * scale;
+		let height = pentominosDict[pentominoID].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
 		const material = new THREE.MeshBasicMaterial({
 			map: texture,
@@ -93,7 +118,7 @@ export function createPentominos() {
 		});
 		const plane = new THREE.Mesh(geometry, material);
 		plane.position.z = 0.002;
-		plane.name = `pentomino${i}`;
+		plane.name = `pentomino${pentominoID}`;
 
 		pentominoTile.add(plane);
 		pentominoTile.position.z = 0.0;
@@ -108,13 +133,16 @@ export function createPentominos() {
 
 		// Convert grid position to world position
 		const cellSize = 1.1 / gridSize; // Assuming your grid size is 1.1 units
-    const gridPos = pentominosDict[i].gridPosition;
+    const gridPos = pentominosDict[pentominoID].gridPosition;
     const worldPos = gridToWorldPosition(gridPos.x, gridPos.y, cellSize);
 
     pentominoTile.position.x = worldPos.x;
     pentominoTile.position.y = worldPos.y;
 
-		pentominos.push(pentominoTile);
+    // name and put in dict
+    pentominoTile.name = `pentomino${pentominoID}`;
+    pentominoObjects[pentominoID] = pentominoTile;
+		// pentominos.push(pentominoTile);
 	}
 }
 
@@ -134,7 +162,11 @@ export function placePentomino(pentomino, gridX, gridY) {
         
         // Mark the grid as occupied
         grid[validPosition.x][validPosition.y] = pentomino;
-				webgameGroup.add(pentomino)
+
+        // Add to the scene if not already added
+        if (!webgameGroup.children.includes(pentomino)) {
+          webgameGroup.add(pentomino);
+        }
     } else {
         console.log("No valid position found for the pentomino.");
     }

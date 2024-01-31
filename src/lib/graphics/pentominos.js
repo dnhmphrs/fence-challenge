@@ -1,5 +1,20 @@
+export var pentominosKey = {
+	1: 'F',
+	2: 'I',
+	3: 'L',
+	4: 'N',
+	5: 'P',
+	6: 'T',
+	7: 'U',
+	8: 'V',
+	9: 'W',
+	10: 'X',
+	11: 'Y',
+	12: 'Z'
+};
+
 export var pentominosDict = {
-	0: {
+	F: {
 		letter: 'F',
 		width: 3,
 		height: 3,
@@ -19,7 +34,7 @@ export var pentominosDict = {
 			[-1, 0]
 		]
 	},
-	1: {
+	I: {
 		letter: 'I',
 		width: 1,
 		height: 5,
@@ -32,7 +47,7 @@ export var pentominosDict = {
 			[0, 3]
 		]
 	},
-	2: {
+	L: {
 		letter: 'L',
 		width: 2,
 		height: 4,
@@ -48,7 +63,7 @@ export var pentominosDict = {
 			[-0.5, 2.5]
 		]
 	},
-	3: {
+	N: {
 		letter: 'N',
 		width: 4,
 		height: 2,
@@ -65,7 +80,7 @@ export var pentominosDict = {
 			[-1.5, 0.5]
 		]
 	},
-	4: {
+	P: {
 		letter: 'P',
 		width: 3,
 		height: 3,
@@ -80,7 +95,7 @@ export var pentominosDict = {
 			[-1, -1]
 		]
 	},
-	5: {
+	T: {
 		letter: 'T',
 		width: 3,
 		height: 3,
@@ -97,7 +112,7 @@ export var pentominosDict = {
 			[-1, 2]
 		]
 	},
-	6: {
+	U: {
 		letter: 'U',
 		width: 3,
 		height: 3,
@@ -114,7 +129,7 @@ export var pentominosDict = {
 			[-1, 1]
 		]
 	},
-	7: {
+	V: {
 		letter: 'V',
 		width: 3,
 		height: 3,
@@ -130,7 +145,7 @@ export var pentominosDict = {
 			[-1, 2]
 		]
 	},
-	8: {
+	W: {
 		letter: 'W',
 		width: 3,
 		height: 3,
@@ -149,7 +164,7 @@ export var pentominosDict = {
 			[-1, -1]
 		]
 	},
-	9: {
+	X: {
 		letter: 'X',
 		width: 3,
 		height: 3,
@@ -170,7 +185,7 @@ export var pentominosDict = {
 			[-1, 1]
 		]
 	},
-	10: {
+	Y: {
 		letter: 'Y',
 		width: 4,
 		height: 2,
@@ -187,7 +202,7 @@ export var pentominosDict = {
 			[-1.5, 1.5]
 		]
 	},
-	11: {
+	Z: {
 		letter: 'Z',
 		width: 3,
 		height: 3,

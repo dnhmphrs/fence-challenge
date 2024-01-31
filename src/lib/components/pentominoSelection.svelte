@@ -1,5 +1,5 @@
 <script>
-	import { selectedPentominos } from '$lib/store/store';
+	import { selectedPentominos } from '$lib/store/pentominos';
 </script>
 
 <div class="grid">
@@ -38,35 +38,35 @@
     <div class="cell"></div>
     <div class="cell"></div>
   </div>
+  
+  <div class="pentomino N"
+  class:selected={$selectedPentominos.includes('N')} 
+  on:click={() => $selectedPentominos.includes('N') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'N') : $selectedPentominos = [...$selectedPentominos, 'N']}
+  on:keypress={() => $selectedPentominos.includes('N') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'N') : $selectedPentominos = [...$selectedPentominos, 'N']}
+  >
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+</div>
+
+<div class="pentomino P"
+class:selected={$selectedPentominos.includes('P')} 
+on:click={() => $selectedPentominos.includes('P') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'P') : $selectedPentominos = [...$selectedPentominos, 'P']}
+on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'P') : $selectedPentominos = [...$selectedPentominos, 'P']}
+>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+</div>
 
   <div class="pentomino T"
     class:selected={$selectedPentominos.includes('T')} 
     on:click={() => $selectedPentominos.includes('T') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'T') : $selectedPentominos = [...$selectedPentominos, 'T']}
     on:keypress={() => $selectedPentominos.includes('T') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'T') : $selectedPentominos = [...$selectedPentominos, 'T']}
-    >
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-  </div>
-
-  <div class="pentomino S"
-    class:selected={$selectedPentominos.includes('S')} 
-    on:click={() => $selectedPentominos.includes('S') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'S') : $selectedPentominos = [...$selectedPentominos, 'S']}
-    on:keypress={() => $selectedPentominos.includes('S') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'S') : $selectedPentominos = [...$selectedPentominos, 'S']}
-    >
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-  </div>
-
-  <div class="pentomino N"
-    class:selected={$selectedPentominos.includes('N')} 
-    on:click={() => $selectedPentominos.includes('N') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'N') : $selectedPentominos = [...$selectedPentominos, 'N']}
-    on:keypress={() => $selectedPentominos.includes('N') ? $selectedPentominos = $selectedPentominos.filter(p => p !== 'N') : $selectedPentominos = [...$selectedPentominos, 'N']}
     >
     <div class="cell"></div>
     <div class="cell"></div>
@@ -277,11 +277,11 @@
 .pentomino.T .cell:nth-child(5) { grid-column: 2; grid-row: 3; }
 
 /* Pentomino S */
-.pentomino.S .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
-.pentomino.S .cell:nth-child(2) { grid-column: 3; grid-row: 1; }
-.pentomino.S .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
-.pentomino.S .cell:nth-child(4) { grid-column: 2; grid-row: 2; }
-.pentomino.S .cell:nth-child(5) { grid-column: 1; grid-row: 3; }
+.pentomino.P .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
+.pentomino.P .cell:nth-child(2) { grid-column: 3; grid-row: 1; }
+.pentomino.P .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
+.pentomino.P .cell:nth-child(4) { grid-column: 2; grid-row: 2; }
+.pentomino.P .cell:nth-child(5) { grid-column: 1; grid-row: 3; }
 
 /* Pentomino N */
 .pentomino.N .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
@@ -308,13 +308,6 @@
 .pentomino.W .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
 .pentomino.W .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
 .pentomino.W .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
-.pentomino.W .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
-.pentomino.W .cell:nth-child(5) { grid-column: 3; grid-row: 3; }
-
-/* Pentomino X */
-.pentomino.X .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
-.pentomino.X .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.X .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
 .pentomino.W .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
 .pentomino.W .cell:nth-child(5) { grid-column: 3; grid-row: 3; }
 
