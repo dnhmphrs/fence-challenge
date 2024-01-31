@@ -1,8 +1,9 @@
-export const pentominosDict = {
+export var pentominosDict = {
 	0: {
 		letter: 'F',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, 0],
 			[-1, 2],
@@ -22,6 +23,7 @@ export const pentominosDict = {
 		letter: 'I',
 		width: 1,
 		height: 5,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[0, 3],
 			[1, 3],
@@ -34,6 +36,7 @@ export const pentominosDict = {
 		letter: 'L',
 		width: 2,
 		height: 4,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-0.5, 2.5],
 			[1.5, 2.5],
@@ -49,6 +52,7 @@ export const pentominosDict = {
 		letter: 'N',
 		width: 4,
 		height: 2,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1.5, 0.5],
 			[-0.5, 0.5],
@@ -65,6 +69,7 @@ export const pentominosDict = {
 		letter: 'P',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, -1],
 			[-1, 0],
@@ -79,6 +84,7 @@ export const pentominosDict = {
 		letter: 'T',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, 2],
 			[2, 2],
@@ -95,6 +101,7 @@ export const pentominosDict = {
 		letter: 'U',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, 1],
 			[0, 1],
@@ -111,6 +118,7 @@ export const pentominosDict = {
 		letter: 'V',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, 2],
 			[0, 2],
@@ -126,6 +134,7 @@ export const pentominosDict = {
 		letter: 'W',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, -1],
 			[-1, 1],
@@ -144,6 +153,7 @@ export const pentominosDict = {
 		letter: 'X',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, 1],
 			[0, 1],
@@ -164,6 +174,7 @@ export const pentominosDict = {
 		letter: 'Y',
 		width: 4,
 		height: 2,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1.5, 1.5],
 			[2.5, 1.5],
@@ -180,6 +191,7 @@ export const pentominosDict = {
 		letter: 'Z',
 		width: 3,
 		height: 3,
+		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1, -1],
 			[-1, 1],

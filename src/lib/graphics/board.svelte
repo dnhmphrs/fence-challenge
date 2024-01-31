@@ -22,9 +22,16 @@
     cleanUpBoard();
   });
 
+	// -----------------------------------------------------------------------------
+	//  BOARD REPRESENTATION
+	// -----------------------------------------------------------------------------
+	const gridSize = 20; // Assuming a 20x20 grid
+	let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(null));
+
+
   // -----------------------------------------------------------------------------
-//  LOAD & WEBGAME ELEMENTS
-// -----------------------------------------------------------------------------
+	//  LOAD & WEBGAME ELEMENTS
+	// -----------------------------------------------------------------------------
 
 function createGrid() {
 	const backgroundGeo = new THREE.BoxGeometry(1.1, 1.1, 0.001);
@@ -65,6 +72,7 @@ export function createPentominos() {
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
 		let scale = .062
+		pentominosDict[i].gridPosition = { x: 0, y: 0 }; // Initialize with a starting grid position
 		let width = pentominosDict[i].width * scale;
 		let height = pentominosDict[i].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
@@ -82,7 +90,6 @@ export function createPentominos() {
 
 		pentominoTile.position.x -= .094;
 		pentominoTile.position.y -= .0925;
-
 
 		pentominos.push(pentominoTile);
 	}

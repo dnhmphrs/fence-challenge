@@ -31,10 +31,10 @@
 	</div>
 </div>
 
-<div class="sidebar right" class:hidden={hideSidebar} on:click={() => hideSidebar = !hideSidebar} on:keydown={() => hideSidebar = !hideSidebar}>
+<div class="sidebar right" class:hidden={hideSidebar} >
 	<div class="button holder">
 		{#if $screenType !=3}
-			<button class="width-33">{hideSidebarText}</button>
+			<button class="width-33" on:click={() => hideSidebar = !hideSidebar} on:keydown={() => hideSidebar = !hideSidebar}>{hideSidebarText}</button>
 		{/if}
 		<button on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
 			<p>
