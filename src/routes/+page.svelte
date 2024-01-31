@@ -6,7 +6,7 @@
 		isCvMode.update(value => !value);
 	};
 
-	let hideSidebar = true;
+	let hideSidebar = false;
 	$: hideSidebarText = hideSidebar ? 'Show' : 'Hide';
 </script>
 
