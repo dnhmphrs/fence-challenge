@@ -251,6 +251,8 @@ function render() {
 
 function onProcessFrame() {
 	    // run pyodide script
+      if (!$isCvMode) {alert('Python not connected yet')};
+
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
 			processFrame(video, actualVideoWidth, actualVideoHeight);
 		} else {

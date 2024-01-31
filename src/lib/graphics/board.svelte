@@ -28,6 +28,11 @@
 	const gridSize = 20; // Assuming a 20x20 grid
 	let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(null));
 
+	function gridToWorldPosition(gridX, gridY, cellSize) {
+    const worldX = gridX * cellSize - gridSize * cellSize / 2 + cellSize / 2;
+    const worldY = gridY * cellSize - gridSize * cellSize / 2 + cellSize / 2;
+    return { x: worldX, y: worldY };
+	}
 
   // -----------------------------------------------------------------------------
 	//  LOAD & WEBGAME ELEMENTS
@@ -72,7 +77,6 @@ export function createPentominos() {
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
 		let scale = .062
-		pentominosDict[i].gridPosition = { x: 0, y: 0 }; // Initialize with a starting grid position
 		let width = pentominosDict[i].width * scale;
 		let height = pentominosDict[i].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
@@ -86,10 +90,23 @@ export function createPentominos() {
 		plane.name = `pentomino${i}`;
 
 		pentominoTile.add(plane);
-		pentominoTile.position.z = Math.random() * 0.1;
+		pentominoTile.position.z = 0.0;
 
+		// tweak to fit grid snugly
+		pentominoTile.scale.set(0.9, 0.9, 0.9);
 		pentominoTile.position.x -= .094;
 		pentominoTile.position.y -= .0925;
+
+		// ranom assign
+		pentominosDict[i].gridPosition = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+
+		// Convert grid position to world position
+		const cellSize = 1.1 / gridSize; // Assuming your grid size is 1.1 units
+    const gridPos = pentominosDict[i].gridPosition;
+    const worldPos = gridToWorldPosition(gridPos.x, gridPos.y, cellSize);
+
+    pentominoTile.position.x = worldPos.x;
+    pentominoTile.position.y = worldPos.y;
 
 		pentominos.push(pentominoTile);
 	}
@@ -99,9 +116,12 @@ export function createBoard() {
   createGrid();
 	
 	for (let i = 0; i < 12; i++) {
-    // nonParallaxGroup.add(pentominos[i]);
     webgameGroup.add(pentominos[i]);
 	}
+}
+
+export function placePentomino(pentomino, gridX, gridY) {
+	// TODO
 }
 
 export function cleanUpBoard() {
