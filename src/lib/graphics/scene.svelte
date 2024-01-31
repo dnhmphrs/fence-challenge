@@ -128,7 +128,7 @@ function startWebcam() {
 			videoPlaneMaterial.opacity = .75;
 			let videoPlane = new THREE.Mesh(videoPlaneGeometry, videoPlaneMaterial);
 			
-			if ( $screenType != 3 )	webcamGroup.position.y = 0.225
+			if ( $screenType == 1 )	webcamGroup.position.y = 0.225
 
       webcamGroup.add(videoPlane);
 			nonParallaxGroup.add(webcamGroup);

@@ -43,7 +43,7 @@ function createGrid() {
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
 
-	if ( $screenType != 3 )	webgameGroup.position.y = 0.225
+	if ( $screenType == 1 )	webgameGroup.position.y = 0.225
 
 	webgameGroup.add(grid, background);
 	nonParallaxGroup.add(webgameGroup);
@@ -78,8 +78,6 @@ export function createPentominos() {
 		plane.name = `pentomino${i}`;
 
 		pentominoTile.add(plane);
-		($screenType != 3) ? pentominoTile.position.x = Math.random() * .8 - .4 : pentominoTile.position.x = Math.random() * 1.2 - .6;
-		($screenType != 3) ? pentominoTile.position.y = Math.random() * 1 - .22 : pentominoTile.position.y = Math.random() * 1 - .5;
 		pentominoTile.position.z = Math.random() * 0.1;
 
 		pentominoTile.position.x -= .094;

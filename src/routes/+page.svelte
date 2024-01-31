@@ -192,7 +192,7 @@
 			gap: 10px;
 			border-right: none;
 			border-top: 1px solid #000000;
-			transition: top 0.5s ease-in-out;
+
 		}
 
 		.sidebar.right button {
@@ -201,7 +201,7 @@
 
 		.sidebar.right.hidden {
 			top: calc(100% - 80px);
-			transition: top 0.5s ease-in-out;
+
 		}
 
 		.button.holder {
