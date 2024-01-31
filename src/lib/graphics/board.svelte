@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy, setContext } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 	import {pentominosDict} from './pentominos.js';
   import * as THREE from 'three';
 
@@ -10,13 +10,19 @@
 
   const webgameGroup = new THREE.Group();
 
-  onMount(() => {
-		createPentominos();
-		if (gameMode & !webgameGroup.children.length) {
-			cleanUpBoard();
-			createBoard();
-		}
-  });
+	onMount(() => {
+    createPentominos();
+    if (gameMode & !webgameGroup.children.length) {
+        cleanUpBoard();
+        createBoard();
+        pentominos.forEach((pentomino, i) => {
+            const gridX = Math.floor(Math.random() * gridSize);
+            const gridY = Math.floor(Math.random() * gridSize);
+            placePentomino(pentomino, gridX, gridY);
+        });
+    }
+});
+
 
   onDestroy(() => {
     cleanUpBoard();
@@ -98,7 +104,7 @@ export function createPentominos() {
 		pentominoTile.position.y -= .0925;
 
 		// ranom assign
-		pentominosDict[i].gridPosition = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+		// pentominosDict[i].gridPosition = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
 
 		// Convert grid position to world position
 		const cellSize = 1.1 / gridSize; // Assuming your grid size is 1.1 units
@@ -114,15 +120,62 @@ export function createPentominos() {
 
 export function createBoard() {
   createGrid();
-	
-	for (let i = 0; i < 12; i++) {
-    webgameGroup.add(pentominos[i]);
-	}
 }
 
 export function placePentomino(pentomino, gridX, gridY) {
-	// TODO
+    let validPosition = isValidPosition(gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(gridX, gridY);
+
+    if (validPosition) {
+        const cellSize = 1.1 / gridSize;
+        const worldPos = gridToWorldPosition(validPosition.x, validPosition.y, cellSize);
+
+        pentomino.position.x = worldPos.x;
+        pentomino.position.y = worldPos.y;
+        
+        // Mark the grid as occupied
+        grid[validPosition.x][validPosition.y] = pentomino;
+				webgameGroup.add(pentomino)
+    } else {
+        console.log("No valid position found for the pentomino.");
+    }
 }
+
+// THIS FUNCTION ALSO NEEDS TO ACCOUNT FOR SHAPE, ROTATION, ORIENTATION ETC.
+function isValidPosition(gridX, gridY) {
+    // Check grid bounds
+    if (gridX < 0 || gridX >= gridSize || gridY < 0 || gridY >= gridSize) {
+        return false; // Out of bounds
+    }
+    // Check if the cell is already occupied
+    return grid[gridX][gridY] === null;
+}
+
+function findNearestAvailablePosition(gridX, gridY) {
+    let visited = new Set([`${gridX},${gridY}`]);
+    let queue = [[gridX, gridY]];
+
+    while (queue.length > 0) {
+        let [x, y] = queue.shift();
+
+        if (isValidPosition(x, y)) {
+            return { x, y };
+        }
+
+        // Add adjacent positions to the queue
+        [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]].forEach(([nextX, nextY]) => {
+            let key = `${nextX},${nextY}`;
+            if (!visited.has(key)) {
+                visited.add(key);
+                if (nextX >= 0 && nextX < gridSize && nextY >= 0 && nextY < gridSize) {
+                    queue.push([nextX, nextY]);
+                }
+            }
+        });
+    }
+
+    return null; // In case no available position is found
+}
+
 
 export function cleanUpBoard() {
     // Assuming the grid is directly added to nonParallaxGroup or scene
@@ -133,7 +186,7 @@ export function cleanUpBoard() {
         if (child.geometry) {
             child.geometry.dispose(); // Dispose geometry
         }
-        webgameGroup.remove(child); // Remove from scene
+        // webgameGroup.remove(child); // Remove from scene
     });
 		nonParallaxGroup.remove(webgameGroup);
 
