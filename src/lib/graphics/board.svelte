@@ -29,27 +29,30 @@
 	// -----------------------------------------------------------------------------
 
   $: {
-  // Add selected pentominos to the board
-  $selectedPentominos.forEach(letter => {
-    if (pentominoObjects[letter] && !webgameGroup.children.includes(pentominoObjects[letter])) {
-      const pentomino = pentominoObjects[letter];
-      const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
-      const gridY = Math.floor(Math.random() * gridSize);
-      placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
-    }
-  });
+    // Add selected pentominos to the board
+    $selectedPentominos.forEach(letter => {
+      if (pentominoObjects[letter] && !webgameGroup.children.includes(pentominoObjects[letter])) {
+        const pentomino = pentominoObjects[letter];
+        const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
+        const gridY = Math.floor(Math.random() * gridSize);
+        placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
+      }
+    });
 
-  // Remove deselected pentominos from the board
-  Object.keys(pentominoObjects).forEach(key => {
-    const pentomino = pentominoObjects[key];
-    if (!$selectedPentominos.includes(key) && webgameGroup.children.includes(pentomino)) {
-      webgameGroup.remove(pentomino);
-      // Update grid or other state as needed
-    }
-  });
-}
+    // Remove deselected pentominos from the board
+    Object.keys(pentominoObjects).forEach(key => {
+      const pentomino = pentominoObjects[key];
+      if (!$selectedPentominos.includes(key) && webgameGroup.children.includes(pentomino)) {
+        webgameGroup.remove(pentomino);
+        // Update grid or other state as needed
+      }
+    });
+  }
 
 
+  export function getPentominos() {
+    return Object.values(pentominoObjects);
+  }
 	// -----------------------------------------------------------------------------
 	//  BOARD REPRESENTATION
 	// -----------------------------------------------------------------------------
@@ -101,8 +104,6 @@ export function createPentominos() {
 		let pentominoTile = new THREE.Group();
 
     let pentominoID  = pentominosKey[i];
-    console.log(i)
-    console.log(pentominoID)
 
 		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
 		texture.minFilter = THREE.LinearFilter;
@@ -146,9 +147,18 @@ export function createPentominos() {
 	}
 }
 
+// -----------------------------------------------------------------------------
+//  CREATE BORAD
+// -----------------------------------------------------------------------------
+
 export function createBoard() {
   createGrid();
 }
+
+  // -----------------------------------------------------------------------------
+	//  BASIC BOARD FUNCTIONS
+	// -----------------------------------------------------------------------------
+
 
 export function placePentomino(pentomino, gridX, gridY) {
     let validPosition = isValidPosition(gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(gridX, gridY);
@@ -226,6 +236,77 @@ export function cleanUpBoard() {
     // For example, pentominos or other objects added to the scene for the webgame mode
 }
 
-</script>
+  // -----------------------------------------------------------------------------
+	//  INTERACTIVE PENOMINO DRAGGING FUNCTIONS
+	// -----------------------------------------------------------------------------
 
-<!-- Add any necessary HTML or markup here -->
+  // let INTERSECTED; // Object that is currently intersected
+  // let SELECTED; // Object that is currently selected and being dragged
+  // const mouse = new THREE.Vector2();
+  // const raycaster = new THREE.Raycaster();
+  // const offset = new THREE.Vector3();
+
+  // function onDocumentMouseMove(event) {
+  //   event.preventDefault();
+
+  //   mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+  //   mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+  //   if (SELECTED) {
+  //     // Calculate the new position of the selected pentomino during dragging
+  //     raycaster.setFromCamera(mouse, camera);
+  //     const intersects = raycaster.intersectObject(plane); // Assuming 'plane' is a large invisible plane at z=0 for example
+  //     if (intersects.length > 0) {
+  //       const intersect = intersects[0];
+  //       SELECTED.position.copy(intersect.point.sub(offset)); // Move selected object
+  //     }
+  //     return;
+  //   }
+
+  //   raycaster.setFromCamera(mouse, camera);
+  //   const intersects = raycaster.intersectObjects(pentominoObjectsArray); // Assume this is an array of your pentomino objects
+
+  //   if (intersects.length > 0) {
+  //     if (INTERSECTED != intersects[0].object) {
+  //       INTERSECTED = intersects[0].object;
+  //       // Optional: Highlight INTERSECTED or change its appearance
+  //     }
+  //   } else {
+  //     // Optional: Restore previous appearance of INTERSECTED
+  //     INTERSECTED = null;
+  //   }
+  // }
+
+  // function onDocumentMouseDown(event) {
+  //   event.preventDefault();
+
+  //   raycaster.setFromCamera(mouse, camera);
+  //   const intersects = raycaster.intersectObjects(pentominoObjectsArray);
+
+  //   if (intersects.length > 0) {
+  //     SELECTED = intersects[0].object;
+  //     SELECTED.scale.set(1.1, 1.1, 1.1); // Make the selected object larger to indicate selection
+
+  //     const intersects = raycaster.intersectObject(plane);
+  //     if (intersects.length > 0) {
+  //       offset.copy(intersects[0].point).sub(plane.position);
+  //     }
+  //   }
+  // }
+
+  // function onDocumentMouseUp(event) {
+  //   event.preventDefault();
+
+  //   if (SELECTED) {
+  //     SELECTED.scale.set(1, 1, 1); // Reset the scale of the selected object
+  //     // Here you would call placePentomino with the final position, possibly adjusted to the nearest grid position
+  //     SELECTED = null;
+  //   }
+  // }
+
+  // function getNearestGridPosition(worldPosition) {
+  // // Convert world position back to grid coordinates, adjusting as necessary
+  // // You might reverse `gridToWorldPosition` logic here
+  // }
+
+</script>

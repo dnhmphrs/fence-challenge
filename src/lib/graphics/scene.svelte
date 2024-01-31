@@ -15,20 +15,25 @@ let board;
 
 let video, videoTexture;
 let actualVideoWidth, actualVideoHeight;
-const cursor = {
-  x: 0,
-  y: 0,
-};
+let cursor = new THREE.Vector2();
 
 $: buttonText = ($isCvMode) ? 'Process Frame' : 'Upload Result';
 
 let container, id;
-	onDestroy(() => cancelAnimationFrame(id));
 
 let sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
+
+let SELECTED = null; // Currently selected object
+const RAYCASTER = new THREE.Raycaster(); // Raycaster for mouse interaction
+const INTERSECTS = new THREE.Vector3(); // Point of intersection
+let PLANE; // Invisible plane for raycasting
+
+// -----------------------------------------------------------------------------
+//  BASIC SETUP
+// -----------------------------------------------------------------------------
 
 const renderer = new THREE.WebGLRenderer({antialias: false});
 renderer.setPixelRatio(window.devicePixelRatio)
@@ -37,15 +42,36 @@ renderer.setClearColor(0x232323, 1);
 
 const scene = new THREE.Scene();
 
+function createInvisiblePlane() {
+  const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
+  const planeMaterial = new THREE.MeshBasicMaterial({visible: false});
+
+  PLANE = new THREE.Mesh(planeGeometry, planeMaterial);
+  PLANE.position.z = 1.0;
+  scene.add(PLANE);
+}
+
+
 onMount(() => {
     // loadPyodidePy();
-		container.appendChild(renderer.domElement);
+    createInvisiblePlane();
+    container.appendChild(renderer.domElement);
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
+    document.addEventListener('mouseup', onDocumentMouseUp, false);
 		// make .geometry class opacity 1
 		setTimeout(() => {
 			document.querySelector('.geometry').style.opacity = 1;
 			document.querySelector('button').style.opacity = 1;
 		}, 500);
 	});
+
+onDestroy(() => {
+  document.removeEventListener('mousemove', onDocumentMouseMove, false);
+  document.removeEventListener('mousedown', onDocumentMouseDown, false);
+  document.removeEventListener('mouseup', onDocumentMouseUp, false);
+  cancelAnimationFrame(id)
+});
 
 const camera = new THREE.PerspectiveCamera(
     30,
@@ -67,6 +93,63 @@ const nonParallaxGroup = new THREE.Group();
 const webcamGroup = new THREE.Group();
 
 scene.add(parallaxGroup, nonParallaxGroup);
+
+// -----------------------------------------------------------------------------
+//  INTERACTION WATCHERS
+// -----------------------------------------------------------------------------
+
+function onDocumentMouseMove(event) {
+    event.preventDefault();
+
+    cursor.x = (event.clientX / window.innerWidth) * 2 - 1;
+    cursor.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    // console.log('PLANE:', PLANE);
+    RAYCASTER.setFromCamera(cursor, camera);
+
+    if (SELECTED) {
+      RAYCASTER.setFromCamera(cursor, camera);
+      if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
+        SELECTED.position.copy(INTERSECTS.sub(OFFSET).add(SELECTED.parent.position));
+      }
+    }
+
+    // Additional logic for highlighting or hovering can go here
+  }
+
+  function onDocumentMouseDown(event) {
+    event.preventDefault();
+
+
+
+    RAYCASTER.setFromCamera(cursor, camera);
+    let intersects = RAYCASTER.intersectObjects(board.getPentominos()); // Assume getPentominos returns all clickable objects
+
+
+    console.log('Raycaster origin:', RAYCASTER.ray.origin);
+  console.log('Raycaster direction:', RAYCASTER.ray.direction);
+  console.log('Intersects:', intersects);
+
+    if (intersects.length > 0) {
+      SELECTED = intersects[0].object;
+
+      if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
+        OFFSET.copy(INTERSECTS).sub(SELECTED.position);
+      }
+
+      
+      // Logic for indicating selection, e.g., changing material color, scale, etc.
+    }
+  }
+
+  function onDocumentMouseUp(event) {
+    event.preventDefault();
+
+    if (SELECTED) {
+      // Reset selection visuals or perform additional checks
+      SELECTED = null;
+    }
+  }
 
 // -----------------------------------------------------------------------------
 //  CREATE WEBCAM ELEMENT & VIDEO TEXTURE
@@ -277,10 +360,10 @@ window.addEventListener('resize', function() {
     };
 });
 
-window.addEventListener("mousemove", (event) => {
-  cursor.x = event.clientX / sizes.width - 0.5;
-  cursor.y = event.clientY / sizes.height - 0.5;
-});
+// window.addEventListener("mousemove", (event) => {
+//   cursor.x = event.clientX / sizes.width - 0.5;
+//   cursor.y = event.clientY / sizes.height - 0.5;
+// });
 
 </script>
 

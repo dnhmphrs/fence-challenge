@@ -23,8 +23,7 @@ export function getDeviceType() {
 	}
 }
 
-export function getScreenSize(screenSize) {
-	console.log(screenSize);
+export function getScreenSize() {
 	const width = window.innerWidth;
 	const height = window.innerHeight;
 	return { width, height };
