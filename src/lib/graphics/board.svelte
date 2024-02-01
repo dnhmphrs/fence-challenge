@@ -184,6 +184,7 @@ export function placePentomino(pentomino, gridX, gridY) {
 
         pentomino.position.x = worldPos.x;
         pentomino.position.y = worldPos.y;
+        pentomino.position.z = 0.001;
         
         // Mark the grid as occupied
         grid[validPosition.x][validPosition.y] = pentomino;
