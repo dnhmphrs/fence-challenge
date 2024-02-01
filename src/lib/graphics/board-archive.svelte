@@ -38,7 +38,6 @@
         const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
         const gridY = Math.floor(Math.random() * gridSize);
         placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
-        webgameGroup.add(pentomino)
       }
     });
 
@@ -62,32 +61,11 @@
 	const gridSize = 20; // Assuming a 20x20 grid
 	let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(null));
 
-	function gridToWorldPosition(gridX, gridY) {
-    const cellSize = 1.1 / gridSize;
+	function gridToWorldPosition(gridX, gridY, cellSize) {
     const worldX = gridX * cellSize - gridSize * cellSize / 2 + cellSize / 2;
     const worldY = gridY * cellSize - gridSize * cellSize / 2 + cellSize / 2;
     return { x: worldX, y: worldY };
 	}
-  
-  function worldToGridPosition(worldX, worldY) {
-    const cellSize = 1.1 / gridSize;
-    const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
-    const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
-    return { x: gridX, y: gridY };
-  }
-
-//   function worldToGridPosition(worldX, worldY) {
-//   console.log(worldX, worldY);
-//   // Assuming the origin (0,0) of the world coordinates is at the center of the grid
-//   const cellSize = 1.1 / gridSize; // Size of each grid cell
-//   const halfGridSize = gridSize * cellSize / 2;
-
-//   // Calculate grid position
-//   const gridX = Math.floor((worldX + halfGridSize) / cellSize);
-//   const gridY = Math.floor((worldY + halfGridSize) / cellSize);
-//   console.log(gridX, gridY);
-//   return { x: gridX, y: gridY };
-// }
 
   // -----------------------------------------------------------------------------
 	//  LOAD & WEBGAME ELEMENTS
@@ -147,12 +125,25 @@ export function createPentominos() {
 		pentominoTile.add(plane);
 
 		// tweak to fit grid snugly
-		pentominoTile.scale.set(1.0, 1.0, 1.0);
-		// pentominoTile.position.x -= .094;
-		// pentominoTile.position.y -= .0925;
+		pentominoTile.scale.set(0.9, 0.9, 0.9);
+		pentominoTile.position.x -= .094;
+		pentominoTile.position.y -= .0925;
 
+		// ranom assign
+		// pentominosDict[i].gridPosition = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+
+		// Convert grid position to world position
+		const cellSize = 1.1 / gridSize; // Assuming your grid size is 1.1 units
+    const gridPos = pentominosDict[pentominoID].gridPosition;
+    const worldPos = gridToWorldPosition(gridPos.x, gridPos.y, cellSize);
+
+    pentominoTile.position.x = worldPos.x;
+    pentominoTile.position.y = worldPos.y;
+
+    // name and put in dict
     pentominoTile.name = `${pentominoID}`;
     pentominoObjects[pentominoID] = pentominoTile;
+		// pentominos.push(pentominoTile);
 	}
 }
 
@@ -167,12 +158,11 @@ export function createBoard() {
   // -----------------------------------------------------------------------------
 	//  BASIC BOARD FUNCTIONS
 	// -----------------------------------------------------------------------------
-
-  export function placePentominoRealWorld2Grid(pentomino) {
+export function placePentominoRealWorld2Grid(pentomino) {
     // const cellSize = 1.1 / gridSize;
     const worldX = pentomino.position.x;
     const worldY = pentomino.position.y;
-    const gridPosition = worldToGridPosition(worldX, worldY);
+    const gridPosition = findNearestAvailableGridPositionFromWorld(worldX, worldY);
     placePentomino(pentomino, gridPosition.x, gridPosition.y);
 }
 
@@ -180,7 +170,8 @@ export function placePentomino(pentomino, gridX, gridY) {
     let validPosition = isValidPosition(gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(gridX, gridY);
 
     if (validPosition) {
-        const worldPos = gridToWorldPosition(validPosition.x, validPosition.y);
+        const cellSize = 1.1 / gridSize;
+        const worldPos = gridToWorldPosition(validPosition.x, validPosition.y, cellSize);
 
         pentomino.position.x = worldPos.x;
         pentomino.position.y = worldPos.y;
@@ -188,6 +179,10 @@ export function placePentomino(pentomino, gridX, gridY) {
         // Mark the grid as occupied
         grid[validPosition.x][validPosition.y] = pentomino;
 
+        // Add to the scene if not already added
+        if (!webgameGroup.children.includes(pentomino)) {
+          webgameGroup.add(pentomino);
+        }
     } else {
         console.log("No valid position found for the pentomino.");
     }
@@ -202,6 +197,15 @@ function isValidPosition(gridX, gridY) {
     // Check if the cell is already occupied
     return grid[gridX][gridY] === null;
 }
+
+function findNearestAvailableGridPositionFromWorld(worldX, worldY) {
+  console.log('worldX, worldY', worldX, worldY)
+    const cellSize = 1.1 / gridSize;
+    const gridX = Math.round((worldX + gridSize * cellSize / 2 - cellSize / 2) / cellSize);
+    const gridY = Math.round((worldY + gridSize * cellSize / 2 - cellSize / 2) / cellSize);
+    console.log('gridX, gridY', gridX, gridY)
+    return findNearestAvailablePosition(gridX, gridY);
+};
 
 function findNearestAvailablePosition(gridX, gridY) {
     let visited = new Set([`${gridX},${gridY}`]);

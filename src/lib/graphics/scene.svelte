@@ -142,12 +142,12 @@ function onDocumentMouseMove(event) {
     // console.log('cursor:', cursor);
   
     if (intersects.length > 0) {
-      console.log(intersects)
-      console.log(intersects[0].object.position)
+      // console.log(intersects)
+      // console.log(intersects[0].object.position)
 
       // fixes null selectio bug
       if ($selectedPentominos.includes(intersects[0].object.name)) {
-
+        console.log('selected pentomino:', intersects[0].object.name)
         SELECTED = intersects[0].object;
         if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
           OFFSET.copy(INTERSECTS).sub(SELECTED.position);
@@ -164,7 +164,7 @@ function onDocumentMouseMove(event) {
     }    
   }
 
-  async function onDocumentMouseUp(event) {
+  function onDocumentMouseUp(event) {
     event.preventDefault();
 
     if (SELECTED) {
@@ -172,7 +172,7 @@ function onDocumentMouseMove(event) {
       SELECTED.scale.set(1, 1, 1); // reset scale
       SELECTED.position.z = 0.0; // reset z position
       // call placePentomino function
-      await board.placePentominoRealWorld2Grid(SELECTED); 
+      board.placePentominoRealWorld2Grid(SELECTED); 
       SELECTED = null;
     }
   }
