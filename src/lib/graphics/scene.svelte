@@ -170,7 +170,7 @@ function onDocumentMouseMove(event) {
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
       SELECTED.scale.set(1, 1, 1); // reset scale
-      SELECTED.position.z = 0.0; // reset z position
+      SELECTED.position.z = 0.001; // reset z position
       // call placePentomino function
       board.placePentominoRealWorld2Grid(SELECTED); 
       SELECTED = null;
