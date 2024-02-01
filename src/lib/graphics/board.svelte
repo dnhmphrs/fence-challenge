@@ -120,7 +120,7 @@ export function createPentominos() {
 			opacity: 1,
 		});
 		const plane = new THREE.Mesh(geometry, material);
-		plane.name = `pentomino${pentominoID}`;
+		plane.name = `${pentominoID}`;
 
 		pentominoTile.add(plane);
 
@@ -141,7 +141,7 @@ export function createPentominos() {
     pentominoTile.position.y = worldPos.y;
 
     // name and put in dict
-    pentominoTile.name = `pentomino${pentominoID}`;
+    pentominoTile.name = `${pentominoID}`;
     pentominoObjects[pentominoID] = pentominoTile;
 		// pentominos.push(pentominoTile);
 	}
@@ -158,7 +158,13 @@ export function createBoard() {
   // -----------------------------------------------------------------------------
 	//  BASIC BOARD FUNCTIONS
 	// -----------------------------------------------------------------------------
-
+export function placePentominoRealWorld2Grid(pentomino) {
+    // const cellSize = 1.1 / gridSize;
+    const worldX = pentomino.position.x;
+    const worldY = pentomino.position.y;
+    const gridPosition = findNearestAvailableGridPositionFromWorld(worldX, worldY);
+    placePentomino(pentomino, gridPosition.x, gridPosition.y);
+}
 
 export function placePentomino(pentomino, gridX, gridY) {
     let validPosition = isValidPosition(gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(gridX, gridY);
@@ -192,14 +198,25 @@ function isValidPosition(gridX, gridY) {
     return grid[gridX][gridY] === null;
 }
 
+function findNearestAvailableGridPositionFromWorld(worldX, worldY) {
+  console.log(worldX, worldY)
+    const gridX = Math.floor((worldX + gridSize / 2) / gridSize);
+    const gridY = Math.floor((worldY + gridSize / 2) / gridSize);
+    console.log(gridX, gridY)
+    return findNearestAvailablePosition(gridX, gridY);
+};
+
 function findNearestAvailablePosition(gridX, gridY) {
     let visited = new Set([`${gridX},${gridY}`]);
     let queue = [[gridX, gridY]];
+
+    // console.log(gridX, gridY);
 
     while (queue.length > 0) {
         let [x, y] = queue.shift();
 
         if (isValidPosition(x, y)) {
+            // console.log(x, y)
             return { x, y };
         }
 

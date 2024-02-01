@@ -1,6 +1,7 @@
 <script>
 import { onMount, onDestroy, getContext  } from 'svelte';
 import { screenType, pyodideLoaded, isCvMode } from '$lib/store/store';
+import { selectedPentominos } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
 import Board from './board.svelte';
@@ -105,7 +106,7 @@ scene.add(parallaxGroup, nonParallaxGroup);
 function updateCursor(event) {
   cursor.x = (event.clientX / sizes.width) * 2 - 1;
   cursor.y = -(event.clientY / sizes.height) * 2 + 1;
-  console.log('cursor:', cursor);
+  // console.log('cursor:', cursor);
 }
 
 function onDocumentMouseMove(event) {
@@ -141,26 +142,37 @@ function onDocumentMouseMove(event) {
     // console.log('cursor:', cursor);
   
     if (intersects.length > 0) {
-      SELECTED = intersects[0].object;
-      if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
-        OFFSET.copy(INTERSECTS).sub(SELECTED.position);
+      console.log(intersects)
+      console.log(intersects[0].object.position)
+
+      // fixes null selectio bug
+      if ($selectedPentominos.includes(intersects[0].object.name)) {
+
+        SELECTED = intersects[0].object;
+        if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
+          OFFSET.copy(INTERSECTS).sub(SELECTED.position);
+        }
+
+        // Logic for indicating selection, e.g., changing material color, scale, etc.
+      
+        SELECTED.scale.set(1.1, 1.1, 1.1); // make object scale * 1.1
+        // make object appear on top of other objects
+        SELECTED.position.z = 0.1;
       }
 
-      // Logic for indicating selection, e.g., changing material color, scale, etc.
-      
-      SELECTED.scale.set(1.1, 1.1, 1.1); // make object scale * 1.1
-       // make object appear on top of other objects
-      SELECTED.position.z = 0.1;
+
     }    
   }
 
-  function onDocumentMouseUp(event) {
+  async function onDocumentMouseUp(event) {
     event.preventDefault();
 
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
       SELECTED.scale.set(1, 1, 1); // reset scale
       SELECTED.position.z = 0.0; // reset z position
+      // call placePentomino function
+      await board.placePentominoRealWorld2Grid(SELECTED); 
       SELECTED = null;
     }
   }
