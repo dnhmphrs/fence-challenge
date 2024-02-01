@@ -199,6 +199,13 @@ export function placePentomino(pentomino, gridX, gridY) {
 
     } else {
         console.log("No valid position found for the pentomino.");
+
+        // THIS IS OVERKILL, BUT TO HELP DEBUG FALL OFF BOARD CONDITIONS
+        pentomino.position.x = null;
+        pentomino.position.y = null;
+        webgameGroup.remove(pentomino);
+        $selectedPentominos = $selectedPentominos.filter(letter => letter !== pentomino.name);
+
     }
 }
 
