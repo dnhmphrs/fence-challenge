@@ -44,14 +44,8 @@ renderer.setClearColor(0x232323, 1);
 const scene = new THREE.Scene();
 
 function createInvisiblePlane() {
-  // const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
-  // const planeMaterial = new THREE.MeshBasicMaterial({visible: true});
-
-  // PLANE = new THREE.Mesh(planeGeometry, planeMaterial);
-  // PLANE.position.z = 0.0;
-
   PLANE = new THREE.Plane();
-  // PLANE.setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
+  PLANE.setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
   scene.add(PLANE);
 }
 
@@ -103,16 +97,20 @@ scene.add(parallaxGroup, nonParallaxGroup);
 //  INTERACTION WATCHERS
 // -----------------------------------------------------------------------------
 
+function updateCursor(event) {
+  // cursor.x = (event.clientX / window.innerWidth) * 2 - 1;
+  // cursor.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  cursor.x = (event.clientX / sizes.width) * 2 - 1;
+  cursor.y = - (event.clientY / sizes.height) * 2 + 1;
+  console.log('cursor:', cursor);
+}
+
 function onDocumentMouseMove(event) {
     event.preventDefault();
-
-    cursor.x = (event.clientX / window.innerWidth) * 2 - 1;
-    cursor.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    updateCursor(event);
 
     // console.log('PLANE:', PLANE);
     RAYCASTER.setFromCamera(cursor, camera);
-
-
 
     if (SELECTED) {
       RAYCASTER.setFromCamera(cursor, camera);
