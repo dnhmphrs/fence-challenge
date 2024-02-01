@@ -37,6 +37,7 @@
         const pentomino = pentominoObjects[letter];
         const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
         const gridY = Math.floor(Math.random() * gridSize);
+        console.log(gridX, gridY)
         placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
         webgameGroup.add(pentomino)
       }
@@ -62,6 +63,30 @@
 	const gridSize = 20; // Assuming a 20x20 grid
 	let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(null));
 
+  function placeInGrid(pentomino, gridX, gridY) {
+    markGridOccupied(gridX, gridY);
+    grid[gridX][gridY] = pentomino;
+  }
+
+  function freeFromGrid(gridX, gridY) {
+    markGridFree(gridX, gridY);
+    grid[gridX][gridY] = null;
+  }
+
+  function markGridOccupied(gridX, gridY) {
+    grid[gridX][gridY] = true;
+  }
+
+  function markGridFree(gridX, gridY) {
+    grid[gridX][gridY] = null;
+  }
+
+  export function pickUpPentomino(pentominoID) {
+    const pentomino = pentominoObjects[pentominoID];
+    const gridPosition = worldToGridPosition(pentomino.position.x, pentomino.position.y);
+    freeFromGrid(gridPosition.x, gridPosition.y);
+  }
+
 	function gridToWorldPosition(gridX, gridY) {
     const cellSize = 1.1 / gridSize;
     const worldX = gridX * cellSize - gridSize * cellSize / 2 + cellSize / 2;
@@ -73,21 +98,9 @@
     const cellSize = 1.1 / gridSize;
     const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
     const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
+    console.log(gridX, gridY)
     return { x: gridX, y: gridY };
   }
-
-//   function worldToGridPosition(worldX, worldY) {
-//   console.log(worldX, worldY);
-//   // Assuming the origin (0,0) of the world coordinates is at the center of the grid
-//   const cellSize = 1.1 / gridSize; // Size of each grid cell
-//   const halfGridSize = gridSize * cellSize / 2;
-
-//   // Calculate grid position
-//   const gridX = Math.floor((worldX + halfGridSize) / cellSize);
-//   const gridY = Math.floor((worldY + halfGridSize) / cellSize);
-//   console.log(gridX, gridY);
-//   return { x: gridX, y: gridY };
-// }
 
   // -----------------------------------------------------------------------------
 	//  LOAD & WEBGAME ELEMENTS
@@ -146,11 +159,6 @@ export function createPentominos() {
 
 		pentominoTile.add(plane);
 
-		// tweak to fit grid snugly
-		pentominoTile.scale.set(1.0, 1.0, 1.0);
-		// pentominoTile.position.x -= .094;
-		// pentominoTile.position.y -= .0925;
-
     pentominoTile.name = `${pentominoID}`;
     pentominoObjects[pentominoID] = pentominoTile;
 	}
@@ -187,7 +195,7 @@ export function placePentomino(pentomino, gridX, gridY) {
         pentomino.position.z = 0.001;
         
         // Mark the grid as occupied
-        grid[validPosition.x][validPosition.y] = pentomino;
+        placeInGrid(pentomino, validPosition.x, validPosition.y);
 
     } else {
         console.log("No valid position found for the pentomino.");
