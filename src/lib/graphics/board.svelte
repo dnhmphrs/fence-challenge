@@ -132,7 +132,7 @@ export function createPentominos() {
 		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
-		let scale = .062
+		let scale = .055
 		let width = pentominosDict[pentominoID].width * scale;
 		let height = pentominosDict[pentominoID].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
