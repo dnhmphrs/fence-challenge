@@ -46,7 +46,7 @@ const scene = new THREE.Scene();
 function createInvisiblePlane() {
   PLANE = new THREE.Plane();
   PLANE.setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
-  scene.add(PLANE);
+  nonParallaxGroup.add(PLANE);
 }
 
 
@@ -87,6 +87,11 @@ if ($screenType == 1) {
 
 camera.lookAt(0, 0, 0);
 
+// let aspectRatio = window.innerWidth / window.innerHeight;
+// let camera = new THREE.OrthographicCamera(-aspectRatio, aspectRatio, 1, -1, 0.1, 100);
+// camera.position.set(0, 0, 10); // Adjust based on your scene
+// camera.lookAt(0, 0, 0);
+
 const parallaxGroup = new THREE.Group();
 const nonParallaxGroup = new THREE.Group();
 const webcamGroup = new THREE.Group();
@@ -98,10 +103,8 @@ scene.add(parallaxGroup, nonParallaxGroup);
 // -----------------------------------------------------------------------------
 
 function updateCursor(event) {
-  // cursor.x = (event.clientX / window.innerWidth) * 2 - 1;
-  // cursor.y = - (event.clientY / window.innerHeight) * 2 + 1;
   cursor.x = (event.clientX / sizes.width) * 2 - 1;
-  cursor.y = - (event.clientY / sizes.height) * 2 + 1;
+  cursor.y = -(event.clientY / sizes.height) * 2 + 1;
   console.log('cursor:', cursor);
 }
 
@@ -115,7 +118,9 @@ function onDocumentMouseMove(event) {
     if (SELECTED) {
       RAYCASTER.setFromCamera(cursor, camera);
       if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
-        SELECTED.position.copy(INTERSECTS.sub(OFFSET).add(SELECTED.parent.position));
+        // account for board scale
+        SELECTED.position.copy(INTERSECTS.sub(OFFSET));
+        SELECTED.position.z = 0.1;
       }
     }
 
@@ -125,32 +130,28 @@ function onDocumentMouseMove(event) {
   function onDocumentMouseDown(event) {
     event.preventDefault();
 
-
-
     RAYCASTER.setFromCamera(cursor, camera);
     let intersects = RAYCASTER.intersectObjects(board.getPentominos()); // Assume getPentominos returns all clickable objects
 
-
-    console.log('Raycaster origin:', RAYCASTER.ray.origin);
-    console.log('Raycaster direction:', RAYCASTER.ray.direction);
-    console.log('Intersects:', intersects);
-    console.log('INTERSECTS:', INTERSECTS);
-    console.log('PLANE:', PLANE);
-    console.log('cursor:', cursor);
+    // console.log('Raycaster origin:', RAYCASTER.ray.origin);
+    // console.log('Raycaster direction:', RAYCASTER.ray.direction);
+    // console.log('Intersects:', intersects);
+    // console.log('INTERSECTS:', INTERSECTS);
+    // console.log('PLANE:', PLANE);
+    // console.log('cursor:', cursor);
   
     if (intersects.length > 0) {
       SELECTED = intersects[0].object;
-
-      // console.log('SELECTED:', SELECTED);
-      // let test = RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS);
-      // console.log('test:', test);
       if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
         OFFSET.copy(INTERSECTS).sub(SELECTED.position);
       }
 
-      
       // Logic for indicating selection, e.g., changing material color, scale, etc.
-    }
+      
+      SELECTED.scale.set(1.1, 1.1, 1.1); // make object scale * 1.1
+       // make object appear on top of other objects
+      SELECTED.position.z = 0.1;
+    }    
   }
 
   function onDocumentMouseUp(event) {
@@ -158,6 +159,8 @@ function onDocumentMouseMove(event) {
 
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
+      SELECTED.scale.set(1, 1, 1); // reset scale
+      SELECTED.position.z = 0.0; // reset z position
       SELECTED = null;
     }
   }

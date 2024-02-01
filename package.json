@@ -31,6 +31,6 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/supabase-js": "^2.39.2",
-		"three": "^0.161.0"
+		"three": "^0.148.0"
 	}
 }

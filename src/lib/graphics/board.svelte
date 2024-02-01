@@ -76,7 +76,7 @@ function createGrid() {
 	const backgroundMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 });
 	const background = new THREE.Mesh(backgroundGeo, backgroundMaterial);
 	// background.rotateX(Math.PI / 2);
-	background.position.z = 0.00;
+	background.position.z = -0.002;
 	background.material.opacity = .75;
 	background.material.transparent = true;
 
@@ -84,7 +84,7 @@ function createGrid() {
 	grid.transparent = true;
 	grid.opacity = 0.5;
 	grid.rotateX(Math.PI / 2);
-	grid.position.z = 0.001;
+	grid.position.z = -0.001;
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
 
@@ -120,11 +120,9 @@ export function createPentominos() {
 			opacity: 1,
 		});
 		const plane = new THREE.Mesh(geometry, material);
-		plane.position.z = 0.002;
 		plane.name = `pentomino${pentominoID}`;
 
 		pentominoTile.add(plane);
-		pentominoTile.position.z = 0.0;
 
 		// tweak to fit grid snugly
 		pentominoTile.scale.set(0.9, 0.9, 0.9);
