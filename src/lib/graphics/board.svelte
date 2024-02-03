@@ -9,8 +9,6 @@
   export let screenType;
 	export let gameMode;
 
-  let PLANE;
-
   const webgameGroup = new THREE.Group();
 
   onMount(() => {
@@ -37,7 +35,7 @@
         const pentomino = pentominoObjects[letter];
         const gridX = Math.floor(Math.random() * gridSize); // Or other logic for positioning
         const gridY = Math.floor(Math.random() * gridSize);
-        console.log(gridX, gridY)
+        // console.log(gridX, gridY)
         placePentomino(pentomino, gridX, gridY); // Ensure this adds pentomino to webgameGroup
         webgameGroup.add(pentomino)
       }
@@ -65,6 +63,7 @@
 
   function placeInGrid(pentomino, gridX, gridY) {
     markGridOccupied(gridX, gridY);
+    // console.log('grid', grid)
     grid[gridX][gridY] = pentomino;
   }
 
@@ -98,7 +97,7 @@
     const cellSize = 1.1 / gridSize;
     const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
     const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
-    console.log(gridX, gridY)
+    // console.log(gridX, gridY)
     return { x: gridX, y: gridY };
   }
 
@@ -176,11 +175,13 @@ export function createBoard() {
 	//  BASIC BOARD FUNCTIONS
 	// -----------------------------------------------------------------------------
 
-  export function placePentominoRealWorld2Grid(pentomino) {
+  export function placePentominoRealWorld2Grid(pentomino, worldX, worldY) {
     // const cellSize = 1.1 / gridSize;
-    const worldX = pentomino.position.x;
-    const worldY = pentomino.position.y;
+    // const worldX = pentomino.position.x;
+    // const worldY = pentomino.position.y;
+    console.log('worldX', worldX, pentomino.position.x, 'worldY', worldY, pentomino.position.y)
     const gridPosition = worldToGridPosition(worldX, worldY);
+    console.log('gridPosition - placePentominoRealWorld2Grid', gridPosition)
     placePentomino(pentomino, gridPosition.x, gridPosition.y);
 }
 
@@ -193,8 +194,11 @@ export function placePentomino(pentomino, gridX, gridY) {
         pentomino.position.x = worldPos.x;
         pentomino.position.y = worldPos.y;
         pentomino.position.z = 0.001;
+
+        pentominosDict[pentomino.name].gridPosition = validPosition;
         
         // Mark the grid as occupied
+        console.log('gridPosition - placePentomino -validPosition', validPosition)
         placeInGrid(pentomino, validPosition.x, validPosition.y);
 
     } else {

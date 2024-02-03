@@ -47,7 +47,6 @@ const scene = new THREE.Scene();
 function createInvisiblePlane() {
   PLANE = new THREE.Plane();
   PLANE.setFromNormalAndCoplanarPoint(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
-  nonParallaxGroup.add(PLANE);
 }
 
 
@@ -103,7 +102,7 @@ scene.add(parallaxGroup, nonParallaxGroup);
 //  INTERACTION WATCHERS
 // -----------------------------------------------------------------------------
 
-function updateCursor(event) {
+async function updateCursor(event) {
   cursor.x = (event.clientX / sizes.width) * 2 - 1;
   cursor.y = -(event.clientY / sizes.height) * 2 + 1;
   // console.log('cursor:', cursor);
@@ -164,15 +163,16 @@ function onDocumentMouseMove(event) {
     }    
   }
 
-  function onDocumentMouseUp(event) {
+  async function onDocumentMouseUp(event) {
     event.preventDefault();
+    await updateCursor(event);
 
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
       SELECTED.scale.set(1, 1, 1); // reset scale
       SELECTED.position.z = 0.001; // reset z position
       // call placePentomino function
-      board.placePentominoRealWorld2Grid(SELECTED); 
+      board.placePentominoRealWorld2Grid(SELECTED, cursor.x, cursor.y); 
       SELECTED = null;
     }
   }
