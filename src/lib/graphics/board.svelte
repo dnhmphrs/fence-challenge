@@ -226,12 +226,10 @@ function clearCellColor(x, y) {
 	//  BASIC BOARD FUNCTIONS
 	// -----------------------------------------------------------------------------
 
-  export function placePentominoRealWorld2Grid(pentomino, inputWorldX, inputWorldY) {
+  export function placePentominoRealWorld2Grid(pentomino) {
     // const cellSize = 1.1 / gridSize;
     const worldX = pentomino.position.x;
     const worldY = pentomino.position.y;
-    // const worldX = inputWorldX;
-    // const worldY = inputWorldY;
     console.log('worldX', worldX, pentomino.position.x, 'worldY', worldY, pentomino.position.y)
     const gridPosition = worldToGridPosition(worldX, worldY);
     console.log('gridPosition - placePentominoRealWorld2Grid', gridPosition)

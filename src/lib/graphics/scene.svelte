@@ -173,7 +173,7 @@ function onDocumentMouseMove(event) {
       SELECTED.scale.set(1, 1, 1); // reset scale
       SELECTED.position.z = 0.001; // reset z position
       // call placePentomino function
-      board.placePentominoRealWorld2Grid(SELECTED, cursor.x, cursor.y); 
+      board.placePentominoRealWorld2Grid(SELECTED); 
       SELECTED = null;
     }
   }
