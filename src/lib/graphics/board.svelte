@@ -95,10 +95,8 @@
   
   function worldToGridPosition(worldX, worldY) {
     const cellSize = 1.1 / gridSize;
-    // const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
-    // const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
-    const gridX =  Math.floor((worldX + (gridSize * cellSize / 2) - cellSize / 2) / cellSize);
-    const gridY =  Math.floor((worldY + (gridSize * cellSize / 2) - cellSize / 2) / cellSize);
+    const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
+    const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
     console.log('gridx, gridy', gridX, gridY)
     return { x: gridX, y: gridY };
   }
