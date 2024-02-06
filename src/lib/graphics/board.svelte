@@ -14,12 +14,7 @@
   onMount(() => {
 		createPentominos();
 		if (gameMode & !webgameGroup.children.length) {
-			cleanUpBoard();
-			createGrid();
-      createGridCells();
-      changeCellColor(19, 19, 0x00FF00);
-      changeCellColor(10, 10, 0xff00ff);
-      changeCellColor(0, 0, 0x00FF00);
+			createBoard();
 		}
   });
 
@@ -150,6 +145,18 @@ export function createPentominos() {
 //  CREATE BORAD
 // -----------------------------------------------------------------------------
 
+export function createBoard() {
+  cleanUpBoard();
+  createGrid();
+  createGridCells();
+
+  changeCellColor(19, 19, 0x00FF00);
+  changeCellColor(10, 10, 0xff00ff);
+  changeCellColor(9, 10, 0xff00ff);
+  changeCellColor(9, 11, 0xff00ff);
+  changeCellColor(0, 0, 0x00FF00);
+}
+
 function createGrid() {
 	const backgroundGeo = new THREE.BoxGeometry(1.1, 1.1, 0.001);
 	const backgroundMaterial = new THREE.MeshBasicMaterial({ color: 0x232323 });
@@ -188,7 +195,10 @@ function createGridCells() {
       // Create plane and position it
       const plane = new THREE.Mesh(geometry, material);
       const worldPos = gridToWorldPosition(i, j);
-      plane.position.set(worldPos.x, worldPos.y, 0.001);
+      plane.scale.set(1.025, 1.025, 1.025);
+      worldPos.x -= 0.0004;
+      worldPos.y -= 0.0004;
+      plane.position.set(worldPos.x, worldPos.y, 0.0);
 
       // Add plane to the scene or group
       webgameGroup.add(plane);

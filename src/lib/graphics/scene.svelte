@@ -146,7 +146,8 @@ function onDocumentMouseMove(event) {
 
       // fixes null selectio bug
       if ($selectedPentominos.includes(intersects[0].object.name)) {
-        console.log('selected pentomino:', intersects[0].object.name)
+        board.pickUpPentomino(intersects[0].object.name); // free grid cell
+        // console.log('selected pentomino:', intersects[0].object.name)
         SELECTED = intersects[0].object;
         if (RAYCASTER.ray.intersectPlane(PLANE, INTERSECTS)) {
           OFFSET.copy(INTERSECTS).sub(SELECTED.position);
@@ -304,7 +305,6 @@ function createStars() {
 	function startWebgameMode() {
 			// Initialize resources for Webgame mode
 			if (board) {
-				board.cleanUpBoard();
 				board.createBoard();
 			}
 			cleanUpCVMode(); // Ensure to cleanup the other mode
