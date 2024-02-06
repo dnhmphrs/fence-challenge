@@ -15,7 +15,11 @@
 		createPentominos();
 		if (gameMode & !webgameGroup.children.length) {
 			cleanUpBoard();
-			createBoard();
+			createGrid();
+      createGridCells();
+      changeCellColor(19, 19, 0x00FF00);
+      changeCellColor(10, 10, 0xff00ff);
+      changeCellColor(0, 0, 0x00FF00);
 		}
   });
 
@@ -58,6 +62,7 @@
 	// -----------------------------------------------------------------------------
 	//  BOARD REPRESENTATION
 	// -----------------------------------------------------------------------------
+
 	const gridSize = 20; // Assuming a 20x20 grid
 	let grid = Array(gridSize).fill().map(() => Array(gridSize).fill(null));
 
@@ -95,15 +100,55 @@
   
   function worldToGridPosition(worldX, worldY) {
     const cellSize = 1.1 / gridSize;
-    const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
-    const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
-    // console.log(gridX, gridY)
+    // const gridX = Math.floor((worldX + gridSize * cellSize / 2) / cellSize);
+    // const gridY = Math.floor((worldY + gridSize * cellSize / 2) / cellSize);
+    const gridX =  Math.floor((worldX + (gridSize * cellSize / 2) - cellSize / 2) / cellSize);
+    const gridY =  Math.floor((worldY + (gridSize * cellSize / 2) - cellSize / 2) / cellSize);
+    console.log('gridx, gridy', gridX, gridY)
     return { x: gridX, y: gridY };
   }
 
-  // -----------------------------------------------------------------------------
-	//  LOAD & WEBGAME ELEMENTS
-	// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+//  LOAD & RENDER PENTOMINOS
+// -----------------------------------------------------------------------------
+
+// for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
+export function createPentominos() {
+	const loader = new THREE.TextureLoader();
+  
+	for (let i = 1; i < 13; i++) {
+		// let pentominoTile = new THREE.Group();
+
+    let pentominoID  = pentominosKey[i];
+
+		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
+		let scale = .055
+		let width = pentominosDict[pentominoID].width * scale;
+		let height = pentominosDict[pentominoID].height * scale;
+		const geometry = new THREE.PlaneGeometry(width, height);
+		const material = new THREE.MeshBasicMaterial({
+			map: texture,
+			transparent: true,
+			opacity: 1,
+		});
+		const plane = new THREE.Mesh(geometry, material);
+		plane.name = `${pentominoID}`;
+
+		// pentominoTile.add(plane);
+    // pentominoTile.name = `${pentominoID}`;
+    plane.name = `${pentominoID}`;
+    pentominoObjects[pentominoID] = plane;
+	}
+}
+
+// for each cell in the grid, create a plane and add it to the scene
+// INPUT CODE HERE
+
+// -----------------------------------------------------------------------------
+//  CREATE BORAD
+// -----------------------------------------------------------------------------
 
 function createGrid() {
 	const backgroundGeo = new THREE.BoxGeometry(1.1, 1.1, 0.001);
@@ -128,57 +173,57 @@ function createGrid() {
 	nonParallaxGroup.add(webgameGroup);
 }
 
-// -----------------------------------------------------------------------------
-//  LOAD & RENDER PENTOMINOS
-// -----------------------------------------------------------------------------
+let cellPlanes = {}; // Dictionary to store cell planes
 
-// for item in /pentonimos/*.png, load the image, create a plane, and add it to the scene
-export function createPentominos() {
-	const loader = new THREE.TextureLoader();
-  
-	for (let i = 1; i < 13; i++) {
-		let pentominoTile = new THREE.Group();
+function createGridCells() {
+  // const loader = new THREE.TextureLoader();
+  const cellSize = 1.1 / gridSize; // Assuming a square grid cell
 
-    let pentominoID  = pentominosKey[i];
+  for (let i = 0; i < gridSize; i++) {
+    for (let j = 0; j < gridSize; j++) {
+      // Create geometry and material for each cell
+      const geometry = new THREE.PlaneGeometry(cellSize, cellSize);
+      const material = new THREE.MeshBasicMaterial({ color: 0x00FF00, transparent: true, opacity:0 }); // Default color
 
-		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.LinearFilter;
-		let scale = .055
-		let width = pentominosDict[pentominoID].width * scale;
-		let height = pentominosDict[pentominoID].height * scale;
-		const geometry = new THREE.PlaneGeometry(width, height);
-		const material = new THREE.MeshBasicMaterial({
-			map: texture,
-			transparent: true,
-			opacity: 1,
-		});
-		const plane = new THREE.Mesh(geometry, material);
-		plane.name = `${pentominoID}`;
+      // Create plane and position it
+      const plane = new THREE.Mesh(geometry, material);
+      const worldPos = gridToWorldPosition(i, j);
+      plane.position.set(worldPos.x, worldPos.y, 0.001);
 
-		pentominoTile.add(plane);
+      // Add plane to the scene or group
+      webgameGroup.add(plane);
 
-    pentominoTile.name = `${pentominoID}`;
-    pentominoObjects[pentominoID] = pentominoTile;
-	}
+      // Store the reference to the plane
+      if (!cellPlanes[i]) cellPlanes[i] = {};
+      cellPlanes[i][j] = plane;
+    }
+  }
 }
 
-// -----------------------------------------------------------------------------
-//  CREATE BORAD
-// -----------------------------------------------------------------------------
+// Function to change color of a specific cell
+function changeCellColor(x, y, color) {
+  if (cellPlanes[x] && cellPlanes[x][y]) {
+    cellPlanes[x][y].material.color.set(color);
+    cellPlanes[x][y].material.opacity = 1;
+  }
+}
 
-export function createBoard() {
-  createGrid();
+function clearCellColor(x, y) {
+  if (cellPlanes[x] && cellPlanes[x][y]) {
+    cellPlanes[x][y].material.opacity = 0;
+  }
 }
 
   // -----------------------------------------------------------------------------
 	//  BASIC BOARD FUNCTIONS
 	// -----------------------------------------------------------------------------
 
-  export function placePentominoRealWorld2Grid(pentomino, worldX, worldY) {
+  export function placePentominoRealWorld2Grid(pentomino, inputWorldX, inputWorldY) {
     // const cellSize = 1.1 / gridSize;
-    // const worldX = pentomino.position.x;
-    // const worldY = pentomino.position.y;
+    const worldX = pentomino.position.x;
+    const worldY = pentomino.position.y;
+    // const worldX = inputWorldX;
+    // const worldY = inputWorldY;
     console.log('worldX', worldX, pentomino.position.x, 'worldY', worldY, pentomino.position.y)
     const gridPosition = worldToGridPosition(worldX, worldY);
     console.log('gridPosition - placePentominoRealWorld2Grid', gridPosition)
@@ -193,7 +238,10 @@ export function placePentomino(pentomino, gridX, gridY) {
 
         pentomino.position.x = worldPos.x;
         pentomino.position.y = worldPos.y;
-        pentomino.position.z = 0.001;
+        console.log(cellPlanes[validPosition.x][validPosition.y])
+        // pentomino.position.x = cellPlanes[validPosition.x][validPosition.y].position.x;
+        // pentomino.position.y = cellPlanes[validPosition.x][validPosition.y].position.y;
+        // pentomino.position.z = 0.001;
 
         pentominosDict[pentomino.name].gridPosition = validPosition;
         
