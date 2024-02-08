@@ -15,6 +15,7 @@
 ### TODO
 - By Dan (by end of Jan)
   - Make WebGame Work Properly
+      - test
   - Make python CV Arrange Fence & Display Calculated Area
   - Option to Upload Fence Area to Database & Get and Show Leaderboard
   - Make Website/Tablet/Mobile Fully Responsive
