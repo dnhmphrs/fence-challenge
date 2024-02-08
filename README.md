@@ -15,9 +15,22 @@
 ### TODO
 - By Dan (by end of Jan)
   - Make WebGame Work Properly
-      - test
+    - Fill in Board Occupancy Matrix Correctly (so pentominos cannot overlap)
+    - Correctly Align odd-shaped graphics (e.g. 2x4 size pentominos) with board
+    - Add Rotations and Flips
   - Make python CV Arrange Fence & Display Calculated Area
+    - merge python/webgame/webcam logic
+    - Run GetArea code, Get Area, Colour Field through grid tiles
+      - MIGUEL - Python should also return field grid tiles
   - Option to Upload Fence Area to Database & Get and Show Leaderboard
+    - send GET request for order/leaderboard
+      - ALFREDO - Upload previously calculated areas, plus is_maximal field
+    - render leaderboard
+    - newLeadboardEntry modal (input name etc.)
+    - send POST request to upload new leaderboard entry
+    - ThankYou modal (post-submit)
+  - Misc Tasks
+    - Startup/Info Modal (renders on siteload or via. info button to give instructions, and project details)
   - Make Website/Tablet/Mobile Fully Responsive
 - Post Dan (by end of Feb)
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
@@ -37,7 +50,5 @@
 - Python
   - TODO (Leaving to Miguel)
 - Database
-  - The back-end is hosted and served on supabase.
-  - Email (d.humphries@ucl.ac.uk) for access
-  - Supabase link: https://supabase.com/dashboard/project/czhamgokmbbbkdxqddru
-  - Supabase Docs: https://supabase.com/docs
+  - The back-end is managed by Alfredo
+  - Email (alfredogc05@protonmail.com) for access
