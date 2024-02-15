@@ -15,7 +15,7 @@
 - Raycaster for pentomino selection and movement
 
 ### TODO
-- **By Dan (by end of Jan)**
+- **By Dan (by end of Feb)**
   - **Make WebGame Work Properly**
     - Fill in Board Occupancy Matrix Correctly (so pentominos cannot overlap)
     - Correctly Align odd-shaped graphics (e.g. 2x4 size pentominos) with board
