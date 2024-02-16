@@ -43,6 +43,9 @@
   - Make Website work in Multiple Languages
   - Add Map of where people have uploaded results from
 
+### BUGS
+  - Miguel - spec out macbook camera bug
+
 ### DOCS
 - Front-End
   - The front-end is hosted and served on vercel.
