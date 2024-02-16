@@ -14,6 +14,9 @@
 - Basis setup of webgame component
 - Raycaster for pentomino selection and movement
 
+### BUGS
+  - Miguel - spec out macbook camera bug
+
 ### TODO
 - **By Dan (by end of Feb)**
   - **Make WebGame Work Properly**
@@ -42,9 +45,6 @@
       - Frontend - Vercel
   - Make Website work in Multiple Languages
   - Add Map of where people have uploaded results from
-
-### BUGS
-  - Miguel - spec out macbook camera bug
 
 ### DOCS
 - Front-End
