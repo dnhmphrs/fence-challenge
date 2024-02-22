@@ -13,6 +13,7 @@
 - Setup and connect to Supabse Database
 - Basis setup of webgame component
 - Raycaster for pentomino selection and movement
+- Board Occupancy Matrix filled
 
 ### BUGS
   - Miguel - spec out macbook camera bug
@@ -20,7 +21,6 @@
 ### TODO
 - **By Dan (by end of Feb)**
   - **Make WebGame Work Properly**
-    - Fill in Board Occupancy Matrix Correctly (so pentominos cannot overlap)
     - Correctly Align odd-shaped graphics (e.g. 2x4 size pentominos) with board
     - Add Rotations and Flips
   - **Make python CV Arrange Fence & Display Calculated Area**
