@@ -346,4 +346,73 @@ export function cleanUpBoard() {
     // For example, pentominos or other objects added to the scene for the webgame mode
 }
 
+export function rotatePentomino90(pentominoID)
+{
+  let oldPosition = pentominosDict[pentominoID].gridPosition;
+  pickUpPentomino(pentominoID);
+
+  for (i = 0; i<4; i++)
+  {
+    let x = pentominosDict[pentominoID].offsets[i][0];
+    let y = pentominosDict[pentominoID].offsets[i][1];
+    pentominosDict[pentominoID].offsets[i][0] = x * Math.cos(Math.PI/2) - y * Math.sin(Math.PI/2);
+    pentominosDict[pentominoID].offsets[i][1] = x * Math.sin(Math.PI/2) + y * Math.cos(Math.PI/2);
+  }
+
+  pentominosDict[pentominoID].rotations += 1;
+  if (pentominosDict[pentominoID].rotations == 4)
+  {
+    pentominosDict[pentominoID].rotations = 0;
+  }
+  pentominoObjects[pentominoID].rotations.z += Math.PI/2;
+  placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
+}
+
+export function rotateUnplacedPentomino90(pentominoID)
+{
+  for (i = 0; i<4; i++)
+  {
+    let x = pentominosDict[pentominoID].offsets[i][0];
+    let y = pentominosDict[pentominoID].offsets[i][1];
+    pentominosDict[pentominoID].offsets[i][0] = x * Math.cos(Math.PI/2) - y * Math.sin(Math.PI/2);
+    pentominosDict[pentominoID].offsets[i][1] = x * Math.sin(Math.PI/2) + y * Math.cos(Math.PI/2);
+  }
+
+  pentominosDict[pentominoID].rotations += 1;
+  if (pentominosDict[pentominoID].rotations == 4)
+  {
+    pentominosDict[pentominoID].rotations = 0;
+  }
+  pentominoObjects[pentominoID].rotations.z += Math.PI/2;
+}
+
+export function flipPentomino(pentominoID)
+{
+  let oldPosition = pentominosDict[pentominoID].gridPosition;
+  pickUpPentomino(pentominoID);
+
+  for (i = 0; i<4; i++)
+  {
+    pentominosDict[pentominoID].offsets[i][0] = -pentominosDict[pentominoID].offsets[i][0];
+  }
+
+  pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
+
+  pentominoObjects[pentominoID].rotations.y += Math.PI;
+
+  placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
+}
+
+export function flipUnplacedPentomino(pentominoID)
+{
+  for (i = 0; i<4; i++)
+  {
+    pentominosDict[pentominoID].offsets[i][0] = -pentominosDict[pentominoID].offsets[i][0];
+  }
+
+  pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
+
+  pentominoObjects[pentominoID].rotations.y += Math.PI;
+}
+
 </script>
