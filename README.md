@@ -15,6 +15,7 @@
 - Raycaster for pentomino selection and movement
 - Board Occupancy Matrix filled
 - Weird pentominos (2x4) aligned
+- Rotate, flip functions added
 
 ### BUGS
   - Miguel - spec out macbook camera bug
@@ -22,7 +23,7 @@
 ### TODO
 - **By Dan (by end of Feb)**
   - **Make WebGame Work Properly**
-    - Add Rotations and Flips
+    - Rotations and flips still require a button to activate
   - **Make python CV Arrange Fence & Display Calculated Area**
     - merge python/webgame/webcam logic
     - Run GetArea code, Get Area, Colour Field through grid tiles
