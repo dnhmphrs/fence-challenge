@@ -133,6 +133,7 @@ export function createPentominos() {
 			transparent: true,
 			opacity: 1,
 		});
+    geometry.translate(pentominosDict[pentominoID].centerOffset[0]*scale, pentominosDict[pentominoID].centerOffset[1]*scale, 0)
 		const plane = new THREE.Mesh(geometry, material);
 		plane.name = `${pentominoID}`;
 

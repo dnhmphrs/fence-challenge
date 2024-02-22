@@ -38,12 +38,13 @@ export var pentominosDict = {
 			[1,1],
 			[-1,0],
 			[0,-1]
-		]
+		],
+		centerOffset: [0,0]
 	},
 	I: {
 		letter: 'I',
-		width: 1,
-		height: 5,
+		width: 5,
+		height: 1,
 		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[0, 3],
@@ -57,7 +58,8 @@ export var pentominosDict = {
 			[-1,0],
 			[1,0],
 			[2,0]
-		]
+		],
+		centerOffset: [0,0]
 	},
 	L: {
 		letter: 'L',
@@ -79,12 +81,14 @@ export var pentominosDict = {
 			[0,1],
 			[0,-1],
 			[1,-1]
-		]
+		],
+		centerOffset: [.5,.5]
+
 	},
 	N: {
 		letter: 'N',
-		width: 4,
-		height: 2,
+		width: 2,
+		height: 4,
 		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1.5, 0.5],
@@ -102,7 +106,8 @@ export var pentominosDict = {
 			[1,0],
 			[0,-1],
 			[0,-2]
-		]
+		],
+		centerOffset: [.5,-.5]
 	},
 	P: {
 		letter: 'P',
@@ -123,7 +128,8 @@ export var pentominosDict = {
 			[1,1],
 			[1,0],
 			[0,-1]
-		]
+		],
+		centerOffset: [1,0]
 	},
 	T: {
 		letter: 'T',
@@ -146,7 +152,8 @@ export var pentominosDict = {
 			[1,0],
 			[0,-1],
 			[0,-2]
-		]
+		],
+		centerOffset: [0,-1]
 	},
 	U: {
 		letter: 'U',
@@ -169,7 +176,8 @@ export var pentominosDict = {
 			[-1,1],
 			[1,0],
 			[1,1]
-		]
+		],
+		centerOffset: [0,1]
 	},
 	V: {
 		letter: 'V',
@@ -191,7 +199,8 @@ export var pentominosDict = {
 			[0,2],
 			[1,0],
 			[2,0]
-		]
+		],
+		centerOffset: [1,1]
 	},
 	W: {
 		letter: 'W',
@@ -216,7 +225,8 @@ export var pentominosDict = {
 			[-1,1],
 			[0,-1],
 			[1,-1]
-		]
+		],
+		centerOffset: [0,0]
 	},
 	X: {
 		letter: 'X',
@@ -243,12 +253,13 @@ export var pentominosDict = {
 			[0,-1],
 			[1,0],
 			[-1,0]
-		]
+		],
+		centerOffset: [0,0]
 	},
 	Y: {
 		letter: 'Y',
-		width: 4,
-		height: 2,
+		width: 2,
+		height: 4,
 		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[-1.5, 1.5],
@@ -266,7 +277,8 @@ export var pentominosDict = {
 			[0,-1],
 			[0,-2],
 			[-1,0]
-		]
+		],
+		centerOffset: [-.5,-.5]
 	},
 	Z: {
 		letter: 'Z',
@@ -289,6 +301,7 @@ export var pentominosDict = {
 			[0,1],
 			[-1,1],
 			[1,-1]
-		]
+		],
+		centerOffset: [0,0]
 	}
 };
