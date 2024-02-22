@@ -46,6 +46,10 @@
       if (!$selectedPentominos.includes(key) && webgameGroup.children.includes(pentomino)) {
         webgameGroup.remove(pentomino);
         // Update grid or other state as needed
+        markGridFree(pentominosDict[pentomino.name].gridPosition.x, pentominosDict[pentomino.name].gridPosition.x)
+        for (let i = 0; i<4; i++){
+          markGridFree(pentominosDict[pentomino.name].gridPosition.x+pentominosDict[pentomino.name].offsets[i][0], pentominosDict[pentomino.name].gridPosition.y+pentominosDict[pentomino.name].offsets[i][1])
+        }
       }
     });
   }
@@ -84,6 +88,9 @@
     const pentomino = pentominoObjects[pentominoID];
     const gridPosition = worldToGridPosition(pentomino.position.x, pentomino.position.y);
     freeFromGrid(gridPosition.x, gridPosition.y);
+    for (let i = 0; i<4; i++){
+          freeFromGrid(pentominosDict[pentomino.name].gridPosition.x+pentominosDict[pentomino.name].offsets[i][0], pentominosDict[pentomino.name].gridPosition.y+pentominosDict[pentomino.name].offsets[i][1])
+    }
   }
 
 	function gridToWorldPosition(gridX, gridY) {
@@ -237,7 +244,7 @@ function clearCellColor(x, y) {
 }
 
 export function placePentomino(pentomino, gridX, gridY) {
-    let validPosition = isValidPosition(gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(gridX, gridY);
+    let validPosition = isValidPosition(pentomino, gridX, gridY) ? { x: gridX, y: gridY } : findNearestAvailablePosition(pentomino, gridX, gridY);
 
     if (validPosition) {
         const worldPos = gridToWorldPosition(validPosition.x, validPosition.y);
@@ -254,6 +261,9 @@ export function placePentomino(pentomino, gridX, gridY) {
         // Mark the grid as occupied
         console.log('gridPosition - placePentomino -validPosition', validPosition)
         placeInGrid(pentomino, validPosition.x, validPosition.y);
+        for (let i=0; i<4; i++){
+          markGridOccupied(validPosition.x+pentominosDict[pentomino.name].offsets[i][0], validPosition.y+pentominosDict[pentomino.name].offsets[i][1])
+        }
 
     } else {
         console.log("No valid position found for the pentomino.");
@@ -268,16 +278,27 @@ export function placePentomino(pentomino, gridX, gridY) {
 }
 
 // THIS FUNCTION ALSO NEEDS TO ACCOUNT FOR SHAPE, ROTATION, ORIENTATION ETC.
-function isValidPosition(gridX, gridY) {
+function isValidPosition(pentomino, gridX, gridY) {
     // Check grid bounds
     if (gridX < 0 || gridX >= gridSize || gridY < 0 || gridY >= gridSize) {
         return false; // Out of bounds
     }
+    for (let i=0; i<4; i++){
+      if (gridX + pentominosDict[pentomino.name].offsets[i][0] < 0 || gridX + pentominosDict[pentomino.name].offsets[i][0] >= gridSize || gridY + pentominosDict[pentomino.name].offsets[i][1] < 0 || gridY + pentominosDict[pentomino.name].offsets[i][1] >= gridSize) {
+        return false; // Out of bounds
+        }
+      }
     // Check if the cell is already occupied
+    for (let i = 0; i < 4; i++){
+      if (grid[gridX + pentominosDict[pentomino.name].offsets[i][0]][gridY + pentominosDict[pentomino.name].offsets[i][1]] != null)
+      {
+        return false;
+      }
+    }
     return grid[gridX][gridY] === null;
 }
 
-function findNearestAvailablePosition(gridX, gridY) {
+function findNearestAvailablePosition(pentomino, gridX, gridY) {
     let visited = new Set([`${gridX},${gridY}`]);
     let queue = [[gridX, gridY]];
 
@@ -286,7 +307,7 @@ function findNearestAvailablePosition(gridX, gridY) {
     while (queue.length > 0) {
         let [x, y] = queue.shift();
 
-        if (isValidPosition(x, y)) {
+        if (isValidPosition(pentomino, x, y)) {
             // console.log(x, y)
             return { x, y };
         }
