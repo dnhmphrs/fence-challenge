@@ -170,8 +170,8 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
   /* Define classes for each pentomino shape */
   .pentomino {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     grid-gap: 3px;
     width: 48%;
     height: 15%;
@@ -238,98 +238,98 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
   /* Adjust the starting positions for each pentomino */
 .pentomino.I { grid-column-start: 1; grid-row-start: 1; }
 .pentomino.L { grid-column-start: 6; grid-row-start: 1; }
-.pentomino.T { grid-column-start: 1; grid-row-start: 6; }
-.pentomino.S { grid-column-start: 6; grid-row-start: 6; }
-.pentomino.Z { grid-column-start: 11; grid-row-start: 6; }
 .pentomino.N { grid-column-start: 1; grid-row-start: 11; }
+.pentomino.P { grid-column-start: 6; grid-row-start: 6; }
+.pentomino.T { grid-column-start: 1; grid-row-start: 6; }
 .pentomino.U { grid-column-start: 6; grid-row-start: 11; }
 .pentomino.V { grid-column-start: 11; grid-row-start: 11; }
 .pentomino.W { grid-column-start: 1; grid-row-start: 16; }
 .pentomino.X { grid-column-start: 6; grid-row-start: 16; }
 .pentomino.Y { grid-column-start: 11; grid-row-start: 16; }
+.pentomino.Z { grid-column-start: 11; grid-row-start: 6; }
 
   /* Pentomino F */
-.pentomino.F .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
+.pentomino.F .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
 .pentomino.F .cell:nth-child(2) { grid-column: 2; grid-row: 1; }
-.pentomino.F .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
-.pentomino.F .cell:nth-child(4) { grid-column: 3; grid-row: 2; }
+.pentomino.F .cell:nth-child(3) { grid-column: 3; grid-row: 1; }
+.pentomino.F .cell:nth-child(4) { grid-column: 1; grid-row: 2; }
 .pentomino.F .cell:nth-child(5) { grid-column: 2; grid-row: 3; }
 
   /* Pentomino I */
-.pentomino.I .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.I .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.I .cell:nth-child(3) { grid-column: 1; grid-row: 3; }
-.pentomino.I .cell:nth-child(4) { grid-column: 1; grid-row: 4; }
-.pentomino.I .cell:nth-child(5) { grid-column: 1; grid-row: 5; }
+.pentomino.I .cell:nth-child(1) { grid-column: 3; grid-row: 1; }
+.pentomino.I .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.I .cell:nth-child(3) { grid-column: 2; grid-row: 1; }
+.pentomino.I .cell:nth-child(4) { grid-column: 4; grid-row: 1; }
+.pentomino.I .cell:nth-child(5) { grid-column: 5; grid-row: 1; }
 
 /* Pentomino L */
-.pentomino.L .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.L .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.L .cell:nth-child(3) { grid-column: 1; grid-row: 3; }
+.pentomino.L .cell:nth-child(1) { grid-column: 1; grid-row: 3; }
+.pentomino.L .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.L .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
 .pentomino.L .cell:nth-child(4) { grid-column: 1; grid-row: 4; }
 .pentomino.L .cell:nth-child(5) { grid-column: 2; grid-row: 4; }
 
 /* Pentomino T */
-.pentomino.T .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.T .cell:nth-child(2) { grid-column: 2; grid-row: 1; }
+.pentomino.T .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
+.pentomino.T .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
 .pentomino.T .cell:nth-child(3) { grid-column: 3; grid-row: 1; }
 .pentomino.T .cell:nth-child(4) { grid-column: 2; grid-row: 2; }
 .pentomino.T .cell:nth-child(5) { grid-column: 2; grid-row: 3; }
 
-/* Pentomino S */
-.pentomino.P .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
-.pentomino.P .cell:nth-child(2) { grid-column: 3; grid-row: 1; }
-.pentomino.P .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
-.pentomino.P .cell:nth-child(4) { grid-column: 2; grid-row: 2; }
+/* Pentomino P */
+.pentomino.P .cell:nth-child(1) { grid-column: 1; grid-row: 2; }
+.pentomino.P .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.P .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
+.pentomino.P .cell:nth-child(4) { grid-column: 2; grid-row: 1; }
 .pentomino.P .cell:nth-child(5) { grid-column: 1; grid-row: 3; }
 
 /* Pentomino N */
-.pentomino.N .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.N .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
+.pentomino.N .cell:nth-child(1) { grid-column: 1; grid-row: 2; }
+.pentomino.N .cell:nth-child(2) { grid-column: 2; grid-row: 1; }
 .pentomino.N .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
-.pentomino.N .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
-.pentomino.N .cell:nth-child(5) { grid-column: 2; grid-row: 4; }
+.pentomino.N .cell:nth-child(4) { grid-column: 1; grid-row: 3; }
+.pentomino.N .cell:nth-child(5) { grid-column: 1; grid-row: 4; }
 
 /* Pentomino U */
-.pentomino.U .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.U .cell:nth-child(2) { grid-column: 3; grid-row: 1; }
+.pentomino.U .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
+.pentomino.U .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
 .pentomino.U .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
-.pentomino.U .cell:nth-child(4) { grid-column: 2; grid-row: 2; }
-.pentomino.U .cell:nth-child(5) { grid-column: 3; grid-row: 2; }
+.pentomino.U .cell:nth-child(4) { grid-column: 3; grid-row: 2; }
+.pentomino.U .cell:nth-child(5) { grid-column: 3; grid-row: 1; }
 
 /* Pentomino V */
-.pentomino.V .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.V .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.V .cell:nth-child(3) { grid-column: 1; grid-row: 3; }
+.pentomino.V .cell:nth-child(1) { grid-column: 1; grid-row: 3; }
+.pentomino.V .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.V .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
 .pentomino.V .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
 .pentomino.V .cell:nth-child(5) { grid-column: 3; grid-row: 3; }
 
 /* Pentomino W */
-.pentomino.W .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.W .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.W .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
+.pentomino.W .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
+.pentomino.W .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.W .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
 .pentomino.W .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
 .pentomino.W .cell:nth-child(5) { grid-column: 3; grid-row: 3; }
 
 /* Pentomino X */
-.pentomino.X .cell:nth-child(1) { grid-column: 2; grid-row: 1; }
+.pentomino.X .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
 .pentomino.X .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.X .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
+.pentomino.X .cell:nth-child(3) { grid-column: 2; grid-row: 1; }
 .pentomino.X .cell:nth-child(4) { grid-column: 3; grid-row: 2; }
 .pentomino.X .cell:nth-child(5) { grid-column: 2; grid-row: 3; }
 
 /* Pentomino Y */
-.pentomino.Y .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
+.pentomino.Y .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
 .pentomino.Y .cell:nth-child(2) { grid-column: 1; grid-row: 2; }
-.pentomino.Y .cell:nth-child(3) { grid-column: 1; grid-row: 3; }
-.pentomino.Y .cell:nth-child(4) { grid-column: 1; grid-row: 4; }
+.pentomino.Y .cell:nth-child(3) { grid-column: 2; grid-row: 1; }
+.pentomino.Y .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
 .pentomino.Y .cell:nth-child(5) { grid-column: 2; grid-row: 4; }
 
 /* Pentomino Z */
-.pentomino.Z .cell:nth-child(1) { grid-column: 1; grid-row: 1; }
-.pentomino.Z .cell:nth-child(2) { grid-column: 2; grid-row: 1; }
-.pentomino.Z .cell:nth-child(3) { grid-column: 2; grid-row: 2; }
-.pentomino.Z .cell:nth-child(4) { grid-column: 3; grid-row: 2; }
+.pentomino.Z .cell:nth-child(1) { grid-column: 2; grid-row: 2; }
+.pentomino.Z .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
+.pentomino.Z .cell:nth-child(3) { grid-column: 2; grid-row: 1; }
+.pentomino.Z .cell:nth-child(4) { grid-column: 2; grid-row: 3; }
 .pentomino.Z .cell:nth-child(5) { grid-column: 3; grid-row: 3; }
 
 </style>
