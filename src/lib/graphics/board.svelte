@@ -47,7 +47,7 @@
       if (!$selectedPentominos.includes(key) && webgameGroup.children.includes(pentomino)) {
         webgameGroup.remove(pentomino);
         // Update grid or other state as needed
-        markGridFree(pentominosDict[pentomino.name].gridPosition.x, pentominosDict[pentomino.name].gridPosition.x)
+        markGridFree(pentominosDict[pentomino.name].gridPosition.x, pentominosDict[pentomino.name].gridPosition.y)
         for (let i = 0; i<4; i++){
           markGridFree(pentominosDict[pentomino.name].gridPosition.x+pentominosDict[pentomino.name].offsets[i][0], pentominosDict[pentomino.name].gridPosition.y+pentominosDict[pentomino.name].offsets[i][1])
         }
@@ -365,7 +365,8 @@ export function rotatePentomino90(pentominoID)
 {
   console.log('rotating ' + lastPentominoPlaced.name);
   console.log(pentominoObjects[pentominoID]);
-  pentominoObjects[pentominoID].rotation.z += Math.PI/2
+  pentominoObjects[pentominoID].rotation.z += Math.PI/2;
+  pentominoObjects[pentominoID].rotation.z = pentominoObjects[pentominoID].rotation.z % (2*Math.PI);
   let oldPosition = pentominosDict[pentominoID].gridPosition;
   pickUpPentomino(pentominoID);
 
@@ -408,7 +409,27 @@ export function flipPentomino(pentominoID)
 {
   console.log('rotating ' + lastPentominoPlaced.name);
   console.log(pentominoObjects[pentominoID]);
-  pentominoObjects[pentominoID].rotation.y += Math.PI
+  
+  let storeRotation = pentominoObjects[pentominoID].rotation.z;
+  pentominoObjects[pentominoID].rotation.z = 0;
+  if (pentominosDict[pentominoID].flip == 0)
+  {
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load(`/pentominos-graphic/${pentominoID}1.png`);
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
+    pentominoObjects[pentominoID].material.map = texture;
+  }
+  else
+  {
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
+    pentominoObjects[pentominoID].material.map = texture;
+  }
+  pentominoObjects[pentominoID].rotation.z = -storeRotation;
+
   let oldPosition = pentominosDict[pentominoID].gridPosition;
   pickUpPentomino(pentominoID);
 
@@ -419,6 +440,7 @@ export function flipPentomino(pentominoID)
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
   pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4
+
   placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
 }
 
