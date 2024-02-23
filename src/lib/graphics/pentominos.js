@@ -39,7 +39,9 @@ export var pentominosDict = {
 			[-1,0],
 			[0,-1]
 		],
-		centerOffset: [0,0]
+		centerOffset: [0,0],
+		rotations : 0,
+		flip: 0
 	},
 	I: {
 		letter: 'I',
@@ -59,7 +61,9 @@ export var pentominosDict = {
 			[1,0],
 			[2,0]
 		],
-		centerOffset: [0,0]
+		centerOffset: [0,0],
+		rotations : 0,
+		flip: 0
 	},
 	L: {
 		letter: 'L',
@@ -82,7 +86,9 @@ export var pentominosDict = {
 			[0,-1],
 			[1,-1]
 		],
-		centerOffset: [.5,.5]
+		centerOffset: [.5,.5],
+		rotations : 0,
+		flip: 0
 
 	},
 	N: {
@@ -107,7 +113,9 @@ export var pentominosDict = {
 			[0,-1],
 			[0,-2]
 		],
-		centerOffset: [.5,-.5]
+		centerOffset: [.5,-.5],
+		rotations : 0,
+		flip: 0
 	},
 	P: {
 		letter: 'P',
@@ -129,7 +137,9 @@ export var pentominosDict = {
 			[1,0],
 			[0,-1]
 		],
-		centerOffset: [1,0]
+		centerOffset: [1,0],
+		rotations : 0,
+		flip: 0
 	},
 	T: {
 		letter: 'T',
@@ -153,7 +163,9 @@ export var pentominosDict = {
 			[0,-1],
 			[0,-2]
 		],
-		centerOffset: [0,-1]
+		centerOffset: [0,-1],
+		rotations : 0,
+		flip: 0
 	},
 	U: {
 		letter: 'U',
@@ -177,7 +189,9 @@ export var pentominosDict = {
 			[1,0],
 			[1,1]
 		],
-		centerOffset: [0,1]
+		centerOffset: [0,1],
+		rotations : 0,
+		flip: 0
 	},
 	V: {
 		letter: 'V',
@@ -200,7 +214,9 @@ export var pentominosDict = {
 			[1,0],
 			[2,0]
 		],
-		centerOffset: [1,1]
+		centerOffset: [1,1],
+		rotations : 0,
+		flip: 0
 	},
 	W: {
 		letter: 'W',
@@ -226,7 +242,9 @@ export var pentominosDict = {
 			[0,-1],
 			[1,-1]
 		],
-		centerOffset: [0,0]
+		centerOffset: [0,0],
+		rotations : 0,
+		flip: 0
 	},
 	X: {
 		letter: 'X',
@@ -254,7 +272,9 @@ export var pentominosDict = {
 			[1,0],
 			[-1,0]
 		],
-		centerOffset: [0,0]
+		centerOffset: [0,0],
+		rotations : 0,
+		flip: 0
 	},
 	Y: {
 		letter: 'Y',
@@ -278,7 +298,9 @@ export var pentominosDict = {
 			[0,-2],
 			[-1,0]
 		],
-		centerOffset: [-.5,-.5]
+		centerOffset: [-.5,-.5],
+		rotations : 0,
+		flip: 0
 	},
 	Z: {
 		letter: 'Z',
@@ -302,6 +324,8 @@ export var pentominosDict = {
 			[-1,1],
 			[1,-1]
 		],
-		centerOffset: [0,0]
+		centerOffset: [0,0],
+		rotations : 0,
+		flip: 0
 	}
 };
