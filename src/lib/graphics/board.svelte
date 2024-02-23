@@ -1,10 +1,11 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { selectedPentominos } from '$lib/store/pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos } from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict } from './pentominos.js';
   import * as THREE from 'three';
 
-  let pentominoObjects = {}; 
+  let pentominoObjects = {};
+  export let lastPentominoPlaced = null;
   export let nonParallaxGroup;
   export let screenType;
 	export let gameMode;
@@ -54,6 +55,18 @@
     });
   }
 
+  $: {
+    console.log('rotateEvent');
+    let a = $toRotatePentominos;
+    rotateLastPentomino90();
+  }
+
+  $: {
+    console.log('flipEvent');
+    let b = $toFlipPentominos;
+    flipLastPentomino();
+  }
+  
 
   export function getPentominos() {
     return Object.values(pentominoObjects);
@@ -265,6 +278,7 @@ export function placePentomino(pentomino, gridX, gridY) {
         for (let i=0; i<4; i++){
           markGridOccupied(validPosition.x+pentominosDict[pentomino.name].offsets[i][0], validPosition.y+pentominosDict[pentomino.name].offsets[i][1])
         }
+        lastPentominoPlaced = pentomino;
 
     } else {
         console.log("No valid position found for the pentomino.");
@@ -276,6 +290,7 @@ export function placePentomino(pentomino, gridX, gridY) {
         $selectedPentominos = $selectedPentominos.filter(letter => letter !== pentomino.name);
 
     }
+    lastPentominoPlaced = pentomino
 }
 
 // THIS FUNCTION ALSO NEEDS TO ACCOUNT FOR SHAPE, ROTATION, ORIENTATION ETC.
@@ -348,10 +363,13 @@ export function cleanUpBoard() {
 
 export function rotatePentomino90(pentominoID)
 {
+  console.log('rotating ' + lastPentominoPlaced.name);
+  console.log(pentominoObjects[pentominoID]);
+  pentominoObjects[pentominoID].rotation.z += Math.PI/2
   let oldPosition = pentominosDict[pentominoID].gridPosition;
   pickUpPentomino(pentominoID);
 
-  for (i = 0; i<4; i++)
+  for (let i = 0; i<4; i++)
   {
     let x = pentominosDict[pentominoID].offsets[i][0];
     let y = pentominosDict[pentominoID].offsets[i][1];
@@ -364,13 +382,13 @@ export function rotatePentomino90(pentominoID)
   {
     pentominosDict[pentominoID].rotations = 0;
   }
-  pentominoObjects[pentominoID].rotations.z += Math.PI/2;
+  
   placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
 }
 
 export function rotateUnplacedPentomino90(pentominoID)
 {
-  for (i = 0; i<4; i++)
+  for (let i = 0; i<4; i++)
   {
     let x = pentominosDict[pentominoID].offsets[i][0];
     let y = pentominosDict[pentominoID].offsets[i][1];
@@ -383,29 +401,31 @@ export function rotateUnplacedPentomino90(pentominoID)
   {
     pentominosDict[pentominoID].rotations = 0;
   }
-  pentominoObjects[pentominoID].rotations.z += Math.PI/2;
 }
 
 export function flipPentomino(pentominoID)
 {
+  console.log('rotating ' + lastPentominoPlaced.name);
+  console.log(pentominoObjects[pentominoID]);
+  pentominoObjects[pentominoID].rotation.y += Math.PI
   let oldPosition = pentominosDict[pentominoID].gridPosition;
   pickUpPentomino(pentominoID);
 
-  for (i = 0; i<4; i++)
+  for (let i = 0; i<4; i++)
   {
     pentominosDict[pentominoID].offsets[i][0] = -pentominosDict[pentominoID].offsets[i][0];
   }
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
 
-  pentominoObjects[pentominoID].rotations.y += Math.PI;
+  
 
   placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
 }
 
 export function flipUnplacedPentomino(pentominoID)
 {
-  for (i = 0; i<4; i++)
+  for (let i = 0; i<4; i++)
   {
     pentominosDict[pentominoID].offsets[i][0] = -pentominosDict[pentominoID].offsets[i][0];
   }
@@ -413,6 +433,22 @@ export function flipUnplacedPentomino(pentominoID)
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
 
   pentominoObjects[pentominoID].rotations.y += Math.PI;
+}
+
+export function rotateLastPentomino90()
+{
+  if (lastPentominoPlaced != null)
+  {
+    rotatePentomino90(lastPentominoPlaced.name);
+  }
+}
+
+export function flipLastPentomino()
+{
+  if (lastPentominoPlaced != null)
+  {
+    flipPentomino(lastPentominoPlaced.name);
+  }
 }
 
 </script>
