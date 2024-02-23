@@ -19,11 +19,10 @@
 
 ### BUGS
   - Miguel - spec out macbook camera bug
+  - (Miguel) If rotate is hit too much for one pentomino it breaks? Doesn't seem to have anything to do with periodicity. Confusing bug.
 
 ### TODO
 - **By Dan (by end of Feb)**
-  - **Make WebGame Work Properly**
-    - Rotations and flips still require a button to activate
   - **Make python CV Arrange Fence & Display Calculated Area**
     - merge python/webgame/webcam logic
     - Run GetArea code, Get Area, Colour Field through grid tiles
