@@ -412,6 +412,8 @@ export function flipPentomino(pentominoID)
   let storeRotation = pentominoObjects[pentominoID].rotation.z;
   pentominoObjects[pentominoID].rotation.z = 0;
   console.log(pentominosDict[pentominoID].flip);
+
+  let scale = .055;
   if (pentominosDict[pentominoID].flip == 0)
   {
     const loader = new THREE.TextureLoader();
@@ -420,6 +422,7 @@ export function flipPentomino(pentominoID)
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
     pentominoObjects[pentominoID].material.map = texture;
+    pentominoObjects[pentominoID].geometry.translate(-2*pentominosDict[pentominoID].centerOffset[0]*scale, 0, 0);
   }
   else
   {
@@ -429,6 +432,7 @@ export function flipPentomino(pentominoID)
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
     pentominoObjects[pentominoID].material.map = texture;
+    pentominoObjects[pentominoID].geometry.translate(2*pentominosDict[pentominoID].centerOffset[0]*scale, 0, 0);
   }
   pentominoObjects[pentominoID].rotation.z = (2 * Math.PI-storeRotation) % (2 * Math.PI);
 
@@ -441,7 +445,7 @@ export function flipPentomino(pentominoID)
   }
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
-  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4
+  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4;
 
   placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
 }
@@ -454,7 +458,7 @@ export function flipUnplacedPentomino(pentominoID)
   }
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
-  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4
+  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4;
   pentominoObjects[pentominoID].rotation.y += Math.PI;
 }
 
