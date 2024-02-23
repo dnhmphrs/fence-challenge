@@ -401,6 +401,7 @@ export function rotateUnplacedPentomino90(pentominoID)
   {
     pentominosDict[pentominoID].rotations = 0;
   }
+  pentominoObjects[pentominoID].rotation.z += Math.PI/2
 }
 
 export function flipPentomino(pentominoID)
@@ -417,9 +418,7 @@ export function flipPentomino(pentominoID)
   }
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
-
-  
-
+  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4
   placePentomino(pentominoObjects[pentominoID], oldPosition.x, oldPosition.y);
 }
 
@@ -431,8 +430,8 @@ export function flipUnplacedPentomino(pentominoID)
   }
 
   pentominosDict[pentominoID].flip = (pentominosDict[pentominoID].flip + 1) % 2;
-
-  pentominoObjects[pentominoID].rotations.y += Math.PI;
+  pentominosDict[pentominoID].rotations = (4 - pentominosDict[pentominoID].rotations) % 4
+  pentominoObjects[pentominoID].rotation.y += Math.PI;
 }
 
 export function rotateLastPentomino90()
