@@ -1,6 +1,19 @@
 <script>
 	import { isCvMode, screenType } from '$lib/store/store';
 	import PentominoSelection from '../lib/components/pentominoSelection.svelte';
+	import {toRotatePentominos, toFlipPentominos} from '$lib/store/pentominos';
+
+	function rotateEvent()
+	{
+		$toRotatePentominos += 1;
+		console.log($toRotatePentominos);
+	}
+
+	function flipEvent()
+	{
+		$toFlipPentominos += 1;
+		console.log($toFlipPentominos);
+	}
 
 	let toggleCvMode = () => {
 		isCvMode.update(value => !value);
@@ -43,6 +56,8 @@
 				<span class:hidden={$isCvMode}>Game Mode</span>
 			</p>
 		</button>
+		<button on:click={() => rotateEvent()} on:keydown = {() => rotateEvent()}>{'Rotate'}</button>
+		<button on:click={() => flipEvent()} on:keydown = {() => flipEvent()}>{'Flip'}</button>
 	</div>
 	<div class="pentominos">
 		<PentominoSelection />
