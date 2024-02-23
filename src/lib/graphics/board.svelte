@@ -406,14 +406,16 @@ export function rotateUnplacedPentomino90(pentominoID)
 
 export function flipPentomino(pentominoID)
 {
-  console.log('rotating ' + lastPentominoPlaced.name);
+  console.log('flipping ' + lastPentominoPlaced.name);
   console.log(pentominoObjects[pentominoID]);
   
   let storeRotation = pentominoObjects[pentominoID].rotation.z;
   pentominoObjects[pentominoID].rotation.z = 0;
+  console.log(pentominosDict[pentominoID].flip);
   if (pentominosDict[pentominoID].flip == 0)
   {
     const loader = new THREE.TextureLoader();
+    console.log('loading ' + pentominoID + '1');
     const texture = loader.load(`/pentominos-graphic/${pentominoID}1.png`);
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
@@ -422,12 +424,13 @@ export function flipPentomino(pentominoID)
   else
   {
     const loader = new THREE.TextureLoader();
+    console.log('loading' + pentominoID);
     const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.LinearFilter;
     pentominoObjects[pentominoID].material.map = texture;
   }
-  pentominoObjects[pentominoID].rotation.z = -storeRotation;
+  pentominoObjects[pentominoID].rotation.z = (2 * Math.PI-storeRotation) % (2 * Math.PI);
 
   let oldPosition = pentominosDict[pentominoID].gridPosition;
   pickUpPentomino(pentominoID);
