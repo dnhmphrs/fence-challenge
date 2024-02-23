@@ -374,10 +374,9 @@ export function rotatePentomino90(pentominoID)
   {
     let x = pentominosDict[pentominoID].offsets[i][0];
     let y = pentominosDict[pentominoID].offsets[i][1];
-    pentominosDict[pentominoID].offsets[i][0] = x * Math.cos(Math.PI/2) - y * Math.sin(Math.PI/2);
-    pentominosDict[pentominoID].offsets[i][1] = x * Math.sin(Math.PI/2) + y * Math.cos(Math.PI/2);
+    pentominosDict[pentominoID].offsets[i] = [Math.round(x * Math.cos(Math.PI/2) - y * Math.sin(Math.PI/2)), Math.round(x * Math.sin(Math.PI/2) + y * Math.cos(Math.PI/2))];
   }
-
+  console.log(pentominosDict[pentominoID].offsets);
   pentominosDict[pentominoID].rotations += 1;
   if (pentominosDict[pentominoID].rotations == 4)
   {
