@@ -57,3 +57,31 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 		alert(`Result from Python: ${error}`);
 	}
 }
+
+export async function processBoard(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
+	{
+		try {
+			window.pyodide.globals.set('pentominoNums', pentominoNums);
+			window.pyodide.globals.set('pentominoCoords', pentominoCoords);
+			window.pyodide.globals.set('pentominoRotations', pentominoRotations);
+			window.pyodide.globals.set('pentominoFlip', pentominoFlip);
+
+			const result = await window.pyodide.runPythonAsync(`
+					import numpy as np
+					import FenceChallenge.board_new
+
+					pentominoNums = np.array(globals().get('pentominoNums')).tolist()
+					pentominoCoords = np.array(globals().get('pentominoCoords')).tolist()
+					pentominoRotations = np.array(globals().get('pentominoRotations')).tolist()
+					pentominoFlip = np.array(globals().get('pentominoFlip')).tolist()
+
+					result = FenceChallenge.board_new.GetAreaInfo(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
+					result
+			`);
+			console.log(`${result}`);
+			alert(`Result from Python: ${result}`);
+		} catch (error) {
+			console.error('Error in processBoard:', error);
+			alert(`Result from Python: ${error}`);
+		}
+	}

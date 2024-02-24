@@ -1,12 +1,14 @@
 <script>
 import { onMount, onDestroy, getContext  } from 'svelte';
 import { screenType, pyodideLoaded, isCvMode } from '$lib/store/store';
-import { selectedPentominos } from '$lib/store/pentominos.js';
+import { selectedPentominos, pentominosStore } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
 import Board from './board.svelte';
-import { processFrame } from '$lib/functions/pyodide.js';
+import { getPlacedPentominos } from './board.svelte';
+import { processFrame, processBoard } from '$lib/functions/pyodide.js';
 import { testProcessFrame } from '$lib/functions/frameTest.js';
+import {pentominosKey} from './pentominos.js'
 
 // -----------------------------------------------------------------------------
 // INIT SCENE & CAMERA
@@ -360,11 +362,31 @@ function render() {
 
 function onProcessFrame() {
 	    // run pyodide script
-      if (!$isCvMode) {alert('Python not connected yet')};
+      //if (!$isCvMode) {alert('Python not connected yet')};
 
 		if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
 			processFrame(video, actualVideoWidth, actualVideoHeight);
-		} else {
+		}
+    else if (pyodideLoaded && !$isCvMode)
+    {
+      let pentominosDict = $pentominosStore;
+
+      console.log(pentominosDict);
+
+      let pentominoNums = pentominosDict[0];
+      let pentominoCoords = pentominosDict[1];
+      let pentominoRotations = pentominosDict[2];
+      let pentominoFlip = pentominosDict[3];
+
+      console.log(pentominoNums);
+      console.log(pentominoCoords);
+      console.log(pentominoRotations);
+      console.log(pentominoFlip);
+
+      processBoard(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip);
+    }
+    else 
+    {
 			console.log('not ready')
 			alert('not ready')
 		}

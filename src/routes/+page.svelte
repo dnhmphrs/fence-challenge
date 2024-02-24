@@ -5,7 +5,7 @@
 
 	function rotateEvent()
 	{
-		$toRotatePentominos += 1;
+		$toRotatePentominos += 1; 
 		console.log($toRotatePentominos);
 	}
 

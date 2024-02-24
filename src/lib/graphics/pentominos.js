@@ -13,6 +13,21 @@ export var pentominosKey = {
 	12: 'Z'
 };
 
+export var pentominosReverseKey = {
+	'F': 1,
+	'I': 2,
+	'L': 3,
+	'N': 4,
+	'P': 5,
+	'T': 6,
+	'U': 7,
+	'V': 8,
+	'W': 9,
+	'X': 10,
+	'Y': 11,
+	'Z': 12
+};
+
 export var pentominosDict = {
 	F: {
 		letter: 'F',
@@ -45,8 +60,8 @@ export var pentominosDict = {
 	},
 	I: {
 		letter: 'I',
-		width: 5,
-		height: 1,
+		width: 1,
+		height: 5,
 		gridPosition: { x: null, y: null },
 		cornerVertices: [
 			[0, 3],
@@ -56,10 +71,10 @@ export var pentominosDict = {
 			[0, 3]
 		],
 		offsets: [
-			[-2,0],
-			[-1,0],
-			[1,0],
-			[2,0]
+			[0,-2],
+			[0,-1],
+			[0,1],
+			[0,2]
 		],
 		centerOffset: [0,0],
 		rotations : 0,

@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { selectedPentominos, toRotatePentominos, toFlipPentominos } from '$lib/store/pentominos.js';
-	import { pentominosKey, pentominosDict } from './pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore} from '$lib/store/pentominos.js';
+	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
 
   let pentominoObjects = {};
@@ -71,6 +71,23 @@
   export function getPentominos() {
     return Object.values(pentominoObjects);
   }
+
+  function updatePlacedPentominos()
+  {
+    let pentominoIDs = [];
+    let pentominoCoords = [];
+    let pentominoRotations = [];
+    let pentominoFlip = [];
+
+    $selectedPentominos.forEach(letter => {
+      pentominoIDs.push(pentominosReverseKey[letter]);
+      pentominoCoords.push([pentominosDict[letter].gridPosition.x, pentominosDict[letter].gridPosition.y]);
+      pentominoRotations.push(pentominosDict[letter].rotations);
+      pentominoFlip.push(pentominosDict[letter].flip);
+    })
+
+    $pentominosStore = [pentominoIDs, pentominoCoords, pentominoRotations, pentominoFlip];
+  }
 	// -----------------------------------------------------------------------------
 	//  BOARD REPRESENTATION
 	// -----------------------------------------------------------------------------
@@ -100,10 +117,12 @@
   export function pickUpPentomino(pentominoID) {
     const pentomino = pentominoObjects[pentominoID];
     const gridPosition = worldToGridPosition(pentomino.position.x, pentomino.position.y);
+
     freeFromGrid(gridPosition.x, gridPosition.y);
     for (let i = 0; i<4; i++){
           freeFromGrid(pentominosDict[pentomino.name].gridPosition.x+pentominosDict[pentomino.name].offsets[i][0], pentominosDict[pentomino.name].gridPosition.y+pentominosDict[pentomino.name].offsets[i][1])
     }
+    updatePlacedPentominos();
   }
 
 	function gridToWorldPosition(gridX, gridY) {
@@ -279,7 +298,7 @@ export function placePentomino(pentomino, gridX, gridY) {
           markGridOccupied(validPosition.x+pentominosDict[pentomino.name].offsets[i][0], validPosition.y+pentominosDict[pentomino.name].offsets[i][1])
         }
         lastPentominoPlaced = pentomino;
-
+        updatePlacedPentominos();
     } else {
         console.log("No valid position found for the pentomino.");
 

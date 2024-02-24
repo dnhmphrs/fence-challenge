@@ -256,11 +256,11 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
 .pentomino.F .cell:nth-child(5) { grid-column: 2; grid-row: 3; }
 
   /* Pentomino I */
-.pentomino.I .cell:nth-child(1) { grid-column: 3; grid-row: 1; }
+.pentomino.I .cell:nth-child(1) { grid-column: 1; grid-row: 3; }
 .pentomino.I .cell:nth-child(2) { grid-column: 1; grid-row: 1; }
-.pentomino.I .cell:nth-child(3) { grid-column: 2; grid-row: 1; }
-.pentomino.I .cell:nth-child(4) { grid-column: 4; grid-row: 1; }
-.pentomino.I .cell:nth-child(5) { grid-column: 5; grid-row: 1; }
+.pentomino.I .cell:nth-child(3) { grid-column: 1; grid-row: 2; }
+.pentomino.I .cell:nth-child(4) { grid-column: 1; grid-row: 4; }
+.pentomino.I .cell:nth-child(5) { grid-column: 1; grid-row: 5; }
 
 /* Pentomino L */
 .pentomino.L .cell:nth-child(1) { grid-column: 1; grid-row: 3; }
