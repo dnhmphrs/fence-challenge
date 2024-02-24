@@ -16,17 +16,15 @@
 - Board Occupancy Matrix filled
 - Weird pentominos (2x4) aligned
 - Rotate, flip functions added
+- Game mode has python integration
 
 ### BUGS
   - Miguel - spec out macbook camera bug
-  - (Miguel) If rotate is hit too much for one pentomino it breaks? Doesn't seem to have anything to do with periodicity. Confusing bug.
 
 ### TODO
 - **By Dan (by end of Feb)**
   - **Make python CV Arrange Fence & Display Calculated Area**
-    - merge python/webgame/webcam logic
-    - Run GetArea code, Get Area, Colour Field through grid tiles
-      - MIGUEL - Python should also return field grid tiles
+    - Display calculated area in the game mode in a nice way
   - **Upload Fence Area to Database & Get and Show Leaderboard**
     - send GET request for order/leaderboard
       - ALFREDO - Upload previously calculated areas, plus is_maximal field
