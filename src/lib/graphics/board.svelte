@@ -89,7 +89,7 @@
       pentominoFlip.push(pentominosDict[letter].flip);
     })
 
-    Object.keys(pentominoReverseKey).forEach(key => {
+    Object.keys(pentominosReverseKey).forEach(key => {
       const pentominoNum = Number(pentominosReverseKey[key]);
 
       if (!$selectedPentominos.includes(key) && pentominoIDs.includes(pentominoNum)) {
