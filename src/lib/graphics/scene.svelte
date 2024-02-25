@@ -5,7 +5,7 @@ import { selectedPentominos, pentominosStore } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
 import Board from './board.svelte';
-import { getPlacedPentominos } from './board.svelte';
+// import { getPlacedPentominos } from './board.svelte';
 import { processFrame, processBoard } from '$lib/functions/pyodide.js';
 import { testProcessFrame } from '$lib/functions/frameTest.js';
 import {pentominosKey} from './pentominos.js'
@@ -59,6 +59,10 @@ onMount(() => {
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     document.addEventListener('mousedown', onDocumentMouseDown, false);
     document.addEventListener('mouseup', onDocumentMouseUp, false);
+    // add touch events
+    document.addEventListener('touchstart', onDocumentMouseDown, false);
+    document.addEventListener('touchend', onDocumentMouseUp, false);
+    document.addEventListener('touchmove', onDocumentMouseMove, false);  
     
 		// make .geometry class opacity 1
 		setTimeout(() => {
@@ -71,6 +75,11 @@ onDestroy(() => {
   document.removeEventListener('mousemove', onDocumentMouseMove, false);
   document.removeEventListener('mousedown', onDocumentMouseDown, false);
   document.removeEventListener('mouseup', onDocumentMouseUp, false);
+  // remove touch events
+  document.removeEventListener('touchstart', onDocumentMouseDown, false);
+  document.removeEventListener('touchend', onDocumentMouseUp, false);
+  document.removeEventListener('touchmove', onDocumentMouseMove, false);
+  
   cancelAnimationFrame(id)
 });
 
@@ -104,14 +113,30 @@ scene.add(parallaxGroup, nonParallaxGroup);
 //  INTERACTION WATCHERS
 // -----------------------------------------------------------------------------
 
-async function updateCursor(event) {
-  cursor.x = (event.clientX / sizes.width) * 2 - 1;
-  cursor.y = -(event.clientY / sizes.height) * 2 + 1;
-  // console.log('cursor:', cursor);
+function updateCursor(event) {
+    let clientX, clientY;
+    if (event.type === 'touchend') {
+        if (event.changedTouches.length > 0) {
+            clientX = event.changedTouches[0].clientX;
+            clientY = event.changedTouches[0].clientY;
+        }
+    } else if (event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    } else {
+        clientX = event.clientX;
+        clientY = event.clientY;
+    }
+
+    if (clientX !== undefined && clientY !== undefined) {
+        cursor.x = (clientX / sizes.width) * 2 - 1;
+        cursor.y = -(clientY / sizes.height) * 2 + 1;
+    }
 }
 
+
 function onDocumentMouseMove(event) {
-    event.preventDefault();
+    // event.preventDefault();
     updateCursor(event);
 
     // console.log('PLANE:', PLANE);
@@ -130,21 +155,13 @@ function onDocumentMouseMove(event) {
   }
 
   function onDocumentMouseDown(event) {
-    event.preventDefault();
+    // event.preventDefault();
+    updateCursor(event);
 
     RAYCASTER.setFromCamera(cursor, camera);
     let intersects = RAYCASTER.intersectObjects(board.getPentominos()); // Assume getPentominos returns all clickable objects
-
-    // console.log('Raycaster origin:', RAYCASTER.ray.origin);
-    // console.log('Raycaster direction:', RAYCASTER.ray.direction);
-    // console.log('Intersects:', intersects);
-    // console.log('INTERSECTS:', INTERSECTS);
-    // console.log('PLANE:', PLANE);
-    // console.log('cursor:', cursor);
   
     if (intersects.length > 0) {
-      // console.log(intersects)
-      // console.log(intersects[0].object.position)
 
       // fixes null selectio bug
       if ($selectedPentominos.includes(intersects[0].object.name)) {
@@ -167,8 +184,8 @@ function onDocumentMouseMove(event) {
   }
 
   async function onDocumentMouseUp(event) {
-    event.preventDefault();
-    await updateCursor(event);
+    // event.preventDefault();
+    updateCursor(event);
 
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
