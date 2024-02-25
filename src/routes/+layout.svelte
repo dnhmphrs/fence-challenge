@@ -10,6 +10,8 @@
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
+	import Modal from '$lib/components/modal/modal.svelte';
+
 	export let data;
 	let Geometry;
 	let geometryLoaded = false;
@@ -82,6 +84,8 @@
 {/if}
 
 <div class="app">
+
+	<Modal />
 
 	<main>
 		<slot />
