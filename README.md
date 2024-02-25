@@ -19,6 +19,9 @@
 
 ### BUGS
   - Miguel - spec out macbook camera bug
+  - Pentominos still fall off the board very occasionally -
+  - I pentomino seems to use too big a space sometimes
+  - If you add a pentomino then remove it, then click post-result, python still thinks there is a pentomino on the board
 
 ### TODO
 - **By Dan (by end of Feb)**
