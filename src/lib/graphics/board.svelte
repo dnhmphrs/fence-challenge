@@ -214,15 +214,15 @@ export function createPentominos() {
 
     let pentominoID  = pentominosKey[i];
 
-		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.LinearFilter;
+		pentominosDict[pentominoID].texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
+		pentominosDict[pentominoID].texture.minFilter = THREE.LinearFilter;
+		pentominosDict[pentominoID].texture.magFilter = THREE.LinearFilter;
 		let scale = .055
 		let width = pentominosDict[pentominoID].width * scale;
 		let height = pentominosDict[pentominoID].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
 		const material = new THREE.MeshBasicMaterial({
-			map: texture,
+			map: pentominosDict[pentominoID].texture,
 			transparent: true,
 			opacity: 1,
 		});
