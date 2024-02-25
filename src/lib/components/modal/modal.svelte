@@ -1,8 +1,23 @@
 <script>
   import { isModalOpen } from '$lib/store/store.js';
+  import {pyodideSays} from '$lib/store/pentominos.js';
+  import {pentominosKey} from '$lib/graphics/pentominos.js';
   
   function closeModal() {
     isModalOpen.set(false);
+  }
+
+  $ :{
+    console.log($pyodideSays);
+    let areaText = $pyodideSays['area'];
+    document.getElementById('areaText') = 'Area: ' + areaText;
+    let ids = $pyodideSays['id'];
+    let idString = '';
+    for (let i = 0; i < ids.length; i++)
+    {
+      idString += pentominosKey[Number(ids[i])];
+    }
+    document.getElementById('fenceID') = 'Area: ' + areaText;
   }
 </script>
 
@@ -11,6 +26,8 @@
   <div class="modal-content" on:click|stopPropagation>
     <slot />
     <button on:click={closeModal}>Close</button>
+    <h2 id = 'areaText'>No fence yet...</h2>
+    <p id = 'fenceID'></p>
   </div>
 </div>
 {/if}
