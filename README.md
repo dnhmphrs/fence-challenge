@@ -24,7 +24,7 @@
   - If you add a pentomino then remove it, then click post-result, python still thinks there is a pentomino on the board
 
 ### TODO
-- **By Dan (by end of Feb)**
+- **(by end of Feb)**
   - **Make WebGame Work Properly**
     - Rotations and flips still require a button to activate
   - **Make python CV Arrange Fence & Display Calculated Area**
@@ -41,7 +41,7 @@
   - **Misc Tasks**
     - Startup/Info Modal (renders on siteload or via. info button to give instructions, and project details)
   - Make Website/Tablet/Mobile Fully Responsive
-- **Post Dan (by end of Feb)**
+- **(by march 14th)**
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
   - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
   - Set up a long-term solution for the backend
