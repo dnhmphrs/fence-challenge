@@ -8,17 +8,12 @@
   }
 
   $ :{
-    console.log($pyodideSays);
-    let areaText = $pArea;
-    document.getElementById('areaText').textContent = 'Area: ' + areaText;
-    let ids = $pIDs;
-    let idString = '';
-    for (let i = 0; i < ids.length; i++)
-    {
-      idString += pentominosKey[Number(ids[i])];
-    }
-    document.getElementById('fenceID').textContent = 'Area: ' + areaText;
+    console.log($pArea);
+    console.log($pFencedTiles);
+    console.log($pIDs);
   }
+
+
 </script>
 
 {#if $isModalOpen}
@@ -26,8 +21,8 @@
   <div class="modal-content" on:click|stopPropagation>
     <slot />
     <button on:click={closeModal}>Close</button>
-    <h2 id = 'areaText'>No fence yet...</h2>
-    <p id = 'fenceID'></p>
+    <h2 id = 'areaText'>Area: {$pArea}</h2>
+    <p id = 'fenceID'>Order :{$pIDs}</p>
   </div>
 </div>
 {/if}
