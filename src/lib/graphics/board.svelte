@@ -98,8 +98,8 @@
 
     Object.keys(pentominosReverseKey).forEach(key => {
       const pentominoNum = Number(pentominosReverseKey[key]);
-      console.log(key);
-      console.log(pentominoNum);
+      //console.log(key);
+      //console.log(pentominoNum);
       if (!$selectedPentominos.includes(key) && pentominoIDs.includes(pentominoNum)) {
         let index = pentominoNum.indexOf(pentominoNum);
         pentominoIDs.pop(index);
