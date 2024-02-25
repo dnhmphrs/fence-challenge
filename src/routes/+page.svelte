@@ -78,7 +78,7 @@
 
 		display: flex;
 		flex-flow: column nowrap;
-		gap: 20px;
+		gap: 15px;
 	}
 
 	.sidebar.left {
