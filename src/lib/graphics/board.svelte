@@ -76,9 +76,10 @@
   }
 
   $: {
+    console.log($pyodideSays);
     if (typeof $pyodideSays['area'] !== 'undefined')
     {
-      console.log($pyodideSays);
+      //console.log($pyodideSays);
       $pyodideSays['fencedTiles'].forEach(tile =>{
         changeCellColor(tile[0], tile[1], 0x00FF00);
       })
