@@ -17,11 +17,13 @@
 		if (gameMode & !webgameGroup.children.length) {
 			createBoard();
 		}
+    window.addEventListener('keydown', handleKeyPress);
   });
 
 
   onDestroy(() => {
     cleanUpBoard();
+    window.removeEventListener('keydown', handleKeyPress);
   });
 
   // -----------------------------------------------------------------------------
@@ -87,6 +89,20 @@
     })
 
     $pentominosStore = [pentominoIDs, pentominoCoords, pentominoRotations, pentominoFlip];
+  }
+
+  function handleKeyPress(event) {
+    // Check for spacebar press
+    if (event.code === 'Space') {
+      rotateLastPentomino90();
+      event.preventDefault(); // Prevent the default action of the spacebar (scrolling the page)
+    }
+
+    // Check for enter press
+    if (event.code === 'Enter') {
+      flipLastPentomino();
+      event.preventDefault(); // Prevent the default action of the enter key if necessary
+    }
   }
 	// -----------------------------------------------------------------------------
 	//  BOARD REPRESENTATION
