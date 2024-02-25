@@ -1,5 +1,6 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
+  import { disableKeyDown } from '$lib/store/store';
   import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore} from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
@@ -93,15 +94,17 @@
 
   function handleKeyPress(event) {
     // Check for spacebar press
-    if (event.code === 'Space') {
-      rotateLastPentomino90();
-      event.preventDefault(); // Prevent the default action of the spacebar (scrolling the page)
-    }
+    if (!$disableKeyDown) {
+      if (event.code === 'Space') {
+        rotateLastPentomino90();
+        event.preventDefault(); // Prevent the default action of the spacebar (scrolling the page)
+      }
 
-    // Check for enter press
-    if (event.code === 'Enter') {
-      flipLastPentomino();
-      event.preventDefault(); // Prevent the default action of the enter key if necessary
+      // Check for enter press
+      if (event.code === 'Enter') {
+        flipLastPentomino();
+        event.preventDefault(); // Prevent the default action of the enter key if necessary
+      }
     }
   }
 	// -----------------------------------------------------------------------------

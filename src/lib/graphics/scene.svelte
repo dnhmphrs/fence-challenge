@@ -1,6 +1,6 @@
 <script>
 import { onMount, onDestroy, getContext  } from 'svelte';
-import { screenType, pyodideLoaded, isCvMode } from '$lib/store/store';
+import { screenType, pyodideLoaded, isCvMode, disableKeyDown } from '$lib/store/store';
 import { selectedPentominos, pentominosStore } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
@@ -157,6 +157,7 @@ function onDocumentMouseMove(event) {
   function onDocumentMouseDown(event) {
     // event.preventDefault();
     updateCursor(event);
+    disableKeyDown.set(true);
 
     RAYCASTER.setFromCamera(cursor, camera);
     let intersects = RAYCASTER.intersectObjects(board.getPentominos()); // Assume getPentominos returns all clickable objects
@@ -186,6 +187,7 @@ function onDocumentMouseMove(event) {
   async function onDocumentMouseUp(event) {
     // event.preventDefault();
     updateCursor(event);
+    disableKeyDown.set(false);
 
     if (SELECTED) {
       // Reset selection visuals or perform additional checks
