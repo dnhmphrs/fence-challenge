@@ -82,14 +82,23 @@
     let pentominoRotations = [];
     let pentominoFlip = [];
 
-    $selectedPentominos.set([]);
-
     $selectedPentominos.forEach(letter => {
       pentominoIDs.push(pentominosReverseKey[letter]);
       pentominoCoords.push([pentominosDict[letter].gridPosition.x, pentominosDict[letter].gridPosition.y]);
       pentominoRotations.push(pentominosDict[letter].rotations);
       pentominoFlip.push(pentominosDict[letter].flip);
     })
+
+    Object.keys(pentominoObjects).forEach(key => {
+      const pentominoNum = pentominosReverseKey[key];
+      if (!$selectedPentominos.includes(key) && pentominoIDs.includes(pentominoNum)) {
+        let index = pentominoNum.indexOf(pentominoNum);
+        pentominoIDs.pop(index);
+        pentominoCoords.pop(index);
+        pentominoRotations.pop(index);
+        pentominoFlip.pop(index);
+      }
+    });
 
     $pentominosStore = [pentominoIDs, pentominoCoords, pentominoRotations, pentominoFlip];
   }
