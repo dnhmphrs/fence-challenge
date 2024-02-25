@@ -188,11 +188,11 @@ export function createBoard() {
   createGrid();
   createGridCells();
 
-  changeCellColor(19, 19, 0x00FF00);
-  changeCellColor(10, 10, 0xff00ff);
-  changeCellColor(9, 10, 0xff00ff);
-  changeCellColor(9, 11, 0xff00ff);
-  changeCellColor(0, 0, 0x00FF00);
+  // changeCellColor(19, 19, 0x00FF00);
+  // changeCellColor(10, 10, 0xff00ff);
+  // changeCellColor(9, 10, 0xff00ff);
+  // changeCellColor(9, 11, 0xff00ff);
+  // changeCellColor(0, 0, 0x00FF00);
 }
 
 function createGrid() {
