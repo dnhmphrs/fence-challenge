@@ -36,10 +36,10 @@
     border-radius: 5px;
     z-index: 10;
 
-
-    width: 100%;
-    height: 100%;
-    max-width: 500px;
-    max-height: 500px;
+    width: 80%;
+    height: 80%;
+    max-width: 700px;
+    max-height: 600px;
   }
+
 </style>
