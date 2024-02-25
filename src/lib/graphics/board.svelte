@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { disableKeyDown } from '$lib/store/store';
-  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore} from '$lib/store/pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore, pyodideSays} from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
 
@@ -89,8 +89,9 @@
       pentominoFlip.push(pentominosDict[letter].flip);
     })
 
-    Object.keys(pentominoObjects).forEach(key => {
-      const pentominoNum = pentominosReverseKey[key];
+    Object.keys(pentominoReverseKey).forEach(key => {
+      const pentominoNum = Number(pentominosReverseKey[key]);
+
       if (!$selectedPentominos.includes(key) && pentominoIDs.includes(pentominoNum)) {
         let index = pentominoNum.indexOf(pentominoNum);
         pentominoIDs.pop(index);

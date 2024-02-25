@@ -1,3 +1,4 @@
+import { pyodideSays } from "$lib/store/pentominos";
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -80,6 +81,7 @@ export async function processBoard(pentominoNums, pentominoCoords, pentominoRota
 			`);
 			console.log(`${result}`);
 			alert(`Result from Python: ${result}`);
+			pyodideSays.set(pyodide.globals.get('result').toJs());
 		} catch (error) {
 			console.error('Error in processBoard:', error);
 			alert(`Result from Python: ${error}`);
