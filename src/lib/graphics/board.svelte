@@ -72,7 +72,26 @@
 
   $: {
     let c = $selectedPentominos;
-    updatePlacedPentominos()
+    updatePlacedPentominos();
+  }
+
+  $: {
+    if (typeof $pyodideSays['area'] !== 'undefined')
+    {
+      console.log($pyodideSays);
+      for (let i = 0; i<20; i++)
+      {
+        for (let j = 0; j<20; j++)
+        {
+          let checkTile = [i,j];
+          if ($pyodideSays['fencedTiles'].includes(checkTile))
+          {
+            changeCellColor(i, j, 0x00FF00);
+          }
+          else{clearCellColor(i,j)}
+        }
+      }
+    }
   }
   
 
