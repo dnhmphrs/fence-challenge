@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import { pyodideSays } from '$lib/store/pentominos';
-=======
-import { pArea, pIDs, pFencedTiles } from "$lib/store/pentominos";
-import {pentominosKey} from "$lib/graphics/pentominos";
->>>>>>> 9a1f3571b1403af032483cc1bcaf5a09a5a8b18a
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
