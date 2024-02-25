@@ -79,16 +79,19 @@
     if (typeof $pyodideSays['area'] !== 'undefined')
     {
       console.log($pyodideSays);
+      $pyodideSays['fencedTiles'].forEach(tile =>{
+        changeCellColor(tile[0], tile[1], 0x00FF00);
+      })
+      let stringy = JSON.stringify($pyodideSays['fencedTiles']);
       for (let i = 0; i<20; i++)
       {
         for (let j = 0; j<20; j++)
         {
-          let checkTile = [i,j];
-          if ($pyodideSays['fencedTiles'].includes(checkTile))
+          let checkTile = JSON.stringify([i,j]);
+          if (stringy.indexOf(checkTile) == -1)
           {
-            changeCellColor(i, j, 0x00FF00);
+            clearCellColor(i,j);
           }
-          else{clearCellColor(i,j)}
         }
       }
     }
