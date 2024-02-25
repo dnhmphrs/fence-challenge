@@ -398,19 +398,6 @@ function onProcessFrame() {
       let pentominoRotations = pentominosDict[2];
       let pentominoFlip = pentominosDict[3];
 
-      for (let i = 1; i<13; i++)
-      {
-        let letter = pentominosKey[i];
-        if (!$selectedPentominos.includes(letter))
-        {
-          let index = pentominoNums.indexOf(i);
-          pentominoNums.pop(index);
-          pentominoCoords.pop(index);
-          pentominoRotations.pop(index);
-          pentominoFlip.pop(index);
-        }
-      }
-
       console.log(pentominoNums);
       console.log(pentominoCoords);
       console.log(pentominoRotations);

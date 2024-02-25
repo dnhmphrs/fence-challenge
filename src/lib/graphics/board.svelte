@@ -82,6 +82,8 @@
     let pentominoRotations = [];
     let pentominoFlip = [];
 
+    $selectedPentominos.set([]);
+
     $selectedPentominos.forEach(letter => {
       pentominoIDs.push(pentominosReverseKey[letter]);
       pentominoCoords.push([pentominosDict[letter].gridPosition.x, pentominosDict[letter].gridPosition.y]);
