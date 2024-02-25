@@ -1,0 +1,49 @@
+<script>
+  // Generates an array of grid coordinates
+  let grid = [];
+  for (let i = 0; i < 20; i++) {
+      for (let j = 0; j < 20; j++) {
+          grid.push({ x: i, y: j });
+      }
+  }
+
+  // Randomly select two different squares to color
+  const randomIndex1 = Math.floor(Math.random() * grid.length);
+  let randomIndex2 = Math.floor(Math.random() * grid.length);
+  while (randomIndex1 === randomIndex2) {
+      randomIndex2 = Math.floor(Math.random() * grid.length);
+  }
+
+  const coloredSquare1 = grid[randomIndex1];
+  const coloredSquare2 = grid[randomIndex2];
+</script>
+
+<div class="grid-container">
+    {#each grid as {x, y} (x * 20 + y)}
+        <div class="cell {x === coloredSquare1.x && y === coloredSquare1.y ? 'colored1' : ''} {x === coloredSquare2.x && y === coloredSquare2.y ? 'colored2' : ''}"></div>
+    {/each}
+  </div>
+  
+<style>
+  .grid-container {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 2px;
+      width: 100%;
+      max-width: 400px; /* Adjust based on your needs */
+  }
+
+  .cell {
+      width: 100%;
+      height: 20px; /* Adjust based on your needs */
+      background-color: var(--primary); /* Default cell color */
+  }
+
+  .colored1 {
+      background-color: blue; /* First random color */
+  }
+
+  .colored2 {
+      background-color: green; /* Second random color */
+  }
+</style>

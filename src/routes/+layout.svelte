@@ -83,7 +83,7 @@
 	<div class="loading">loading app.</div>
 {/if}
 
-<button style="position:absolute;left:20%;z-index:10;" on:click={() => isModalOpen.set(true)}>Open Modal</button>
+<button style="position:absolute;left:20%;z-index:100;" on:click={() => isModalOpen.set(true)}>Open Modal</button>
 <div class="app">
 
 

@@ -20,7 +20,7 @@ let video, videoTexture;
 let actualVideoWidth, actualVideoHeight;
 let cursor = new THREE.Vector2();
 
-$: buttonText = ($isCvMode) ? 'Process Frame' : 'Upload Result';
+$: buttonText = ($isCvMode) ? 'Process Frame' : 'Detect Fence';
 
 let container, id;
 

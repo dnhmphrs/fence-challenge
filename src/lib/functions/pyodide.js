@@ -1,4 +1,4 @@
-import { pyodideSays } from "$lib/store/pentominos";
+import { pyodideSays } from '$lib/store/pentominos';
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -59,15 +59,19 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 	}
 }
 
-export async function processBoard(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
-	{
-		try {
-			window.pyodide.globals.set('pentominoNums', pentominoNums);
-			window.pyodide.globals.set('pentominoCoords', pentominoCoords);
-			window.pyodide.globals.set('pentominoRotations', pentominoRotations);
-			window.pyodide.globals.set('pentominoFlip', pentominoFlip);
+export async function processBoard(
+	pentominoNums,
+	pentominoCoords,
+	pentominoRotations,
+	pentominoFlip
+) {
+	try {
+		window.pyodide.globals.set('pentominoNums', pentominoNums);
+		window.pyodide.globals.set('pentominoCoords', pentominoCoords);
+		window.pyodide.globals.set('pentominoRotations', pentominoRotations);
+		window.pyodide.globals.set('pentominoFlip', pentominoFlip);
 
-			const result = await window.pyodide.runPythonAsync(`
+		const result = await window.pyodide.runPythonAsync(`
 					import numpy as np
 					import FenceChallenge.board_new
 
@@ -79,11 +83,11 @@ export async function processBoard(pentominoNums, pentominoCoords, pentominoRota
 					result = FenceChallenge.board_new.GetAreaInfo(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
 					result
 			`);
-			console.log(`${result}`);
-			alert(`Result from Python: ${result}`);
-			pyodideSays.set(pyodide.globals.get('result').toJs());
-		} catch (error) {
-			console.error('Error in processBoard:', error);
-			alert(`Result from Python: ${error}`);
-		}
+		console.log(`${result}`);
+		alert(`Result from Python: ${result}`);
+		pyodideSays.set(window.pyodide.globals.get('result').toJs());
+	} catch (error) {
+		console.error('Error in processBoard:', error);
+		alert(`Result from Python: ${error}`);
 	}
+}

@@ -199,8 +199,8 @@
 		}
 		.sidebar.left {
 			width: 100%;
-			height: 10%;
-			top: 0;
+			height: 0;
+			top: -100%;
 			gap: 10px;
 			border-left: none;
 			border-bottom: 1px solid #000000;
