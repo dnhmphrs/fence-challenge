@@ -101,7 +101,7 @@
 		text-align: center;
 		justify-content: center;
 		flex-flow: column nowrap;
-		gap: 10px;
+		gap: 15px;
 	}
 
 	.leaderboard-title {
@@ -171,6 +171,12 @@
 	.sidebar.right button h4 span {
 		font-size: 14px;
 
+	}
+
+	.button.holder {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 15px;
 	}
 
 	.pentominos {
