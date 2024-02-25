@@ -16,6 +16,7 @@
 - Board Occupancy Matrix filled
 - Weird pentominos (2x4) aligned
 - Rotate, flip functions added
+- press Spacebar to rotatePentomino and press Enter to flipPentomino
 
 ### BUGS
   - Miguel - spec out macbook camera bug
@@ -26,7 +27,7 @@
 ### TODO
 - **(by end of Feb)**
   - **Make WebGame Work Properly**
-    - Rotations and flips still require a button to activate
+    - empty
   - **Make python CV Arrange Fence & Display Calculated Area**
     - merge python/webgame/webcam logic
     - Run GetArea code, Get Area, Colour Field through grid tiles
