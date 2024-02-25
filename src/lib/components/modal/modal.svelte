@@ -1,6 +1,6 @@
 <script>
   import { isModalOpen } from '$lib/store/store.js';
-  import {pyodideSays} from '$lib/store/pentominos.js';
+  import {pArea, pFencedTiles, pIDs} from '$lib/store/pentominos.js';
   import {pentominosKey} from '$lib/graphics/pentominos.js';
   
   function closeModal() {
@@ -9,9 +9,9 @@
 
   $ :{
     console.log($pyodideSays);
-    let areaText = $pyodideSays['area'];
+    let areaText = $pArea;
     document.getElementById('areaText') = 'Area: ' + areaText;
-    let ids = $pyodideSays['id'];
+    let ids = $pIDs;
     let idString = '';
     for (let i = 0; i < ids.length; i++)
     {
