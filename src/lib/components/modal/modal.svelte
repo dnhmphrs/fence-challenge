@@ -10,14 +10,14 @@
   $ :{
     console.log($pyodideSays);
     let areaText = $pArea;
-    document.getElementById('areaText') = 'Area: ' + areaText;
+    document.getElementById('areaText').textContent = 'Area: ' + areaText;
     let ids = $pIDs;
     let idString = '';
     for (let i = 0; i < ids.length; i++)
     {
       idString += pentominosKey[Number(ids[i])];
     }
-    document.getElementById('fenceID') = 'Area: ' + areaText;
+    document.getElementById('fenceID').textContent = 'Area: ' + areaText;
   }
 </script>
 
