@@ -69,6 +69,11 @@
     let b = $toFlipPentominos;
     flipLastPentomino();
   }
+
+  $: {
+    let c = $selectedPentominos;
+    updatePlacedPentominos()
+  }
   
 
   export function getPentominos() {
