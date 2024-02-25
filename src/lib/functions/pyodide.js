@@ -1,4 +1,5 @@
-import { pyodideSays } from '$lib/store/pentominos';
+import { pArea, pIDs, pFencedTiles } from "$lib/store/pentominos";
+import {pentominosKey} from "$lib/graphics/pentominos";
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -81,13 +82,30 @@ export async function processBoard(
 					pentominoFlip = np.array(globals().get('pentominoFlip')).tolist()
 
 					result = FenceChallenge.board_new.GetAreaInfo(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
+
+					area = str(result['area'])
+					fencedAreas = np.asarray(result['fencedTiles'])
+
 					result
 			`);
-		console.log(`${result}`);
-		alert(`Result from Python: ${result}`);
-		pyodideSays.set(window.pyodide.globals.get('result').toJs());
-	} catch (error) {
-		console.error('Error in processBoard:', error);
-		alert(`Result from Python: ${error}`);
+			console.log(`${result}`);
+			alert(`Result from Python: ${result}`);
+			let pOut = pyodide.globals.get('result').toJs();
+			console.log(pOut);
+			//pArea.set(pOut.get('area'));
+			pArea.set(pyodide.globals.get('area'));
+			//pFencedTiles.set(pOut.get('fencedTiles'));
+			pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+			let pIDNums = pOut.get('id');
+			let pIDLets = '';
+			for (let i = 0; i<pIDNums.length; i++)
+			{
+				pIDLets += pentominosKey[pIDNums[i]];
+			}
+			pIDs.set(pIDLets);
+		} catch (error) {
+			console.error('Error in processBoard:', error);
+			alert(`Result from Python: ${error}`);
+		}
 	}
 }

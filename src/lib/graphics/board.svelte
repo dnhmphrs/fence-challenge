@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { disableKeyDown } from '$lib/store/store';
-  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore, pyodideSays } from '$lib/store/pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore} from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
 
@@ -115,28 +115,6 @@
   $: {
     let c = $selectedPentominos;
     updatePlacedPentominos();
-  }
-
-  $: {
-    if (typeof $pyodideSays['area'] !== 'undefined')
-    {
-      console.log($pyodideSays);
-      $pyodideSays['fencedTiles'].forEach(tile =>{
-        changeCellColor(tile[0], tile[1], 0x00FF00);
-      })
-      let stringy = JSON.stringify($pyodideSays['fencedTiles']);
-      for (let i = 0; i<20; i++)
-      {
-        for (let j = 0; j<20; j++)
-        {
-          let checkTile = JSON.stringify([i,j]);
-          if (stringy.indexOf(checkTile) == -1)
-          {
-            clearCellColor(i,j);
-          }
-        }
-      }
-    }
   }
   
 

@@ -11,44 +11,10 @@
 
   // Function to change a letter up or down in the alphabet
   function changeLetter(index, direction) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let currentIndex = alphabet.indexOf(nameLetters[index]);
     let nextIndex = (currentIndex + direction + 26) % 26;
     nameLetters[index] = alphabet[nextIndex];
   }
-</script>
-
-{#if $isModalOpen}
-<div class="modal-overlay" on:click={closeModal} on:keydown={closeModal}>
-  <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
-    <button on:click={closeModal} on:keydown={closeModal}>Close</button>
-    <div class="modal-inner">
-      <div class="input-row">
-        <h1>order: filnptuvwxyz</h1>
-        <h1>AREA: 22</h1>
-      </div>
-      <ResultGrid />
-    <div class="input-row">
-
-      <div>
-        <h1>name: </h1>
- 
-   
-      </div>
-      
-      <div class="name-input">
-        {#each nameLetters as letter, index (index)}
-          <div class="letter-selector">
-            <button on:click={() => changeLetter(index, -1)}>▲</button>
-            <span>{letter}</span>
-            <button on:click={() => changeLetter(index, 1)}>▼</button>
-          </div>
-        {/each}
-      </div>
-    </div>
-    
-    <button class="primary">submit score to leaderboard</button>
-  </div>
   </div>
 </div>
 {/if}
