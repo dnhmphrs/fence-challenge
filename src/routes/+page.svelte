@@ -85,6 +85,7 @@
 		width: 280px;
 		/* border-right: 1px solid var(--dark-purple); */
 		left: 0;
+		z-index: 1000;
 	}
 
 

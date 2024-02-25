@@ -322,6 +322,11 @@ function createStars() {
 			};
 	}
 
+  // MIGUEL - OVERLAY BOARD
+  function overlayBoard() {
+    board.createBoard();
+  }
+
 	function startWebgameMode() {
 			// Initialize resources for Webgame mode
 			if (board) {
