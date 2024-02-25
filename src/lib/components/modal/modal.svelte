@@ -1,74 +1,45 @@
 <script>
-  import { isCvMode } from '$lib/store/store';
+  import { isModalOpen } from '$lib/store/store.js';
+  
+  function closeModal() {
+    isModalOpen.set(false);
+  }
 </script>
 
-<!-- modal -->
-<div class="modal" class:hidden={!$isCvMode}>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Camera Mode</h2>
-      <span class="close" on:click={() => isCvMode.update(value => !value)} on:keydown={() => isCvMode.update(value => !value)}>&times;</span>
-    </div>
-    <div class="modal-body">
-      <p>Use the camera to play the game.</p>
-    </div>
-    <div class="modal-footer">
-      <button on:click={() => isCvMode.update(value => !value)}>Close</button>
-    </div>
+{#if $isModalOpen}
+<div class="modal-overlay" on:click={closeModal} on:keydown={closeModal}>
+  <div class="modal-content" on:click|stopPropagation>
+    <slot />
+    <button on:click={closeModal}>Close</button>
   </div>
-
 </div>
+{/if}
 
 <style>
-  /* The Modal (background) */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
+  .modal-overlay {
+    position: fixed;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above other content */
   }
 
-  /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    background: var(--background);
+    border: double 3px var(--dark-purple);
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
+    border-radius: 5px;
+    z-index: 10;
 
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
 
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
-
-  .modal-body {padding: 2px 16px;}
-
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
   }
 </style>
