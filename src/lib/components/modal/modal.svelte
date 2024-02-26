@@ -1,6 +1,6 @@
 <script>
   import { isModalOpen } from '$lib/store/store.js';
-  import resultGrid from '$lib/components/modal/ResultGrid.svelte';
+  import ResultGrid from '$lib/components/modal/resultGrid.svelte';
 
   function closeModal() {
     isModalOpen.set(false);
