@@ -6,7 +6,7 @@
 	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, screenSize, appReady, isCvMode, pyodideLoaded, isModalOpen } from '$lib/store/store';
+	import { screenType, isIframe, screenSize, appReady, isCvMode, pyodideLoaded } from '$lib/store/store';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
@@ -83,7 +83,7 @@
 	<div class="loading">loading app.</div>
 {/if}
 
-<button style="position:absolute;left:20%;z-index:100;" on:click={() => isModalOpen.set(true)}>Open Modal</button>
+<!-- <button style="position:absolute;left:20%;z-index:100;" on:click={() => isModalOpen.set(true)}>Open Modal</button> -->
 <div class="app">
 
 

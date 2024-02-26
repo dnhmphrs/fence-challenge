@@ -1,5 +1,6 @@
-import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from "$lib/store/pentominos";
-import {pentominosKey} from "$lib/graphics/pentominos";
+import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from '$lib/store/pentominos';
+import { isModalOpen } from '$lib/store/store';
+import { pentominosKey } from '$lib/graphics/pentominos';
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -58,22 +59,24 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				result
 		`);
 		console.log(`${result}`);
-		let pOut = pyodide.globals.get('result').toJs();
+		let pOut = window.pyodide.globals.get('result').toJs();
 		console.log(pOut);
 		//pArea.set(pOut.get('area'));
-		pArea.set(pyodide.globals.get('area'));
+		pArea.set(window.pyodide.globals.get('area'));
 		//pFencedTiles.set(pOut.get('fencedTiles'));
-		pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
-		let pIDNums = pyodide.globals.get('ids').toJs();
+		pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
+		let pIDNums = window.pyodide.globals.get('ids').toJs();
 		let pIDLets = '';
-		for (let i = 0; i<pIDNums.length; i++)
-		{
+		for (let i = 0; i < pIDNums.length; i++) {
 			pIDLets += pentominosKey[pIDNums[i]];
 		}
 		pIDs.set(pIDLets);
 		pyodideRan.set(true);
 		boardOccupiedTiles.set(pOut.get('boardPentList'));
-		alert(`Result from Python: ${result}`);
+		// alert(`Result from Python: ${result}`);
+
+		// open results modal
+		isModalOpen.set(true);
 	} catch (error) {
 		console.error('Error in processFrame:', error);
 		alert(`Result from Python: ${error}`);
@@ -109,21 +112,23 @@ export async function processBoard(
 				result
 		`);
 		console.log(`${result}`);
-		alert(`Result from Python: ${result}`);
-		let pOut = pyodide.globals.get('result').toJs();
+		// alert(`Result from Python: ${result}`);
+		let pOut = window.pyodide.globals.get('result').toJs();
 		console.log(pOut);
 		//pArea.set(pOut.get('area'));
-		pArea.set(pyodide.globals.get('area'));
+		pArea.set(window.pyodide.globals.get('area'));
 		//pFencedTiles.set(pOut.get('fencedTiles'));
-		pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+		pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
 		let pIDNums = pOut.get('id');
 		let pIDLets = '';
-		for (let i = 0; i<pIDNums.length; i++)
-		{
+		for (let i = 0; i < pIDNums.length; i++) {
 			pIDLets += pentominosKey[pIDNums[i]];
 		}
 		pIDs.set(pIDLets);
 		pyodideRan.set(true);
+
+		// open results modal
+		isModalOpen.set(true);
 	} catch (error) {
 		console.error('Error in processBoard:', error);
 		alert(`Result from Python: ${error}`);
