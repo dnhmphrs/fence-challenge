@@ -1,4 +1,4 @@
-import { pArea, pIDs, pFencedTiles } from "$lib/store/pentominos";
+import { pArea, pIDs, pFencedTiles, pyodideRan } from "$lib/store/pentominos";
 import {pentominosKey} from "$lib/graphics/pentominos";
 // load pyodide on site load
 export async function handleLoadPyodide() {
@@ -103,6 +103,7 @@ export async function processBoard(
 			pIDLets += pentominosKey[pIDNums[i]];
 		}
 		pIDs.set(pIDLets);
+		pyodideRan.set(true);
 	} catch (error) {
 		console.error('Error in processBoard:', error);
 		alert(`Result from Python: ${error}`);

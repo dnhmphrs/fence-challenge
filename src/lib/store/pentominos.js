@@ -10,3 +10,4 @@ export const pArea = writable('');
 export const pIDs = writable('');
 export const pFencedTiles = writable([]);
 export const pyodideSays = writable([]);
+export const pyodideRan = writable(false);
