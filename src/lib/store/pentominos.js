@@ -11,3 +11,5 @@ export const pIDs = writable('');
 export const pFencedTiles = writable([]);
 export const pyodideSays = writable([]);
 export const pyodideRan = writable(false);
+
+export const boardOccupiedTiles = writable([]);

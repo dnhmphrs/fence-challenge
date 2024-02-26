@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { disableKeyDown } from '$lib/store/store';
-  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore} from '$lib/store/pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore, boardOccupiedTiles} from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
 
@@ -152,6 +152,7 @@
     });
 
     $pentominosStore = [pentominoIDs, pentominoCoords, pentominoRotations, pentominoFlip];
+    $boardOccupiedTiles = grid;
   }
 
   function handleKeyPress(event) {

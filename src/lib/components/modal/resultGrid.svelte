@@ -1,4 +1,5 @@
 <script>
+import { pFencedTiles, boardOccupiedTiles } from '$lib/store/pentominos.js';
   // Generates an array of grid coordinates
   let grid = [];
   for (let i = 0; i < 20; i++) {
@@ -16,11 +17,38 @@
 
   const coloredSquare1 = grid[randomIndex1];
   const coloredSquare2 = grid[randomIndex2];
+
+  let toColor1Squares = [];
+  let toColor2Squares = [];
+
+  $: {
+    toColor1Squares = [];
+    $pFencedTiles.forEach(array =>{
+        toColor1Squares.push(array[1]*20+array[0]);
+    }
+    )
+  }
+
+  $: {
+    let pentTiles = $boardOccupiedTiles;
+    toColor2Squares = [];
+    for (let i = 0; i<20; i++)
+    {
+        for (let j = 0; j<20; j++)
+        {
+            if (pentTiles[i][j] != null)
+            {
+                toColor2Squares.push(j * 20 + i);
+            }
+        }
+    }
+  }
+
 </script>
 
 <div class="grid-container">
     {#each grid as {x, y} (x * 20 + y)}
-        <div class="cell {x === coloredSquare1.x && y === coloredSquare1.y ? 'colored1' : ''} {x === coloredSquare2.x && y === coloredSquare2.y ? 'colored2' : ''}"></div>
+        <div class="cell {toColor1Squares.includes(x * 20 + y) ? 'colored1' : ''} {toColor2Squares.includes(x * 20 + y) ? 'colored2' : ''}"></div>
     {/each}
   </div>
   
