@@ -53,6 +53,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 
 				area = str(result['area'])
 				fencedAreas = np.asarray(result['fencedTiles'])
+				ids = np.asarray(result['id'])
 
 				result
 		`);
@@ -63,7 +64,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 		pArea.set(pyodide.globals.get('area'));
 		//pFencedTiles.set(pOut.get('fencedTiles'));
 		pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
-		let pIDNums = pOut.get('id');
+		let pIDNums = pyodide.globals.get('ids').toJs();
 		let pIDLets = '';
 		for (let i = 0; i<pIDNums.length; i++)
 		{
