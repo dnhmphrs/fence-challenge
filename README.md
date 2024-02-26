@@ -1,6 +1,7 @@
 # Fence Challenge for ScaDS.AI/MPS MiS
 
 ### DONE
+
 - Python WHL Demo loaded in JavaScript
 - Graphics Loaded and Rendered
 - Python CV Detects Pentominos & Calculates Area
@@ -16,13 +17,20 @@
 - Board Occupancy Matrix filled
 - Weird pentominos (2x4) aligned
 - Rotate, flip functions added
-- Game mode has python integration
+- press Spacebar to rotatePentomino and press Enter to flipPentomino
 
 ### BUGS
-  - Miguel - spec out macbook camera bug
+
+- Miguel - spec out macbook camera bug
+- Pentominos still fall off the board very occasionally -
+- I pentomino seems to use too big a space sometimes
+- If you add a pentomino then remove it, then click post-result, python still thinks there is a pentomino on the board
 
 ### TODO
-- **By Dan (by end of Feb)**
+
+- **(by end of Feb)**
+  - **Make WebGame Work Properly**
+    - empty
   - **Make python CV Arrange Fence & Display Calculated Area**
     - Display calculated area in the game mode in a nice way
   - **Upload Fence Area to Database & Get and Show Leaderboard**
@@ -35,16 +43,17 @@
   - **Misc Tasks**
     - Startup/Info Modal (renders on siteload or via. info button to give instructions, and project details)
   - Make Website/Tablet/Mobile Fully Responsive
-- **Post Dan (by end of Feb)**
+- **(by march 14th)**
   - FULLY TEST ACROSS A WIDE RANGE OF DEVICES AND SCREENS
   - FULLY TEST THE PYTHON CV ON AS MANY EDGE CASES AS YOU CAN THINK OF
   - Set up a long-term solution for the backend
-      - Backend - Supabase provisionally, to be rebuilt by Alfredo
-      - Frontend - Vercel
+    - Backend - Supabase provisionally, to be rebuilt by Alfredo
+    - Frontend - Vercel
   - Make Website work in Multiple Languages
   - Add Map of where people have uploaded results from
 
 ### DOCS
+
 - Front-End
   - The front-end is hosted and served on vercel.
   - Email (d.humphries@ucl.ac.uk) for access
