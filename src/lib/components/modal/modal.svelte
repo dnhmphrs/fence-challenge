@@ -13,8 +13,8 @@
     console.log($pIDs);
   }
 
-  $: area = {$pyodideRan} ? {$pArea} : '0';
-  $: order = {$pyodideRan} ? {$pIDs} : '';
+  $: area = ($pyodideRan) ? 'Area: ' + $pArea : 'Area: 0';
+  $: order = ($pyodideRan) ? 'order: '+ $pIDs : 'order: None';
 
   // Create a store for each letter in the name
   let nameLetters = Array.from({ length: 6 }, () => 'A');
@@ -34,8 +34,8 @@
     <button on:click={closeModal} on:keydown={closeModal}>Close</button>
     <div class="modal-inner">
       <div class="input-row">
-        <h1>order: {order}</h1>
-        <h1>AREA: {area}</h1>
+        <h1>{order}</h1>
+        <h1>{area}</h1>
       </div>
       <ResultGrid />
     <div class="input-row">
