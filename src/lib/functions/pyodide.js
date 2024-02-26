@@ -1,4 +1,4 @@
-import { pArea, pIDs, pFencedTiles, pyodideRan } from "$lib/store/pentominos";
+import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from "$lib/store/pentominos";
 import {pentominosKey} from "$lib/graphics/pentominos";
 // load pyodide on site load
 export async function handleLoadPyodide() {
@@ -50,9 +50,28 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				img_bgr = img_bgr.astype(np.uint8)
 
 				result = FenceChallenge.board_new.GetPentominos(img_bgr)
+
+				area = str(result['area'])
+				fencedAreas = np.asarray(result['fencedTiles'])
+
 				result
 		`);
 		console.log(`${result}`);
+		let pOut = pyodide.globals.get('result').toJs();
+		console.log(pOut);
+		//pArea.set(pOut.get('area'));
+		pArea.set(pyodide.globals.get('area'));
+		//pFencedTiles.set(pOut.get('fencedTiles'));
+		pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+		let pIDNums = pOut.get('id');
+		let pIDLets = '';
+		for (let i = 0; i<pIDNums.length; i++)
+		{
+			pIDLets += pentominosKey[pIDNums[i]];
+		}
+		pIDs.set(pIDLets);
+		pyodideRan.set(true);
+		boardOccupiedTiles.set(pOut.get('boardPentList'));
 		alert(`Result from Python: ${result}`);
 	} catch (error) {
 		console.error('Error in processFrame:', error);
