@@ -1,6 +1,10 @@
 import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from '$lib/store/pentominos';
 import { isModalOpen } from '$lib/store/store';
 import { pentominosKey } from '$lib/graphics/pentominos';
+
+import { fetchLeaderboard } from '$lib/backend/api';
+import { leaderboard } from '$lib/store/data';
+
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -75,6 +79,11 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 		boardOccupiedTiles.set(pOut.get('boardPentList'));
 		// alert(`Result from Python: ${result}`);
 
+		// basic leadeboard fetch, function itself should handle error case
+		let leaderboard_data = fetchLeaderboard('ED9C2565');
+		leaderboard.set(leaderboard_data);
+		console.log('leaderboard_data', leaderboard_data);
+
 		// open results modal
 		isModalOpen.set(true);
 	} catch (error) {
@@ -126,6 +135,11 @@ export async function processBoard(
 		}
 		pIDs.set(pIDLets);
 		pyodideRan.set(true);
+
+		// basic leadeboard fetch, function itself should handle error case
+		let leaderboard_data = fetchLeaderboard('ED9C2565');
+		leaderboard.set(leaderboard_data);
+		console.log('leaderboard_data', leaderboard_data);
 
 		// open results modal
 		isModalOpen.set(true);
