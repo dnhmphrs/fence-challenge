@@ -63,14 +63,14 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				result
 		`);
 		console.log(`${result}`);
-		if (typeof pyodide.globals.get('result') !== 'string') {
-			let pOut = pyodide.globals.get('result').toJs();
+		if (typeof window.pyodide.globals.get('result') !== 'string') {
+			let pOut = window.pyodide.globals.get('result').toJs();
 			console.log(pOut);
 			//pArea.set(pOut.get('area'));
-			pArea.set(pyodide.globals.get('area'));
+			pArea.set(window.pyodide.globals.get('area'));
 			//pFencedTiles.set(pOut.get('fencedTiles'));
-			pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
-			let pIDNums = pyodide.globals.get('ids').toJs();
+			pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
+			let pIDNums = window.pyodide.globals.get('ids').toJs();
 			let pIDLets = '';
 			for (let i = 0; i < pIDNums.length; i++) {
 				pIDLets += pentominosKey[pIDNums[i]];
@@ -123,13 +123,13 @@ export async function processBoard(
 				result
 		`);
 		console.log(`${result}`);
-		if (typeof pyodide.globals.get('result') !== 'string') {
-			let pOut = pyodide.globals.get('result').toJs();
+		if (typeof window.pyodide.globals.get('result') !== 'string') {
+			let pOut = window.pyodide.globals.get('result').toJs();
 			console.log(pOut);
 			//pArea.set(pOut.get('area'));
-			pArea.set(pyodide.globals.get('area'));
+			pArea.set(window.pyodide.globals.get('area'));
 			//pFencedTiles.set(pOut.get('fencedTiles'));
-			pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+			pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
 			let pIDNums = pOut.get('id');
 			let pIDLets = '';
 			for (let i = 0; i < pIDNums.length; i++) {
