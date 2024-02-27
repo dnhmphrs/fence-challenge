@@ -55,37 +55,38 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				img_bgr = img_bgr.astype(np.uint8)
 
 				result = FenceChallenge.board_new.GetPentominos(img_bgr)
-
-				area = str(result['area'])
-				fencedAreas = np.asarray(result['fencedTiles'])
-				ids = np.asarray(result['id'])
+				if type(result) != str:
+					area = str(result['area'])
+					fencedAreas = np.asarray(result['fencedTiles'])
+					ids = np.asarray(result['id'])
 
 				result
 		`);
 		console.log(`${result}`);
-		let pOut = window.pyodide.globals.get('result').toJs();
-		console.log(pOut);
-		//pArea.set(pOut.get('area'));
-		pArea.set(window.pyodide.globals.get('area'));
-		//pFencedTiles.set(pOut.get('fencedTiles'));
-		pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
-		let pIDNums = window.pyodide.globals.get('ids').toJs();
-		let pIDLets = '';
-		for (let i = 0; i < pIDNums.length; i++) {
-			pIDLets += pentominosKey[pIDNums[i]];
+		if (typeof pyodide.globals.get('result') !== 'string') {
+			let pOut = pyodide.globals.get('result').toJs();
+			console.log(pOut);
+			//pArea.set(pOut.get('area'));
+			pArea.set(pyodide.globals.get('area'));
+			//pFencedTiles.set(pOut.get('fencedTiles'));
+			pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+			let pIDNums = pyodide.globals.get('ids').toJs();
+			let pIDLets = '';
+			for (let i = 0; i < pIDNums.length; i++) {
+				pIDLets += pentominosKey[pIDNums[i]];
+			}
+			pIDs.set(pIDLets);
+			pyodideRan.set(true);
+			boardOccupiedTiles.set(pOut.get('boardPentList'));
+			isModalOpen.set(true);
+
+			// basic leadeboard fetch, function itself should handle error case
+			let leaderboard_data = fetchLeaderboard('ED9C2565');
+			leaderboard.set(leaderboard_data);
+			console.log('leaderboard_data', leaderboard_data);
+		} else {
+			alert(`Result from Python: ${result}`);
 		}
-		pIDs.set(pIDLets);
-		pyodideRan.set(true);
-		boardOccupiedTiles.set(pOut.get('boardPentList'));
-		// alert(`Result from Python: ${result}`);
-
-		// basic leadeboard fetch, function itself should handle error case
-		let leaderboard_data = fetchLeaderboard('ED9C2565');
-		leaderboard.set(leaderboard_data);
-		console.log('leaderboard_data', leaderboard_data);
-
-		// open results modal
-		isModalOpen.set(true);
 	} catch (error) {
 		console.error('Error in processFrame:', error);
 		alert(`Result from Python: ${error}`);
@@ -115,34 +116,36 @@ export async function processBoard(
 
 				result = FenceChallenge.board_new.GetAreaInfo(pentominoNums, pentominoCoords, pentominoRotations, pentominoFlip)
 
-				area = str(result['area'])
-				fencedAreas = np.asarray(result['fencedTiles'])
+				if type(result) != str:
+					area = str(result['area'])
+					fencedAreas = np.asarray(result['fencedTiles'])
 
 				result
 		`);
 		console.log(`${result}`);
-		// alert(`Result from Python: ${result}`);
-		let pOut = window.pyodide.globals.get('result').toJs();
-		console.log(pOut);
-		//pArea.set(pOut.get('area'));
-		pArea.set(window.pyodide.globals.get('area'));
-		//pFencedTiles.set(pOut.get('fencedTiles'));
-		pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
-		let pIDNums = pOut.get('id');
-		let pIDLets = '';
-		for (let i = 0; i < pIDNums.length; i++) {
-			pIDLets += pentominosKey[pIDNums[i]];
+		if (typeof pyodide.globals.get('result') !== 'string') {
+			let pOut = pyodide.globals.get('result').toJs();
+			console.log(pOut);
+			//pArea.set(pOut.get('area'));
+			pArea.set(pyodide.globals.get('area'));
+			//pFencedTiles.set(pOut.get('fencedTiles'));
+			pFencedTiles.set(pyodide.globals.get('fencedAreas').toJs());
+			let pIDNums = pOut.get('id');
+			let pIDLets = '';
+			for (let i = 0; i < pIDNums.length; i++) {
+				pIDLets += pentominosKey[pIDNums[i]];
+			}
+			pIDs.set(pIDLets);
+			pyodideRan.set(true);
+			isModalOpen.set(true);
+
+			// basic leadeboard fetch, function itself should handle error case
+			let leaderboard_data = fetchLeaderboard('ED9C2565');
+			leaderboard.set(leaderboard_data);
+			console.log('leaderboard_data', leaderboard_data);
+		} else {
+			alert(`Result from Python: ${result}`);
 		}
-		pIDs.set(pIDLets);
-		pyodideRan.set(true);
-
-		// basic leadeboard fetch, function itself should handle error case
-		let leaderboard_data = fetchLeaderboard('ED9C2565');
-		leaderboard.set(leaderboard_data);
-		console.log('leaderboard_data', leaderboard_data);
-
-		// open results modal
-		isModalOpen.set(true);
 	} catch (error) {
 		console.error('Error in processBoard:', error);
 		alert(`Result from Python: ${error}`);
