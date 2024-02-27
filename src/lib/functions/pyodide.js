@@ -1,5 +1,6 @@
-import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from "$lib/store/pentominos";
-import {pentominosKey} from "$lib/graphics/pentominos";
+import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from '$lib/store/pentominos';
+import { isModalOpen } from '$lib/store/store';
+import { pentominosKey } from '$lib/graphics/pentominos';
 // load pyodide on site load
 export async function handleLoadPyodide() {
 	window.pyodide = await window.loadPyodide();
@@ -75,6 +76,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 			pIDs.set(pIDLets);
 			pyodideRan.set(true);
 			boardOccupiedTiles.set(pOut.get('boardPentList'));
+			isModalOpen.set(true);
 		}	
 		else{
 		alert(`Result from Python: ${result}`);}
@@ -130,6 +132,7 @@ export async function processBoard(
 			}
 			pIDs.set(pIDLets);
 			pyodideRan.set(true);
+			isModalOpen.set(true);
 		}
 		else
 		{
