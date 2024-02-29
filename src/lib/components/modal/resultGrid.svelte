@@ -24,7 +24,7 @@ import { pFencedTiles, boardOccupiedTiles } from '$lib/store/pentominos.js';
   $: {
     toColor1Squares = [];
     $pFencedTiles.forEach(array =>{
-        toColor1Squares.push((19-array[1]*20)+array[0]);
+        toColor1Squares.push((19-array[1])*20+array[0]);
     }
     )
   }

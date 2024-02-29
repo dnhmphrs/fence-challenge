@@ -19,12 +19,11 @@ async function fetchLeaderboard(orderID) {
 	return data;
 }
 
-async function postResults(sessionID, experiment, order, recordTable, session, team) {
+async function postResults(sessionID, experiment, orderID, recordTable, session, team) {
 	const payload = {
 		sessionID,
 		EXPERIMENT: experiment,
-		orderID: order.orderID,
-		ORDER: order,
+		orderID: orderID,
 		RECORDTABLE: recordTable,
 		SESSION: session,
 		TEAM: team
