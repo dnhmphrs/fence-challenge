@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { disableKeyDown } from '$lib/store/store';
-  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore, pyodideSays} from '$lib/store/pentominos.js';
+  import { selectedPentominos, toRotatePentominos, toFlipPentominos, pentominosStore, boardOccupiedTiles} from '$lib/store/pentominos.js';
 	import { pentominosKey, pentominosDict, pentominosReverseKey } from './pentominos.js';
   import * as THREE from 'three';
 
@@ -26,6 +26,48 @@
     cleanUpBoard();
     window.removeEventListener('keydown', handleKeyPress);
   });
+
+    
+  // -----------------------------------------------------------------------------
+	//  HANDLE FENCED TILE COLOUR
+	// -----------------------------------------------------------------------------
+
+  // DEPRECATED - DISPLAYS FENCED TILES DIRECTLY IN MODAL IN RESULTS_GRID
+  // $: $pyodideSays, colourFencedTiles();
+
+  // function colourFencedTiles() {
+  //   console.log($pyodideSays);
+  //   if ($pyodideSays != []) {
+  //     try{
+  //     console.log('IM HERE')
+  //     // console.log(fencedTiles);
+  //     console.log($pyodideSays);
+  //     console.log($pyodideSays.get('fencedTiles'));
+  //     // console.log($pyodideSays.fencedTiles);
+  //     const fencedTiles = $pyodideSays.get('fencedTiles').flat(2);
+  //     if (typeof $pyodideSays.fencedTiles !== 'undefined')
+  //     {
+
+  //       fencedTiles.forEach(tile =>{
+  //         changeCellColor(tile[0], tile[1], 0x00FF00);
+  //       })
+  //       let stringy = JSON.stringify(fencedTiles);
+  //       for (let i = 0; i<20; i++)
+  //       {
+  //         for (let j = 0; j<20; j++)
+  //         {
+  //           let checkTile = JSON.stringify([i,j]);
+  //           if (stringy.indexOf(checkTile) == -1)
+  //           {
+  //             clearCellColor(i,j);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  // }
+  // }}
 
   // -----------------------------------------------------------------------------
 	//  HANDLE PENTOMINO SELECTION
@@ -74,29 +116,6 @@
     let c = $selectedPentominos;
     updatePlacedPentominos();
   }
-
-  $: {
-    console.log($pyodideSays);
-    if (typeof $pyodideSays['area'] !== 'undefined')
-    {
-      //console.log($pyodideSays);
-      $pyodideSays['fencedTiles'].forEach(tile =>{
-        changeCellColor(tile[0], tile[1], 0x00FF00);
-      })
-      let stringy = JSON.stringify($pyodideSays['fencedTiles']);
-      for (let i = 0; i<20; i++)
-      {
-        for (let j = 0; j<20; j++)
-        {
-          let checkTile = JSON.stringify([i,j]);
-          if (stringy.indexOf(checkTile) == -1)
-          {
-            clearCellColor(i,j);
-          }
-        }
-      }
-    }
-  }
   
 
   export function getPentominos() {
@@ -133,6 +152,7 @@
     });
 
     $pentominosStore = [pentominoIDs, pentominoCoords, pentominoRotations, pentominoFlip];
+    $boardOccupiedTiles = grid;
   }
 
   function handleKeyPress(event) {
@@ -215,15 +235,15 @@ export function createPentominos() {
 
     let pentominoID  = pentominosKey[i];
 
-		const texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.LinearFilter;
+		pentominosDict[pentominoID].texture = loader.load(`/pentominos-graphic/${pentominoID}.png`);
+		pentominosDict[pentominoID].texture.minFilter = THREE.LinearFilter;
+		pentominosDict[pentominoID].texture.magFilter = THREE.LinearFilter;
 		let scale = .055
 		let width = pentominosDict[pentominoID].width * scale;
 		let height = pentominosDict[pentominoID].height * scale;
 		const geometry = new THREE.PlaneGeometry(width, height);
 		const material = new THREE.MeshBasicMaterial({
-			map: texture,
+			map: pentominosDict[pentominoID].texture,
 			transparent: true,
 			opacity: 1,
 		});

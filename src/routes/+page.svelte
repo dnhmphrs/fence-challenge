@@ -78,13 +78,14 @@
 
 		display: flex;
 		flex-flow: column nowrap;
-		gap: 20px;
+		gap: 15px;
 	}
 
 	.sidebar.left {
 		width: 280px;
 		/* border-right: 1px solid var(--dark-purple); */
 		left: 0;
+		z-index: 1000;
 	}
 
 
@@ -198,8 +199,8 @@
 		}
 		.sidebar.left {
 			width: 100%;
-			height: 10%;
-			top: 0;
+			height: 0;
+			top: -100%;
 			gap: 10px;
 			border-left: none;
 			border-bottom: 1px solid #000000;

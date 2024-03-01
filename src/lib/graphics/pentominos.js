@@ -14,18 +14,18 @@ export var pentominosKey = {
 };
 
 export var pentominosReverseKey = {
-	'F': 1,
-	'I': 2,
-	'L': 3,
-	'N': 4,
-	'P': 5,
-	'T': 6,
-	'U': 7,
-	'V': 8,
-	'W': 9,
-	'X': 10,
-	'Y': 11,
-	'Z': 12
+	F: 1,
+	I: 2,
+	L: 3,
+	N: 4,
+	P: 5,
+	T: 6,
+	U: 7,
+	V: 8,
+	W: 9,
+	X: 10,
+	Y: 11,
+	Z: 12
 };
 
 export var pentominosDict = {
@@ -34,6 +34,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 0],
 			[-1, 2],
@@ -49,13 +50,13 @@ export var pentominosDict = {
 			[-1, 0]
 		],
 		offsets: [
-			[0,1],
-			[1,1],
-			[-1,0],
-			[0,-1]
+			[0, 1],
+			[1, 1],
+			[-1, 0],
+			[0, -1]
 		],
-		centerOffset: [0,0],
-		rotations : 0,
+		centerOffset: [0, 0],
+		rotations: 0,
 		flip: 0
 	},
 	I: {
@@ -63,6 +64,7 @@ export var pentominosDict = {
 		width: 1,
 		height: 5,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[0, 3],
 			[1, 3],
@@ -71,13 +73,13 @@ export var pentominosDict = {
 			[0, 3]
 		],
 		offsets: [
-			[0,-2],
-			[0,-1],
-			[0,1],
-			[0,2]
+			[0, -2],
+			[0, -1],
+			[0, 1],
+			[0, 2]
 		],
-		centerOffset: [0,0],
-		rotations : 0,
+		centerOffset: [0, 0],
+		rotations: 0,
 		flip: 0
 	},
 	L: {
@@ -85,6 +87,7 @@ export var pentominosDict = {
 		width: 2,
 		height: 4,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-0.5, 2.5],
 			[1.5, 2.5],
@@ -96,21 +99,21 @@ export var pentominosDict = {
 			[-0.5, 2.5]
 		],
 		offsets: [
-			[0,2],
-			[0,1],
-			[0,-1],
-			[1,-1]
+			[0, 2],
+			[0, 1],
+			[0, -1],
+			[1, -1]
 		],
-		centerOffset: [.5,.5],
-		rotations : 0,
+		centerOffset: [0.5, 0.5],
+		rotations: 0,
 		flip: 0
-
 	},
 	N: {
 		letter: 'N',
 		width: 2,
 		height: 4,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1.5, 0.5],
 			[-0.5, 0.5],
@@ -123,13 +126,13 @@ export var pentominosDict = {
 			[-1.5, 0.5]
 		],
 		offsets: [
-			[1,1],
-			[1,0],
-			[0,-1],
-			[0,-2]
+			[1, 1],
+			[1, 0],
+			[0, -1],
+			[0, -2]
 		],
-		centerOffset: [.5,-.5],
-		rotations : 0,
+		centerOffset: [0.5, -0.5],
+		rotations: 0,
 		flip: 0
 	},
 	P: {
@@ -137,6 +140,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, -1],
 			[-1, 0],
@@ -147,13 +151,13 @@ export var pentominosDict = {
 			[-1, -1]
 		],
 		offsets: [
-			[0,1],
-			[1,1],
-			[1,0],
-			[0,-1]
+			[0, 1],
+			[1, 1],
+			[1, 0],
+			[0, -1]
 		],
-		centerOffset: [1,0],
-		rotations : 0,
+		centerOffset: [1, 0],
+		rotations: 0,
 		flip: 0
 	},
 	T: {
@@ -161,6 +165,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 2],
 			[2, 2],
@@ -173,13 +178,13 @@ export var pentominosDict = {
 			[-1, 2]
 		],
 		offsets: [
-			[-1,0],
-			[1,0],
-			[0,-1],
-			[0,-2]
+			[-1, 0],
+			[1, 0],
+			[0, -1],
+			[0, -2]
 		],
-		centerOffset: [0,-1],
-		rotations : 0,
+		centerOffset: [0, -1],
+		rotations: 0,
 		flip: 0
 	},
 	U: {
@@ -187,6 +192,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 1],
 			[0, 1],
@@ -199,13 +205,13 @@ export var pentominosDict = {
 			[-1, 1]
 		],
 		offsets: [
-			[-1,0],
-			[-1,1],
-			[1,0],
-			[1,1]
+			[-1, 0],
+			[-1, 1],
+			[1, 0],
+			[1, 1]
 		],
-		centerOffset: [0,1],
-		rotations : 0,
+		centerOffset: [0, 1],
+		rotations: 0,
 		flip: 0
 	},
 	V: {
@@ -213,6 +219,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 2],
 			[0, 2],
@@ -224,13 +231,13 @@ export var pentominosDict = {
 			[-1, 2]
 		],
 		offsets: [
-			[0,1],
-			[0,2],
-			[1,0],
-			[2,0]
+			[0, 1],
+			[0, 2],
+			[1, 0],
+			[2, 0]
 		],
-		centerOffset: [1,1],
-		rotations : 0,
+		centerOffset: [1, 1],
+		rotations: 0,
 		flip: 0
 	},
 	W: {
@@ -238,6 +245,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, -1],
 			[-1, 1],
@@ -252,13 +260,13 @@ export var pentominosDict = {
 			[-1, -1]
 		],
 		offsets: [
-			[-1,0],
-			[-1,1],
-			[0,-1],
-			[1,-1]
+			[-1, 0],
+			[-1, 1],
+			[0, -1],
+			[1, -1]
 		],
-		centerOffset: [0,0],
-		rotations : 0,
+		centerOffset: [0, 0],
+		rotations: 0,
 		flip: 0
 	},
 	X: {
@@ -266,6 +274,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 1],
 			[0, 1],
@@ -282,13 +291,13 @@ export var pentominosDict = {
 			[-1, 1]
 		],
 		offsets: [
-			[0,1],
-			[0,-1],
-			[1,0],
-			[-1,0]
+			[0, 1],
+			[0, -1],
+			[1, 0],
+			[-1, 0]
 		],
-		centerOffset: [0,0],
-		rotations : 0,
+		centerOffset: [0, 0],
+		rotations: 0,
 		flip: 0
 	},
 	Y: {
@@ -296,6 +305,7 @@ export var pentominosDict = {
 		width: 2,
 		height: 4,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1.5, 1.5],
 			[2.5, 1.5],
@@ -308,13 +318,13 @@ export var pentominosDict = {
 			[-1.5, 1.5]
 		],
 		offsets: [
-			[0,1],
-			[0,-1],
-			[0,-2],
-			[-1,0]
+			[0, 1],
+			[0, -1],
+			[0, -2],
+			[-1, 0]
 		],
-		centerOffset: [-.5,-.5],
-		rotations : 0,
+		centerOffset: [-0.5, -0.5],
+		rotations: 0,
 		flip: 0
 	},
 	Z: {
@@ -322,6 +332,7 @@ export var pentominosDict = {
 		width: 3,
 		height: 3,
 		gridPosition: { x: null, y: null },
+		texture: null,
 		cornerVertices: [
 			[-1, 2],
 			[1, 2],
@@ -334,13 +345,13 @@ export var pentominosDict = {
 			[-1, 2]
 		],
 		offsets: [
-			[0,-1],
-			[0,1],
-			[-1,1],
-			[1,-1]
+			[0, -1],
+			[0, 1],
+			[-1, 1],
+			[1, -1]
 		],
-		centerOffset: [0,0],
-		rotations : 0,
+		centerOffset: [0, 0],
+		rotations: 0,
 		flip: 0
 	}
 };

@@ -12,3 +12,4 @@ export const isCvMode = writable(false);
 export const appReady = writable(false);
 
 export const disableKeyDown = writable(false);
+export const isModalOpen = writable(false);

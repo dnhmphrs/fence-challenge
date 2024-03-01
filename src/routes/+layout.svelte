@@ -10,6 +10,8 @@
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
+	import Modal from '$lib/components/modal/modal.svelte';
+
 	export let data;
 	let Geometry;
 	let geometryLoaded = false;
@@ -81,7 +83,11 @@
 	<div class="loading">loading app.</div>
 {/if}
 
+<!-- <button style="position:absolute;left:20%;z-index:100;" on:click={() => isModalOpen.set(true)}>Open Modal</button> -->
 <div class="app">
+
+
+	<Modal />
 
 	<main>
 		<slot />
