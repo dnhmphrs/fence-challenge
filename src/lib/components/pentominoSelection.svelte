@@ -163,6 +163,7 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
   .cell {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1;
     background-color: #444;
   }
 
@@ -232,6 +233,7 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
       grid-template-rows: repeat(3, 1fr);
       width: 15%;
       height: 45%;
+      aspect-ratio: 1;
     }
   }
 

@@ -6,6 +6,8 @@
 
   function closeModal() {
     isModalOpen.set(false);
+    console.log($isModalOpen)
+    console.log('close modal');
   }
 
   $ :{

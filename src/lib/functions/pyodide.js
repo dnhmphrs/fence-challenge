@@ -76,7 +76,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				pIDLets += pentominosKey[pIDNums[i]];
 			}
 			pIDs.set(pIDLets);
-			pyodideRan.set(true);
+			
 			boardOccupiedTiles.set(pOut.get('boardPentList'));
 			isModalOpen.set(true);
 
@@ -84,6 +84,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 			let leaderboard_data = await fetchLeaderboard(pIDLets);
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
+			pyodideRan.set(true);
 		} else {
 			alert(`Result from Python: ${result}`);
 		}
@@ -136,13 +137,14 @@ export async function processBoard(
 				pIDLets += pentominosKey[pIDNums[i]];
 			}
 			pIDs.set(pIDLets);
-			pyodideRan.set(true);
+
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
 			let leaderboard_data = await fetchLeaderboard(pIDLets);
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
+			pyodideRan.set(true);
 		} else {
 			alert(`Result from Python: ${result}`);
 		}

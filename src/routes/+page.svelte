@@ -21,6 +21,7 @@
 	};
 
 	let leaderBoard = [];
+	let leaderboardLength = 0;
 
 	let hideSidebar = false;
 	$: hideSidebarText = hideSidebar ? 'Show' : 'Hide';
@@ -29,15 +30,13 @@
 
 	$: {
 		if ($pyodideRan){
+			leaderboardLength = Math.min($leaderboard.length, 30);
 			leaderBoard = $leaderboard;
+			console.log($leaderboard);
 		}
 	}
 
-	$: leaderboardLength = ($pyodideRan) ? leaderBoard.length : 0;
-
-	
-
-	$: { console.log($leaderboard) };
+	//$: leaderboardLength = ($pyodideRan) ? Math.max($leaderboard.length, 30) : 0;
 	
 </script>
 
@@ -201,6 +200,7 @@
 	.pentominos {
 		width: 100%;
 		height: 100%;
+
 		border-radius: 10px;
 	}
 
