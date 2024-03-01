@@ -68,6 +68,7 @@ import { pFencedTiles, boardOccupiedTiles } from '$lib/store/pentominos.js';
       width: 100%;
       height: 20px; /* Adjust based on your needs */
       background-color: var(--primary); /* Default cell color */
+      aspect-ratio: 1;
   }
 
   .colored1 {

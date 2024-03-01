@@ -2,6 +2,7 @@ import { RectAreaLight } from "three";
 import { get } from "svelte/store";
 import { supabase } from "./supabase.js";
 import { sessionID, pFencedTiles, boardOccupiedTiles } from "$lib/store/pentominos.js"
+import { leaderboard } from "$lib/store/data.js";
 
 const BACKEND_URL = 'https://n80dj9of87.execute-api.us-east-1.amazonaws.com/production';
 
@@ -89,6 +90,8 @@ async function postResults(orderID, area) {
 			console.error(error.message);
 		}
 	
+		let leaderboard_data = await fetchLeaderboard(orderID);
+		leaderboard.set(leaderboard_data);
 }
 
 
