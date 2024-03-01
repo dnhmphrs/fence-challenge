@@ -1,7 +1,8 @@
 <script>
   import { isModalOpen } from '$lib/store/store.js';
-  import {pArea, pFencedTiles, pIDs, pyodideRan} from '$lib/store/pentominos.js';
+  import {pArea, pFencedTiles, pIDs, pyodideRan, boardOccupiedTiles} from '$lib/store/pentominos.js';
   import ResultGrid from '$lib/components/modal/resultGrid.svelte';
+  import { fetchLeaderboard, postResults } from 'lib/backend/api.js';
 
   function closeModal() {
     isModalOpen.set(false);
@@ -57,7 +58,7 @@
       </div>
     </div>
     
-    <button class="primary">submit score to leaderboard</button>
+    <button class="primary" on:click={() => postResults(Math.random*100000, pArea, pIDs, $boardOccupiedTiles, 0, 0)}>submit score to leaderboard</button>
   </div>
   </div>
 </div>
