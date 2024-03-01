@@ -12,7 +12,7 @@ async function fetchLeaderboard(orderID) {
 			// Add the API Key here if required in the future
 			// 'x-api-key': 'YOUR_API_KEY'
 		},
-		body: JSON.stringify({ orderID })
+		//body: JSON.stringify({ orderID })
 	});
 
 	if (!response.ok) {
