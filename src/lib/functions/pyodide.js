@@ -81,7 +81,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
-			let leaderboard_data = fetchLeaderboard('ED9C2565');
+			let leaderboard_data = fetchLeaderboard('EF1624261');
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
 		} else {
@@ -140,7 +140,7 @@ export async function processBoard(
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
-			let leaderboard_data = fetchLeaderboard('ED9C2565');
+			let leaderboard_data = fetchLeaderboard('F1624261');
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
 		} else {

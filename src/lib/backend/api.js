@@ -1,14 +1,17 @@
-const BACKEND_URL = 'https://n80dj9of87.execute-api.us-east1.amazonaws.com/production';
+import { RectAreaLight } from "three";
+
+const BACKEND_URL = 'https://n80dj9of87.execute-api.us-east-1.amazonaws.com/production';
 
 async function fetchLeaderboard(orderID) {
-	const response = await fetch(`${BACKEND_URL}/getleaderboard`, {
-		method: 'POST',
+	const response = await fetch(`${BACKEND_URL}/getleaderboard/${orderID}/`, {
+		method: 'GET',
+		//mode: 'no-cors',
 		headers: {
 			'Content-Type': 'application/json'
 			// Add the API Key here if required in the future
 			// 'x-api-key': 'YOUR_API_KEY'
 		},
-		body: JSON.stringify({ orderID })
+		//body: JSON.stringify({ orderID })
 	});
 
 	if (!response.ok) {
@@ -19,15 +22,14 @@ async function fetchLeaderboard(orderID) {
 	return data;
 }
 
-async function postResults(sessionID, experiment, order, recordTable, session, team) {
+async function postResults(experiment, orderID, area) {
 	const payload = {
-		sessionID,
+		//sessionID,
 		EXPERIMENT: experiment,
-		orderID: order.orderID,
-		ORDER: order,
-		RECORDTABLE: recordTable,
-		SESSION: session,
-		TEAM: team
+		orderID: orderID,
+		RECORDTABLE: area
+		//SESSION: session,
+		//TEAM: team
 	};
 
 	const response = await fetch(`${BACKEND_URL}/postresults`, {
