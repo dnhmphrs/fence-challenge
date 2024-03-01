@@ -58,7 +58,7 @@
       </div>
     </div>
     
-    <button class="primary" on:click={() => postResults(Math.random*100000, pArea, pIDs, $boardOccupiedTiles, 0, 0)}>submit score to leaderboard</button>
+    <button class="primary" on:click={() => postResults($pIDs, $pArea)}>submit score to leaderboard</button>
   </div>
   </div>
 </div>

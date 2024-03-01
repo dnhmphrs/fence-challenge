@@ -1,17 +1,22 @@
 import { RectAreaLight } from "three";
+import { get } from "svelte/store";
+import { supabase } from "./supabase.js";
+import { sessionID, pFencedTiles, boardOccupiedTiles } from "$lib/store/pentominos.js"
 
 const BACKEND_URL = 'https://n80dj9of87.execute-api.us-east-1.amazonaws.com/production';
 
+/*
 async function fetchLeaderboard(orderID) {
 	const response = await fetch(`${BACKEND_URL}/getleaderboard/${orderID}/`, {
 		method: 'GET',
 		//mode: 'no-cors',
 		headers: {
+			//'Content-Type': 'multipart/form-data'
 			'Content-Type': 'application/json'
 			// Add the API Key here if required in the future
 			// 'x-api-key': 'YOUR_API_KEY'
 		},
-		//body: JSON.stringify({ orderID })
+		body: JSON.stringify({ orderID })
 	});
 
 	if (!response.ok) {
@@ -19,9 +24,20 @@ async function fetchLeaderboard(orderID) {
 	}
 
 	const data = await response.json();
+	console.log(response);
 	return data;
 }
+*/
 
+async function fetchLeaderboard(orderID) {
+	let { data: leaderboard, error } = await supabase
+		.from('leaderboard')
+		.select('name, orderID, country, area')
+		.eq('orderID', orderID);
+		return leaderboard;
+}
+
+/*
 async function postResults(experiment, orderID, area) {
 	const payload = {
 		//sessionID,
@@ -48,8 +64,37 @@ async function postResults(experiment, orderID, area) {
 	const data = await response.json();
 	return data;
 }
+*/
+
+async function postResults(orderID, area) {
+
+	let payload = { 
+		orderID: orderID, 
+		sessionID: Math.floor(get(sessionID)*100000),
+		area: area,
+		name: 'Unknown', 
+		country: 'Mystery'
+	}
+
+	console.log(payload);
+
+	try{
+	const { data, error } = await supabase
+		.from('leaderboard')
+		.insert(payload).select();
+		console.log(data);
+		}
+		catch(error)
+		{
+			console.error(error.message);
+		}
+	
+}
+
 
 export { fetchLeaderboard, postResults };
+
+
 
 // EXAMPLE CODE TO CALL THESE ENDPOINTS
 

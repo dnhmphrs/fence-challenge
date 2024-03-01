@@ -1,7 +1,8 @@
 <script>
 	import { isCvMode, screenType } from '$lib/store/store';
 	import PentominoSelection from '../lib/components/pentominoSelection.svelte';
-	import {toRotatePentominos, toFlipPentominos} from '$lib/store/pentominos';
+	import {toRotatePentominos, toFlipPentominos, pyodideRan, pIDs} from '$lib/store/pentominos';
+	import { leaderboard } from '$lib/store/data';
 
 	function rotateEvent()
 	{
@@ -19,26 +20,43 @@
 		isCvMode.update(value => !value);
 	};
 
+	let leaderBoard = [];
+
 	let hideSidebar = false;
 	$: hideSidebarText = hideSidebar ? 'Show' : 'Hide';
+
+	$: order = ($pyodideRan) ? 'Order: '+ $pIDs : 'Order: None';
+
+	$: {
+		if ($pyodideRan){
+			leaderBoard = $leaderboard;
+		}
+	}
+
+	$: leaderboardLength = ($pyodideRan) ? leaderBoard.length : 0;
+
+	
+
+	$: { console.log($leaderboard) };
+	
 </script>
 
 <div class="sidebar left">
 	<div class="title">
 		<h1>FENCE CHALLENGE</h1>
-		<p>This is a short piece of text that will maybe be a description of sorts.</p>
+		<p>Enclose as much area as possible with the given pentominos!</p>
 	</div>
 	<!-- <hr style="border: .5px solid var(--primary-50);" /> -->
 	<div class="leaderboard-title">
 		<h2>Leaderboard</h2>
-		<h4>ORDER: FILNPTUVWXYZ</h4>
+		<h4>{order}</h4>
 	</div>
 	<div class="leaderboard no-scrollbar">
-		{#each Array(30) as _, i}
+		{#each Array(leaderboardLength) as _, i}
 			<div class="leaderboard-entry">
-				<p class="leaderboard-entry-name">Player {i}</p>
-				<p class="leaderboard-entry-country">Germany</p>
-				<p class="leaderboard-entry-score">{Math.floor((Math.random() * 128))}</p>
+				<p class="leaderboard-entry-name">{$leaderboard[i].name}</p>
+				<p class="leaderboard-entry-country">{$leaderboard[i].country}</p>
+				<p class="leaderboard-entry-score">{$leaderboard[i].area}</p>
 			</div>
 		{/each}
 	</div>
