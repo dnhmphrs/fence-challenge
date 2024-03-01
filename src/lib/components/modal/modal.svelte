@@ -2,7 +2,7 @@
   import { isModalOpen } from '$lib/store/store.js';
   import {pArea, pFencedTiles, pIDs, pyodideRan, boardOccupiedTiles} from '$lib/store/pentominos.js';
   import ResultGrid from '$lib/components/modal/resultGrid.svelte';
-  import { fetchLeaderboard, postResults } from 'lib/backend/api.js';
+  import { fetchLeaderboard, postResults } from '$lib/backend/api.js';
 
   function closeModal() {
     isModalOpen.set(false);
