@@ -194,7 +194,7 @@
 	.button.holder {
 		display: flex;
 		flex-flow: column nowrap;
-		gap: 15px;
+		gap: 1vmin;
 	}
 
 	.pentominos {
@@ -208,6 +208,7 @@
 	span.hidden {
 		opacity: .5;
 	}
+
 
 	@media (max-width: 1024px) {
 		.sidebar.left {
@@ -248,10 +249,10 @@
 			max-width: 100%;
 			display: flex;
 			flex-flow: row nowrap;
-			justify-content: space-between;
+			justify-content: center;
 			width: 100%;
 			padding: 0 0px;
-			gap: 20px;
+			gap: 1vmin;
 		}
 
 		.width-33 {

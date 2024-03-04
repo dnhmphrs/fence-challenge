@@ -453,6 +453,7 @@ window.addEventListener('resize', function() {
   margin: 0;
   border: none;
   z-index: -1;
+  position: fixed;
 
   /* animations */
   opacity: 0; /* start invisible */
@@ -460,7 +461,7 @@ window.addEventListener('resize', function() {
 	}
 
 	button {
-		position: absolute;
+		position: fixed;
 		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);

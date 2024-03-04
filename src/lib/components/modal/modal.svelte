@@ -385,6 +385,7 @@
 
   .ID-input-box{
     background-color: rgb(0, 0, 0);
+    width: 30vw;
   }
 
   .form-select{
@@ -393,6 +394,7 @@
     text-decoration: none;
     display: block;
     text-align: left;
+    width: 40vw;
   }
 
 

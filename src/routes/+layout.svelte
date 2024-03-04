@@ -146,6 +146,9 @@
 		opacity: 0; /* hide until loaded */
 		transition: opacity 0.5s 0.5s ease-in-out;
 		overflow: hidden;
+		position: fixed;
 	}
+
+	
 
 </style>

@@ -173,7 +173,7 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 3px;
+    grid-gap: 1.33%;
     width: 48%;
     height: 15%;
     padding: 8px;
@@ -229,11 +229,11 @@ on:keypress={() => $selectedPentominos.includes('P') ? $selectedPentominos = $se
     }
 
     .pentomino {
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
       width: 15%;
       height: 45%;
-      aspect-ratio: 1;
+      grid-gap: 3.33%;
     }
   }
 
