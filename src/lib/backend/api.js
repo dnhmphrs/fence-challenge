@@ -1,7 +1,7 @@
 import { RectAreaLight } from "three";
 import { get } from "svelte/store";
 import { supabase } from "./supabase.js";
-import { sessionID, pFencedTiles, boardOccupiedTiles } from "$lib/store/pentominos.js"
+import { sessionID, playerID, pFencedTiles, boardOccupiedTiles } from "$lib/store/pentominos.js"
 import { leaderboard } from "$lib/store/data.js";
 
 const BACKEND_URL = 'https://n80dj9of87.execute-api.us-east-1.amazonaws.com/production';
@@ -33,7 +33,7 @@ async function fetchLeaderboard(orderID) {
 async function fetchLeaderboard(orderID) {
 	let { data: leaderboard, error } = await supabase
 		.from('leaderboard')
-		.select('name, orderID, country, area')
+		.select('name, orderID, playerID, country, area')
 		.eq('orderID', orderID);
 		return leaderboard;
 }
@@ -67,14 +67,15 @@ async function postResults(experiment, orderID, area) {
 }
 */
 
-async function postResults(orderID, area) {
+async function postResults(orderID, area, playerID, country) {
 
 	let payload = { 
 		orderID: orderID, 
 		sessionID: Math.floor(get(sessionID)*100000),
 		area: area,
 		name: 'Unknown', 
-		country: 'Mystery'
+		country: country,
+		playerID: playerID
 	}
 
 	console.log(payload);
@@ -94,8 +95,28 @@ async function postResults(orderID, area) {
 		leaderboard.set(leaderboard_data);
 }
 
+async function fetchPlayerIDs()
+{
+	let { data: playerIDs, error } = await supabase
+	.from('leaderboard')
+	.select('playerID')
+	return playerIDs;
+}
 
-export { fetchLeaderboard, postResults };
+async function setNewPlayerID()
+{
+	let usedIDs = await fetchPlayerIDs();
+	let newID = Math.floor(Math.random()*100000000);
+	console.log(usedIDs);
+	while (usedIDs.includes(newID))
+	{
+		newID = Math.floor(Math.random()*100000000);
+	}
+	playerID.set(newID);
+}
+
+
+export { fetchLeaderboard, postResults, setNewPlayerID };
 
 
 

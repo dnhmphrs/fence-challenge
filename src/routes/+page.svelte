@@ -53,7 +53,7 @@
 	<div class="leaderboard no-scrollbar">
 		{#each Array(leaderboardLength) as _, i}
 			<div class="leaderboard-entry">
-				<p class="leaderboard-entry-name">{$leaderboard[i].name}</p>
+				<p class="leaderboard-entry-name">{$leaderboard[i].playerID}</p>
 				<p class="leaderboard-entry-country">{$leaderboard[i].country}</p>
 				<p class="leaderboard-entry-score">{$leaderboard[i].area}</p>
 			</div>

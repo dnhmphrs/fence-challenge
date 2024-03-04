@@ -2,7 +2,7 @@ import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from '$lib/
 import { isModalOpen } from '$lib/store/store';
 import { pentominosKey } from '$lib/graphics/pentominos';
 
-import { fetchLeaderboard } from '$lib/backend/api';
+import { fetchLeaderboard, setNewPlayerID } from '$lib/backend/api';
 import { leaderboard } from '$lib/store/data';
 
 // load pyodide on site load
@@ -78,6 +78,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 			pIDs.set(pIDLets);
 			
 			boardOccupiedTiles.set(pOut.get('boardPentList'));
+			setNewPlayerID();
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
@@ -137,7 +138,7 @@ export async function processBoard(
 				pIDLets += pentominosKey[pIDNums[i]];
 			}
 			pIDs.set(pIDLets);
-
+			setNewPlayerID();
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case

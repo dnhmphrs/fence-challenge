@@ -11,5 +11,7 @@ export const pFencedTiles = writable([]);
 export const pyodideSays = writable([]);
 export const pyodideRan = writable(false);
 export const sessionID = readable(Math.random());
+export const playerID = writable(0);
+export const country = writable("");
 
 export const boardOccupiedTiles = writable([]);
