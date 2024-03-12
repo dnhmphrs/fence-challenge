@@ -155,17 +155,7 @@ function onDocumentMouseMove(event) {
   }
 
   function onDocumentMouseDown(event) {
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    touchStartY = event.touches[0].clientY;
-    
-    touchEndY = event.changedTouches[0].clientY;
-
-    if (Math.abs(touchStartY - touchEndY) > 10) { // Example threshold, adjust as necessary
-        event.preventDefault(); // Only prevent default if movement meets certain criteria
-    }
-
+    event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(true);
 
@@ -195,7 +185,7 @@ function onDocumentMouseMove(event) {
   }
 
   async function onDocumentMouseUp(event) {
-    // event.preventDefault();
+    //event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(false);
 
