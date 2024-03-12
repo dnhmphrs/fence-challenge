@@ -16,7 +16,7 @@
         <li>Erika</li>
         <li>Miguel</li>
         <a href="https://danielniels.co.uk"><li>Daniel Humphries // UCL NPP // software</li></a>
-        <a href="https://aufbau.io"><li>Aufbau // Web Development</li></a>
+        <a href="https://aufbau.io"><li>Aufbau // London // Web Development</li></a>
       </ul>
     </div>
   </div>
