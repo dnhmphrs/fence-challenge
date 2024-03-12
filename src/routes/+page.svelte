@@ -176,6 +176,7 @@
 		border: 3px double var(--dark-purple);
 		padding: 10px;
 		border-radius: 10px;
+		height: 100%;
 	}
 
 	.leaderboard-entry {
