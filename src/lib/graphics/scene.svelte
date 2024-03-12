@@ -165,7 +165,7 @@ function onDocumentMouseMove(event) {
     if (Math.abs(touchStartY - touchEndY) > 10) { // Example threshold, adjust as necessary
         event.preventDefault(); // Only prevent default if movement meets certain criteria
     }
-    
+
     updateCursor(event);
     disableKeyDown.set(true);
 
@@ -195,7 +195,7 @@ function onDocumentMouseMove(event) {
   }
 
   async function onDocumentMouseUp(event) {
-    event.preventDefault();
+    // event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(false);
 
