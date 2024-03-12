@@ -145,4 +145,8 @@ button:focus:not(:focus-visible) {
 		font-size: 18px;
 		font-weight: 400;
 	}
+
+	:root {
+		user-select: none;
+	}
 }
