@@ -121,6 +121,8 @@
 	.sidebar.left {
 		width: 280px;
 		/* border-right: 1px solid var(--dark-purple); */
+		background: none;
+		backdrop-filter: none;
 		left: 0;
 		z-index: 1000;
 	}
@@ -132,6 +134,7 @@
 
 	.title {
 		border: 3px double var(--dark-purple);
+		background: var(--background);
 		padding: 10px;
 		border-radius: 10px;
 
@@ -144,6 +147,7 @@
 
 	.leaderboard-title {
 		display: flex;
+		background: var(--background);
 		flex-flow: column nowrap;
 		align-items: center;
 		justify-content: center;
@@ -175,6 +179,7 @@
 	}
 
 	.leaderboard-entry {
+		background: var(--background);
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
