@@ -56,7 +56,7 @@
 <div class="sidebar left">
 	<div class="title">
 		<h1>FENCE CHALLENGE</h1>
-		<p>Enclose as much area as you can with some (or all) of the pentominos!</p>
+		<p>Enclose as much area as you can with a selection of pentominos!</p>
 	</div>
 	<!-- <hr style="border: .5px solid var(--primary-50);" /> -->
 	<div class="leaderboard-title">
