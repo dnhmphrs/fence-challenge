@@ -538,6 +538,11 @@ window.addEventListener('resize', function() {
     opacity: .5 !important;
   }
 
+  button.half:hover {
+    opacity: 1 !important;
+  
+  }
+
 	p {
 		font-size: 14px;
 		width: 100%;
