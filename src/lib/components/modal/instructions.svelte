@@ -19,7 +19,7 @@
         <li>For camera mode, use the pentominos with aruco markers to assemble a fence, then take a picture with the corner markers in frame near the edges and the pentomino markers
         as clear as possible.</li>
         
-        <li>Try to keep your hand steady for a good experience! <b>Can you top the leaderboard?</b></li>
+        <li>Try to keep your hand steady for a good experience! Can you top the leaderboard?</li>
         
         <li>If you want to keep track of your scores, save your <b>player_ID</b> and enter it in the <b>player_ID box</b> for future submissions. </li>
         </ul>
