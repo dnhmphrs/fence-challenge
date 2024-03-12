@@ -294,9 +294,10 @@ function createGrid() {
 	grid.material.opacity = 1;
 	grid.material.transparent = true;
 
-	if ( $screenType == 1 )	webgameGroup.position.y = 0.225
+	if ( $screenType == 1 )	webgameGroup.position.y = 0.35
 
 	webgameGroup.add(grid, background);
+
 	nonParallaxGroup.add(webgameGroup);
 }
 
