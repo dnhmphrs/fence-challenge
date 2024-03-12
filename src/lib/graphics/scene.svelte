@@ -62,7 +62,7 @@ onMount(() => {
     // add touch events
     document.addEventListener('touchstart', onDocumentMouseDown, false);
     document.addEventListener('touchend', onDocumentMouseUp, false);
-    document.addEventListener('touchmove', onDocumentMouseMove, false);  
+    document.addEventListener('touchmove', onDocumentMouseMove, { passive: false });  
     
 		// make .geometry class opacity 1
 		setTimeout(() => {
