@@ -55,7 +55,7 @@
   <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
     <button on:click={closeModal} on:keydown={closeModal}>Close</button>
     <div class="modal-inner">
-      <div class="input-row">
+      <div class="input-row title">
         <h1>{order}</h1>
         <h1>{area}</h1>
       </div>
@@ -376,6 +376,7 @@
     gap: 20px;
     overflow: auto;
 
+
   }
 
   .modal-inner {
@@ -383,6 +384,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 60px;
   }
 
   .input-row {
@@ -409,12 +411,14 @@
     width: 100%;
   }
 
+
   .playerID {
+  
     padding-top: 20px;
   }
 
   .country {
-    max-width: calc(100% - 160px);
+
     padding-bottom: 10px;
   }
 
@@ -468,10 +472,17 @@
         h1 {
           font-size: 22px;
         } */
+        .modal-inner {
+          padding: 0;
+        
+        }
         .modal-content {
           height: 90%;
         }
 
+        .playerID {
+          max-width: none;
+        }
         .country {
           max-width: none;
         }
