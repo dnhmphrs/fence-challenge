@@ -72,13 +72,13 @@ onMount(() => {
 	});
 
 onDestroy(() => {
-  document.removeEventListener('mousemove', onDocumentMouseMove, false);
-  document.removeEventListener('mousedown', onDocumentMouseDown, false);
-  document.removeEventListener('mouseup', onDocumentMouseUp, false);
+  document.removeEventListener('mousemove', onDocumentMouseMove);
+  document.removeEventListener('mousedown', onDocumentMouseDown);
+  document.removeEventListener('mouseup', onDocumentMouseUp);
   // remove touch events
-  document.removeEventListener('touchstart', onDocumentMouseDown, false);
-  document.removeEventListener('touchend', onDocumentMouseUp, false);
-  document.removeEventListener('touchmove', onDocumentMouseMove, false);
+  document.removeEventListener('touchstart', onDocumentMouseDown);
+  document.removeEventListener('touchend', onDocumentMouseUp);
+  document.removeEventListener('touchmove', onDocumentMouseMove);
   
   cancelAnimationFrame(id)
 });
