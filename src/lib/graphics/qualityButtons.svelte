@@ -9,6 +9,9 @@ function setQualityMode(qInt)
 </script>
 
 <div class="midbar">
+    <div class = "qualityText">
+        <h4>camera quality </h4>
+        </div>
 	<div class="button holder">
         <button on:click={() => setQualityMode(0)} on:keydown = {() => setQualityMode(0)}>{'High'}</button>
 		<button on:click={() => setQualityMode(1)} on:keydown = {() => setQualityMode(1)}>{'Medium'}</button>
@@ -28,7 +31,6 @@ function setQualityMode(qInt)
 			bottom: 15%;
 			gap: 5px;
 			border-right: none;
-			border-top: 1px solid #000000;
 		}
 
 button, button p {
@@ -36,6 +38,8 @@ button, button p {
     width: 100%;
     justify-content: space-around;
 }
+
+h4 { text-align: center;}
 
 .sidebar.right button h4 span {
     font-size: 14px;

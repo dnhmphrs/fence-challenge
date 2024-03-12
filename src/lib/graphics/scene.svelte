@@ -285,22 +285,25 @@ function startWebcam() {
           height: 1440,
           aspectRatio: {exact: 1}
         })
-        return;
+        break;
       case 1:
         videoTrack.applyConstraints({
           width: 1080,
           height: 1080,
           aspectRatio: {exact: 1}
         })
-        return;
+        break;
       case 2:
         videoTrack.applyConstraints({
           width: 720,
           height: 720,
           aspectRatio: {exact: 1}
         })
-        return;
+        break;
     }
+    const settings = videoTrack.getSettings();
+      actualVideoWidth = settings.width;
+      actualVideoHeight = settings.height;
   }
 
   $: { setVideoQuality($qualityMode); }
