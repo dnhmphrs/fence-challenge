@@ -366,13 +366,14 @@
     border-radius: 5px;
     z-index: 10;
 
-    width: 80%;
+    width: 90%;
     height: auto;
     max-width: 600px;
     max-height: 800px;
 
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
     gap: 20px;
     overflow: auto;
 
@@ -384,7 +385,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 60px;
+    padding: 0 20px;
   }
 
   .input-row {
@@ -413,7 +414,6 @@
 
 
   .playerID {
-  
     padding-top: 20px;
   }
 
@@ -482,10 +482,10 @@
         }
 
         .playerID {
-          max-width: none;
+          max-width: calc(100% - 40px);
         }
         .country {
-          max-width: none;
+          max-width: calc(100% - 40px);
         }
 
     }

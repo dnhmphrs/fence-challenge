@@ -73,7 +73,7 @@
       border-radius: 5px;
       z-index: 10;
   
-      width: 80%;
+      width: 90%;
       height: 80%;
       max-width: 600px;
       max-height: 800px;

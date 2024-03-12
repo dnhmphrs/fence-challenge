@@ -49,7 +49,7 @@
       border-radius: 5px;
       z-index: 10;
   
-      width: 80%;
+      width: 90%;
       height: auto;
       max-width: 600px;
       max-height: 800px;
@@ -74,12 +74,13 @@
     li
     {
         line-height: 20px;
+        text-align: justify;
     }
     @media (max-width: 1024px) {
         ul li, b{font-size: 10px}
 
         h1 {
-          font-size: 22px;
+          font-size: 20px;
         }
         .modal-content {
           max-height: 90%;

@@ -61,14 +61,14 @@ import { pFencedTiles, boardOccupiedTiles } from '$lib/store/pentominos.js';
       grid-template-columns: repeat(20, 1fr);
       gap: 2px;
       width: 100%;
-      max-width: 400px; /* Adjust based on your needs */
+      max-width: 480px; /* Adjust based on your needs */
   }
 
   .cell {
       width: 2.7vmin;
       height: 2.7vmin;
-      max-width: 20px;
-      max-height: 20px;
+      max-width: 22px;
+      max-height: 22px;
       background-color: var(--primary); /* Default cell color */
       aspect-ratio: 1;
   }
