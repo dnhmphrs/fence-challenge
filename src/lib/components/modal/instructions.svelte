@@ -80,6 +80,8 @@
         ul li, b{font-size: 10px}
 
         h1 {
+          padding-top: 0;
+          margin-bottom: -10px;
           font-size: 20px;
         }
         .modal-content {

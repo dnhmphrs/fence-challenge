@@ -74,7 +74,9 @@
         ul li, b{font-size: 10px}
 
         h1 {
-          font-size: 22px;
+          font-size: 20px;
+          padding-top: 0;
+          margin-bottom: -10px;
         }
         .modal-content {
           max-height: 90%;
