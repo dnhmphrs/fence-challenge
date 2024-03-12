@@ -136,7 +136,7 @@ function updateCursor(event) {
 
 
 function onDocumentMouseMove(event) {
-    event.preventDefault();
+    // event.preventDefault();
     updateCursor(event);
 
     // console.log('PLANE:', PLANE);
@@ -155,7 +155,7 @@ function onDocumentMouseMove(event) {
   }
 
   function onDocumentMouseDown(event) {
-    event.preventDefault();
+    // event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(true);
 
