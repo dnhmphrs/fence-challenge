@@ -60,7 +60,7 @@
         <h1>{area}</h1>
       </div>
       <ResultGrid />
-    <div class="input-row">
+    <div class="input-row playerID">
 
       <div>
         <h1>Player ID: </h1>
@@ -72,7 +72,7 @@
         <input class="ID-input-box" type="number" id="playerID" name="playerID" min="2" max="100000000" size="10" placeholder={playerIDph}/>
       </div>
     </div>
-    <div class="input-row">
+    <div class="input-row country">
 
       <div>
         <h1>Country: </h1>
@@ -356,21 +356,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1; /* Ensure it's above other content */
   }
 
   .modal-content {
     background: var(--background);
     border: double 3px var(--dark-purple);
-    padding: 20px;
+    padding: 32px;
     border-radius: 5px;
     z-index: 10;
 
     width: 80%;
-    height: 80%;
+    height: auto;
     max-width: 600px;
     max-height: 800px;
 
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    overflow: auto;
 
   }
 
@@ -387,6 +391,7 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
+    width: 100%;
   }
 
   .ID-input-box{
@@ -404,6 +409,14 @@
     width: 100%;
   }
 
+  .playerID {
+    padding-top: 20px;
+  }
+
+  .country {
+    max-width: calc(100% - 160px);
+    padding-bottom: 10px;
+  }
 
 /*
   .name-input {
@@ -448,4 +461,20 @@
     background: var(--primary);
     color: var(--background);
   }
+
+  @media (max-width: 1024px) {
+        /* ul li, b{font-size: 10px}
+
+        h1 {
+          font-size: 22px;
+        } */
+        .modal-content {
+          height: 90%;
+        }
+
+        .country {
+          max-width: none;
+        }
+
+    }
 </style>

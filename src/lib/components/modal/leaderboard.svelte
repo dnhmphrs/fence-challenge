@@ -28,7 +28,6 @@
     <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
       <button on:click={closeLeaderboard} on:keydown={closeLeaderboard}>Close</button>
       <div class="modal-inner">
-        <div class="sidebar left">
             <div class="leaderboard-title">
                 <h2>Leaderboard</h2>
                 <h4>{order}</h4>
@@ -42,7 +41,6 @@
                     </div>
                 {/each}
             </div>
-        </div>
         </div>
     </div>
   </div>
@@ -75,7 +73,10 @@
       max-width: 600px;
       max-height: 800px;
   
-  
+      display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    overflow: auto;
     }
   
     .modal-inner {
@@ -83,6 +84,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 20px;
     }
   
     .leaderboard-title {
@@ -94,6 +99,8 @@
 		
 		padding: 10px;
 		border-radius: 10px;
+
+    width: 100%;
 	}
 
     .leaderboard {
@@ -105,6 +112,8 @@
 		border: 3px double var(--dark-purple);
 		padding: 10px;
 		border-radius: 10px;
+
+    width: 100%;
 	}
 
 	.leaderboard-entry {
@@ -157,4 +166,12 @@
       font-weight: bold;
     }
     */
+
+    
+  @media (max-width: 1024px) {
+
+        .modal-content {
+          height: 90%;
+        }
+      }
   </style>

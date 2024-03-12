@@ -509,7 +509,7 @@ window.addEventListener('resize', function() {
 		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);
-		z-index: 100;
+		z-index: 1;
 
 		/* animations */
 		/* start invisible */
