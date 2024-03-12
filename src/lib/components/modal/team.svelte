@@ -40,7 +40,7 @@
     .modal-content {
       background: var(--background);
       border: double 3px var(--dark-purple);
-      padding: 32px;
+      padding: 20px;
       border-radius: 5px;
       z-index: 10;
   
