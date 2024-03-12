@@ -15,5 +15,6 @@ export const disableKeyDown = writable(false);
 export const isModalOpen = writable(false);
 export const isLeaderboardOpen = writable(false);
 export const isInstructionsOpen = writable(false);
+export const isTeamOpen = writable(false);
 export const hideProcess = writable(false);
 export const qualityMode = writable(-1);

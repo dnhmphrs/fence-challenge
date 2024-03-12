@@ -13,6 +13,7 @@
 	import Modal from '$lib/components/modal/modal.svelte';
 	import Leaderboard from '$lib/components/modal/leaderboard.svelte';
 	import Instructions from '$lib/components/modal/instructions.svelte';
+	import Team from '$lib/components/modal/team.svelte';
 
 	export let data;
 	let Geometry;
@@ -96,6 +97,7 @@
 <div class="app">
 
 	<Instructions />
+	<Team />
 	<Modal />
 	<Leaderboard />
 

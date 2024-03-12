@@ -1,6 +1,6 @@
 <script>
 import { onMount, onDestroy, getContext  } from 'svelte';
-import { screenType, pyodideLoaded, isCvMode, disableKeyDown, hideProcess, qualityMode } from '$lib/store/store';
+import { screenType, pyodideLoaded, isCvMode, disableKeyDown, hideProcess, qualityMode, isInstructionsOpen, isTeamOpen } from '$lib/store/store';
 import { selectedPentominos, pentominosStore } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
@@ -457,6 +457,14 @@ function onProcessFrame() {
 }
 
 
+function openInstructions() {
+  isInstructionsOpen.set(true);
+}
+
+function openTeam() {
+  isTeamOpen.set(true);
+}
+
 // -----------------------------------------------------------------------------
 // EVENT LISTENERS
 // -----------------------------------------------------------------------------
@@ -479,7 +487,11 @@ window.addEventListener('resize', function() {
 
 </script>
 {#if !$hideProcess}
+<div class="buttons">
+  <button class="button half" on:click={openInstructions}>Info</button>
   <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
+  <button class="button half" on:click={openTeam}>Team</button>
+</div>
 {/if}
 <div bind:this={container} class:geometry={true}>
   <Board bind:this={board} {nonParallaxGroup} {screenType} gameMode={!$isCvMode} />
@@ -504,8 +516,9 @@ window.addEventListener('resize', function() {
   transition: opacity 0.5s ease-in-out;
 	}
 
-	button {
+	.buttons {
 		position: fixed;
+
 		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);
@@ -514,7 +527,16 @@ window.addEventListener('resize', function() {
 		/* animations */
 		/* start invisible */
  		transition: opacity 0.5s ease-in-out;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 	}
+
+  button.half {
+    opacity: .5 !important;
+  }
 
 	p {
 		font-size: 14px;
@@ -524,9 +546,10 @@ window.addEventListener('resize', function() {
 	}
 
   @media (max-width: 1024px) {
-    button{
+    .buttons {
       top: initial;
-      bottom: 10px;
+      bottom: 12.5px;
+      width: 100%;
     }
   }
 </style>
