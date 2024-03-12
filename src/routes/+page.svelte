@@ -1,7 +1,9 @@
 <script>
-	import { isCvMode, screenType } from '$lib/store/store';
+	import { isCvMode, screenType, hideProcess } from '$lib/store/store';
 	import PentominoSelection from '../lib/components/pentominoSelection.svelte';
-	import {toRotatePentominos, toFlipPentominos} from '$lib/store/pentominos';
+	import QualityButtons from '../lib/graphics/qualityButtons.svelte';
+	import {toRotatePentominos, toFlipPentominos, pyodideRan, pIDs} from '$lib/store/pentominos';
+	import { leaderboard } from '$lib/store/data';
 
 	function rotateEvent()
 	{
@@ -19,26 +21,54 @@
 		isCvMode.update(value => !value);
 	};
 
+	let leaderBoard = [];
+	let leaderboardLength = 0;
+
 	let hideSidebar = false;
+
+	function hideSidebarFunction()
+	{
+		hideSidebar = !hideSidebar;
+		$hideProcess = !$hideProcess
+		console.log($hideProcess);
+	}
+
 	$: hideSidebarText = hideSidebar ? 'Show' : 'Hide';
+
+	$: order = ($pyodideRan) ? 'Order: '+ $pIDs : 'Order: None';
+
+	$: cameraModeText = ($screenType != 3) ? 'Camera' : 'Camera Mode';
+
+	$: gameModeText = ($screenType != 3) ? 'Game' : 'Game Mode';
+
+	$: {
+		if ($pyodideRan){
+			leaderboardLength = Math.min($leaderboard.length, 30);
+			leaderBoard = $leaderboard;
+			console.log($leaderboard);
+		}
+	}
+
+	//$: leaderboardLength = ($pyodideRan) ? Math.max($leaderboard.length, 30) : 0;
+	
 </script>
 
 <div class="sidebar left">
 	<div class="title">
 		<h1>FENCE CHALLENGE</h1>
-		<p>This is a short piece of text that will maybe be a description of sorts.</p>
+		<p>Enclose as much area as possible with the given pentominos!</p>
 	</div>
 	<!-- <hr style="border: .5px solid var(--primary-50);" /> -->
 	<div class="leaderboard-title">
 		<h2>Leaderboard</h2>
-		<h4>ORDER: FILNPTUVWXYZ</h4>
+		<h4>{order}</h4>
 	</div>
 	<div class="leaderboard no-scrollbar">
-		{#each Array(30) as _, i}
+		{#each Array(leaderboardLength) as _, i}
 			<div class="leaderboard-entry">
-				<p class="leaderboard-entry-name">Player {i}</p>
-				<p class="leaderboard-entry-country">Germany</p>
-				<p class="leaderboard-entry-score">{Math.floor((Math.random() * 128))}</p>
+				<p class="leaderboard-entry-name">{$leaderboard[i].playerID}</p>
+				<p class="leaderboard-entry-country">{$leaderboard[i].country}</p>
+				<p class="leaderboard-entry-score">{$leaderboard[i].area}</p>
 			</div>
 		{/each}
 	</div>
@@ -47,21 +77,28 @@
 <div class="sidebar right" class:hidden={hideSidebar} >
 	<div class="button holder">
 		{#if $screenType !=3}
-			<button class="width-33" on:click={() => hideSidebar = !hideSidebar} on:keydown={() => hideSidebar = !hideSidebar}>{hideSidebarText}</button>
+			<button class="width-33" on:click={() => hideSidebarFunction()} on:keydown={() => hideSidebarFunction()}>{hideSidebarText}</button>
 		{/if}
 		<button on:click={() => toggleCvMode()} on:keydown={() => toggleCvMode()}>
-			<p>
-				<span class:hidden={!$isCvMode}>Camera Mode</span>
+			<p class='modeButton'>
+				<span class:hidden={!$isCvMode}>{cameraModeText}</span>
 				<span>//</span>
-				<span class:hidden={$isCvMode}>Game Mode</span>
+				<span class:hidden={$isCvMode}>{gameModeText}</span>
 			</p>
 		</button>
 		<button on:click={() => rotateEvent()} on:keydown = {() => rotateEvent()}>{'Rotate'}</button>
 		<button on:click={() => flipEvent()} on:keydown = {() => flipEvent()}>{'Flip'}</button>
 	</div>
-	<div class="pentominos">
-		<PentominoSelection />
-	</div>
+	{#if !$isCvMode}
+		<div class="pentominos">
+			<PentominoSelection />
+		</div>
+	{/if}
+	{#if $isCvMode && ($screenType !=3)}
+		<div class = "pentominos">
+			<QualityButtons />
+		</div>
+	{/if}
 
 </div>
 
@@ -177,12 +214,13 @@
 	.button.holder {
 		display: flex;
 		flex-flow: column nowrap;
-		gap: 15px;
+		gap: 1vmin;
 	}
 
 	.pentominos {
 		width: 100%;
 		height: 100%;
+
 		border-radius: 10px;
 	}
 
@@ -191,7 +229,9 @@
 		opacity: .5;
 	}
 
+
 	@media (max-width: 1024px) {
+
 		.sidebar.left {
 			max-height: 0;
 			overflow: hidden;
@@ -208,13 +248,14 @@
 
 		.sidebar.right {
 			width: 100%;
-
+			margin-top: 5px;
+			margin-bottom: 5px;
 			height: 30%;
-			top: 70%;
-			gap: 10px;
+			top: 62%;
+			bottom: 15%;
+			gap: 5px;
 			border-right: none;
 			border-top: 1px solid #000000;
-
 		}
 
 		.sidebar.right button {
@@ -222,18 +263,18 @@
 		}
 
 		.sidebar.right.hidden {
-			top: calc(100% - 80px);
+			top: calc(100% - 75px);
 
 		}
 
 		.button.holder {
 			max-width: 100%;
-			display: flex;
+			display: inline-flex;
 			flex-flow: row nowrap;
-			justify-content: space-between;
+			justify-content: center;
 			width: 100%;
 			padding: 0 0px;
-			gap: 20px;
+			gap: .5vmin;
 		}
 
 		.width-33 {

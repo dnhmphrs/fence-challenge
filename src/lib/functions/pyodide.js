@@ -1,8 +1,8 @@
-import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles } from '$lib/store/pentominos';
+import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles, pResultString } from '$lib/store/pentominos';
 import { isModalOpen } from '$lib/store/store';
 import { pentominosKey } from '$lib/graphics/pentominos';
 
-import { fetchLeaderboard } from '$lib/backend/api';
+import { fetchLeaderboard, setNewPlayerID } from '$lib/backend/api';
 import { leaderboard } from '$lib/store/data';
 
 // load pyodide on site load
@@ -18,6 +18,7 @@ export async function handleLoadPyodide() {
 	console.log('pyodide loaded');
 }
 
+
 // frameProcessor.js
 export async function processFrame(videoElement, actualVideoWidth, actualVideoHeight) {
 	if (!videoElement || !window.pyodide) return;
@@ -25,14 +26,19 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 	// console.log('Processing frame');
 
 	// Capture a frame from the video element
-	const canvas = document.createElement('canvas');
+
+	let canvas = document.createElement('canvas');
 	canvas.width = actualVideoWidth;
 	canvas.height = actualVideoHeight;
+
 	const ctx = canvas.getContext('2d');
 	ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
 	const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	console.log(imageData);
 	const dataBuffer = imageData.data.buffer;
+	console.log(dataBuffer);
+
 
 	try {
 		window.pyodide.globals.set('imageBuffer', new Uint8ClampedArray(dataBuffer));
@@ -63,6 +69,7 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				result
 		`);
 		console.log(`${result}`);
+		pResultString.set(`${result}`);
 		if (typeof window.pyodide.globals.get('result') !== 'string') {
 			let pOut = window.pyodide.globals.get('result').toJs();
 			console.log(pOut);
@@ -76,14 +83,16 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 				pIDLets += pentominosKey[pIDNums[i]];
 			}
 			pIDs.set(pIDLets);
-			pyodideRan.set(true);
+			
 			boardOccupiedTiles.set(pOut.get('boardPentList'));
+			setNewPlayerID();
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
-			let leaderboard_data = fetchLeaderboard('EF1624261');
+			let leaderboard_data = await fetchLeaderboard(pIDLets);
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
+			pyodideRan.set(true);
 		} else {
 			alert(`Result from Python: ${result}`);
 		}
@@ -119,10 +128,14 @@ export async function processBoard(
 				if type(result) != str:
 					area = str(result['area'])
 					fencedAreas = np.asarray(result['fencedTiles'])
+					rotations = np.asarray(result['rotations'])
+					flips = np.asarray(result['flips'])
+					coords = np.asarray(result['flips'])
 
 				result
 		`);
 		console.log(`${result}`);
+		pResultString.set(`${result}`);
 		if (typeof window.pyodide.globals.get('result') !== 'string') {
 			let pOut = window.pyodide.globals.get('result').toJs();
 			console.log(pOut);
@@ -136,13 +149,14 @@ export async function processBoard(
 				pIDLets += pentominosKey[pIDNums[i]];
 			}
 			pIDs.set(pIDLets);
-			pyodideRan.set(true);
+			setNewPlayerID();
 			isModalOpen.set(true);
 
 			// basic leadeboard fetch, function itself should handle error case
-			let leaderboard_data = fetchLeaderboard('F1624261');
+			let leaderboard_data = await fetchLeaderboard(pIDLets);
 			leaderboard.set(leaderboard_data);
 			console.log('leaderboard_data', leaderboard_data);
+			pyodideRan.set(true);
 		} else {
 			alert(`Result from Python: ${result}`);
 		}

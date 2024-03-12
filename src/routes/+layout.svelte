@@ -6,11 +6,13 @@
 	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, screenSize, appReady, isCvMode, pyodideLoaded } from '$lib/store/store';
+	import { screenType, isIframe, screenSize, appReady, isCvMode, pyodideLoaded, isInstructionsOpen } from '$lib/store/store';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 	import { handleLoadPyodide } from '$lib/functions/pyodide.js';
 
 	import Modal from '$lib/components/modal/modal.svelte';
+	import Leaderboard from '$lib/components/modal/leaderboard.svelte';
+	import Instructions from '$lib/components/modal/instructions.svelte';
 
 	export let data;
 	let Geometry;
@@ -23,6 +25,13 @@
 			analyticsId: data.analyticsId
 		});
 	}
+
+	$: {
+		if($appReady)
+			{
+				$isInstructionsOpen = true;
+			}
+		}
 
 	function handleScreen() {
 		// screen size
@@ -86,8 +95,9 @@
 <!-- <button style="position:absolute;left:20%;z-index:100;" on:click={() => isModalOpen.set(true)}>Open Modal</button> -->
 <div class="app">
 
-
+	<Instructions />
 	<Modal />
+	<Leaderboard />
 
 	<main>
 		<slot />
@@ -146,6 +156,9 @@
 		opacity: 0; /* hide until loaded */
 		transition: opacity 0.5s 0.5s ease-in-out;
 		overflow: hidden;
+		position: fixed;
 	}
+
+	
 
 </style>

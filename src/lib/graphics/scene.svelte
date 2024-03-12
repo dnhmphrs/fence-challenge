@@ -1,6 +1,6 @@
 <script>
 import { onMount, onDestroy, getContext  } from 'svelte';
-import { screenType, pyodideLoaded, isCvMode, disableKeyDown } from '$lib/store/store';
+import { screenType, pyodideLoaded, isCvMode, disableKeyDown, hideProcess, qualityMode } from '$lib/store/store';
 import { selectedPentominos, pentominosStore } from '$lib/store/pentominos.js';
 import * as THREE from 'three';
 
@@ -16,7 +16,7 @@ import {pentominosKey} from './pentominos.js'
 
 let board;
 
-let video, videoTexture;
+let video, videoTexture, videoTrack;
 let actualVideoWidth, actualVideoHeight;
 let cursor = new THREE.Vector2();
 
@@ -207,18 +207,26 @@ function startWebcam() {
 		video.autoplay = true;
 		video.muted = true; // Mute the video
 		video.playsInline = true; // Ensure inline play on iOS devices
-
+    
 		navigator.mediaDevices.getUserMedia({ video: { 
 			facingMode: 'environment',
-			width: ($screenType == 3) ? { ideal: 1920 } : { ideal: 720 }, // Smaller width for mobile
-      height: ($screenType == 3) ? { ideal: 1080 } : { ideal: 1280 }  // Smaller height for mobile
+      zoom: 1,
+      focusMode: 'single-shot',
+      whiteBalanceMode: 'single-shot',
+      exposureMode: 'single-shot',
+      //width: screen.width,
+      //height: screen.height,
+      aspectRatio: ($screenType == 3) ? 1.777778 : {exact: 1},
+			width: ($screenType == 3) ? { ideal: 1920 } : { ideal: 1440 }, // Smaller width for mobile
+      height: ($screenType == 3) ? { ideal: 1080 } : { ideal: 1440 }  // Smaller height for mobile
 		}}).then((stream) => {
             video.srcObject = stream;
             video.play().catch((e) => console.error('Error playing the video', e));
 
             video.addEventListener('loadedmetadata', () => {
                 // Extract video dimensions once the metadata is loaded
-                const videoTrack = stream.getTracks()[0];
+                videoTrack = stream.getTracks()[0];
+                //imageCapture = new ImageCapture(videoTrack);
                 const settings = videoTrack.getSettings();
                 actualVideoWidth = settings.width;
                 actualVideoHeight = settings.height;
@@ -264,6 +272,38 @@ function startWebcam() {
 			nonParallaxGroup.add(webcamGroup);
 		}
 	}
+
+  function setVideoQuality(qInt)
+  {
+    switch (qInt)
+    {
+      case -1:
+        return;
+      case 0:
+        videoTrack.applyConstraints({
+          width: 1440,
+          height: 1440,
+          aspectRatio: {exact: 1}
+        })
+        return;
+      case 1:
+        videoTrack.applyConstraints({
+          width: 1080,
+          height: 1080,
+          aspectRatio: {exact: 1}
+        })
+        return;
+      case 2:
+        videoTrack.applyConstraints({
+          width: 720,
+          height: 720,
+          aspectRatio: {exact: 1}
+        })
+        return;
+    }
+  }
+
+  $: { setVideoQuality($qualityMode); }
 
 // -----------------------------------------------------------------------------
 // CREATE STARS
@@ -384,6 +424,7 @@ function onProcessFrame() {
 
     if ($isCvMode) {
       if (pyodideLoaded && video.readyState === video.HAVE_ENOUGH_DATA) {
+        //processFrame(video, actualVideoWidth, actualVideoHeight);
         processFrame(video, actualVideoWidth, actualVideoHeight);
       }
     }
@@ -434,25 +475,26 @@ window.addEventListener('resize', function() {
 // });
 
 </script>
-
-<button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
-
+{#if !$hideProcess}
+  <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
+{/if}
 <div bind:this={container} class:geometry={true}>
   <Board bind:this={board} {nonParallaxGroup} {screenType} gameMode={!$isCvMode} />
 </div>
 
 <style>
 	.geometry {
-	position: absolute;
+	position: fixed;
   top: 0;
-  left:0;
-  width: 100%;
-  height: 100%;
+  left: 0;
+  width: 100vmin;
+  height: 100vmin;
   display: block; /* Removes potential extra space below the canvas */
   padding: 0;
   margin: 0;
   border: none;
   z-index: -1;
+  
 
   /* animations */
   opacity: 0; /* start invisible */
@@ -460,14 +502,14 @@ window.addEventListener('resize', function() {
 	}
 
 	button {
-		position: absolute;
+		position: fixed;
 		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);
 		z-index: 100;
 
 		/* animations */
-		opacity: 0; /* start invisible */
+		/* start invisible */
  		transition: opacity 0.5s ease-in-out;
 	}
 
@@ -477,4 +519,11 @@ window.addEventListener('resize', function() {
 		display: flex;
 		justify-content: space-between;
 	}
+
+  @media (max-width: 1024px) {
+    button{
+      top: initial;
+      bottom: 10px;
+    }
+  }
 </style>
