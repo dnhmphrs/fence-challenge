@@ -108,8 +108,6 @@
 		height: 100%;
 		position: fixed;
 		top: 0;
-		backdrop-filter: blur(10px);
-		background: var(--background);
 		padding: 20px;
 		box-sizing: border-box;
 
@@ -210,6 +208,7 @@
 		display: flex;
 		width: 100%;
 		justify-content: space-around;
+		
 	}
 
 	.sidebar.right button h4 span {
