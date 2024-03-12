@@ -478,6 +478,7 @@
         }
         .modal-content {
           height: 90%;
+          padding: 20px;
         }
 
         .playerID {

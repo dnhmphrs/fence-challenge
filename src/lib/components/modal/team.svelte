@@ -40,7 +40,7 @@
     .modal-content {
       background: var(--background);
       border: double 3px var(--dark-purple);
-      padding: 20px;
+      padding: 40px;
       border-radius: 5px;
       z-index: 10;
   
@@ -78,6 +78,7 @@
         }
         .modal-content {
           max-height: 90%;
+          padding: 20px;
         }
     }
 
