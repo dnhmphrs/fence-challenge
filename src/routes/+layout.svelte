@@ -88,7 +88,7 @@
  <button on:click={() => setUpApp(false)}>🕹️ start app in game mode</button>
 </div>
 {:else if geometryLoaded}
-	<div class="loading">loading python and initialising.</div>
+	<div class="loading">loading python and initialising..</div>
 {:else}
 	<div class="loading">loading app.</div>
 {/if}
