@@ -509,6 +509,7 @@ window.addEventListener('resize', function() {
   margin: 0;
   border: none;
   z-index: -1;
+  touch-action: none !important;
   
 
   /* animations */
