@@ -75,8 +75,8 @@
 
         h1 {
           font-size: 20px;
-          padding-top: 0;
-          margin-bottom: -10px;
+          padding-bottom: 10px;
+          margin-bottom: -20px;
         }
         .modal-content {
           max-height: 90%;
