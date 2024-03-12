@@ -21,7 +21,12 @@
 		}
 	}
 
-  </script>
+  // Function to convert country codes to flag emoji
+  function countryCodeToFlagEmoji(countryCode) {
+      return countryCode.toUpperCase().replace(/./g, char => 
+          String.fromCodePoint(127397 + char.charCodeAt()));
+  }
+</script>
   
   {#if $isLeaderboardOpen}
   <div class="modal-overlay" on:click={closeLeaderboard} on:keydown={closeLeaderboard}>
@@ -29,14 +34,14 @@
       <button on:click={closeLeaderboard} on:keydown={closeLeaderboard}>Close</button>
       <div class="modal-inner">
             <div class="leaderboard-title">
-                <h2>Leaderboard</h2>
-                <h4>{order}</h4>
+                <h2>🏅 Leaderboard</h2>
+                <h1>{order}</h1>
             </div>
             <div class="leaderboard no-scrollbar">
                 {#each Array(leaderboardLength) as _, i}
                     <div class="leaderboard-entry">
                         <p class="leaderboard-entry-name">{$leaderboard[i].playerID}</p>
-                        <p class="leaderboard-entry-country">{$leaderboard[i].country}</p>
+                        <p class="leaderboard-entry-country">{countryCodeToFlagEmoji($leaderboard[i].country)}</p>
                         <p class="leaderboard-entry-score">{$leaderboard[i].area}</p>
                     </div>
                 {/each}

@@ -56,14 +56,14 @@
     <button on:click={closeModal} on:keydown={closeModal}>Close</button>
     <div class="modal-inner">
       <div class="input-row title">
-        <h1>{order}</h1>
-        <h1>{area}</h1>
+        <h1>🏡 {order}</h1>
+        <h1> {area}</h1>
       </div>
       <ResultGrid />
     <div class="input-row playerID">
 
       <div>
-        <h1>Player ID: </h1>
+        <h1>👩‍🔬 Player ID: </h1>
  
    
       </div>
@@ -75,7 +75,7 @@
     <div class="input-row country">
 
       <div>
-        <h1>Country: </h1>
+        <h1>🌏&nbsp;Country: </h1>
  
    
       </div>

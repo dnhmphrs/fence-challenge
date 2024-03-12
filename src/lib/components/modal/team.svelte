@@ -11,7 +11,7 @@
   <div class="modal-overlay" on:click={closeModal} on:keydown={closeModal}>
     <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
       <button on:click={closeModal} on:keydown={closeModal}>Close</button>
-      <h1>Fence Challenge Team:  </h1>
+      <h1>👩‍🔬 Research Team  </h1>
       <ul class = 'instructions-list'>
         <li>Erika</li>
         <li>Miguel</li>
