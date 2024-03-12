@@ -133,14 +133,14 @@
 	.title {
 		border: 3px double var(--dark-purple);
 		background: var(--background);
-		padding: 10px;
+		padding: 15px;
 		border-radius: 10px;
 
 		display: flex;
 		text-align: center;
 		justify-content: center;
 		flex-flow: column nowrap;
-		gap: 15px;
+		gap: 10px;
 	}
 
 	.leaderboard-title {
