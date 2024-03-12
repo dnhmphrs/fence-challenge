@@ -84,8 +84,8 @@
 	<svelte:component this={Geometry} />
 {:else if $pyodideLoaded}
 <div class="loading">
- <button on:click={() => setUpApp(true)}>start app using camera</button>
- <button on:click={() => setUpApp(false)}>start app in game mode</button>
+ <button on:click={() => setUpApp(true)}>📸 start app using camera</button>
+ <button on:click={() => setUpApp(false)}>🕹️ start app in game mode</button>
 </div>
 {:else if geometryLoaded}
 	<div class="loading">loading python and initialising.</div>

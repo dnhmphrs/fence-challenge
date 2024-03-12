@@ -60,7 +60,7 @@
 	</div>
 	<!-- <hr style="border: .5px solid var(--primary-50);" /> -->
 	<div class="leaderboard-title">
-		<h2>🏅 Leaderboard</h2>
+		<h2>Leaderboard</h2>
 		<h4>{order}</h4>
 	</div>
 	<div class="leaderboard no-scrollbar">

@@ -56,7 +56,7 @@
     <button on:click={closeModal} on:keydown={closeModal}>Close</button>
     <div class="modal-inner">
       <div class="input-row title">
-        <h1>🏡 {order}</h1>
+        <h1>{order}</h1>
         <h1> {area}</h1>
       </div>
       <ResultGrid />
