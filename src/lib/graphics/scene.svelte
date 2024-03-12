@@ -155,7 +155,7 @@ function onDocumentMouseMove(event) {
   }
 
   function onDocumentMouseDown(event) {
-    // event.preventDefault();
+    event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(true);
 
@@ -185,7 +185,7 @@ function onDocumentMouseMove(event) {
   }
 
   async function onDocumentMouseUp(event) {
-    // event.preventDefault();
+    event.preventDefault();
     updateCursor(event);
     disableKeyDown.set(false);
 
@@ -509,7 +509,7 @@ window.addEventListener('resize', function() {
   margin: 0;
   border: none;
   z-index: -1;
-
+  touch-action: none !important;
   
 
   /* animations */
