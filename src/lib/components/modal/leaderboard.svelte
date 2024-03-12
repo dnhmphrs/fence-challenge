@@ -23,9 +23,14 @@
 
   // Function to convert country codes to flag emoji
   function countryCodeToFlagEmoji(countryCode) {
-      return countryCode.toUpperCase().replace(/./g, char => 
-          String.fromCodePoint(127397 + char.charCodeAt()));
-  }
+    // Check if the countryCode is "NONE" and return an appropriate response
+    if (countryCode.toUpperCase() === "NONE") {
+        return ""; // Return an empty string or a placeholder text like "No Country"
+    }
+    
+    return countryCode.toUpperCase().replace(/./g, char => 
+        String.fromCodePoint(127397 + char.charCodeAt()));
+}
 </script>
   
   {#if $isLeaderboardOpen}
