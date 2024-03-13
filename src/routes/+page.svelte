@@ -219,7 +219,7 @@
 	.button.holder {
 		display: flex;
 		flex-flow: column nowrap;
-		gap: 1vmin;
+		gap: 2vmin;
 	}
 
 	.pentominos {
@@ -284,7 +284,7 @@
 			justify-content: center;
 			width: 100%;
 			padding: 0 0px;
-			gap: .5vmin;
+			gap: 2vmin;
 		}
 
 		.width-33 {
