@@ -74,10 +74,11 @@
 
 <svelte:head>
 	<title>Fence Challenge</title>
-	<meta name="description" content="WIP" />
+	<meta name="description" content="Fence Challenge project for International Mathematics Day. From the MPI MiS With love. ❤️" />
 	<meta name="keywords" content="" />
 	<meta name="author" content="AUFBAU" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preload" href="/fence-example.png" as="image" />
 </svelte:head>
 
 {#if $appReady }
