@@ -490,7 +490,7 @@ window.addEventListener('resize', function() {
 <div class="buttons">
   <button class="button half" on:click={openInstructions}>ℹ️ Info</button>
   <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
-  <button class="button half" on:click={openTeam}>👩‍🔬 Team</button>
+  <button class="button half" on:click={openTeam}>👩🏾‍🔬 Team</button>
 </div>
 {/if}
 <div bind:this={container} class:geometry={true}>
