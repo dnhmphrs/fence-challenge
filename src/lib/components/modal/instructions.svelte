@@ -14,6 +14,7 @@
       <h1> 🏡 Fence Challenge </h1>
       <ul class = 'instructions-list'>
       <li>The goal of this game is to enclose <b>as much area as possible</b> in a fence with a selection (or all) of the pentominos.</li>
+      <img src="/fence-example.png" alt="Fence Example" width="100%" height="auto">
       <li>Build your fence, then hit the <b>Detect Fence</b> or <b>Process Frame</b> button to analyze the result!</li>
 
         <li>For camera mode, use the pentominos with aruco markers to assemble a fence, then take a picture with the corner markers in frame near the edges and the pentomino markers
