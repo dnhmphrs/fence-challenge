@@ -61,7 +61,7 @@ import { pFencedTiles, boardOccupiedTiles } from '$lib/store/pentominos.js';
       grid-template-columns: repeat(20, 1fr);
       gap: 2px;
       width: 100%;
-      max-width: 480px; /* Adjust based on your needs */
+      max-width: 460px; /* Adjust based on your needs */
   }
 
   .cell {

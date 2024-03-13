@@ -13,7 +13,7 @@
       <button on:click={closeModal} on:keydown={closeModal}>Close</button>
       <h1> 🏡 Fence Challenge </h1>
       <ul class = 'instructions-list'>
-      <li>The goal of this game is to enclose <b>as much area as possible</b> in a fence with the given pentominos.</li>
+      <li>The goal of this game is to enclose <b>as much area as possible</b> in a fence with a selection (or all) of the pentominos.</li>
       <li>Build your fence, then hit the <b>Detect Fence</b> or <b>Process Frame</b> button to analyze the result!</li>
 
         <li>For camera mode, use the pentominos with aruco markers to assemble a fence, then take a picture with the corner markers in frame near the edges and the pentomino markers
@@ -51,8 +51,9 @@
   
       width: 90%;
       height: auto;
-      max-width: 600px;
+      max-width: 640px;
       max-height: 800px;
+      padding: 20px 60px;
       
       display: flex;
       flex-flow: column nowrap;
@@ -74,9 +75,8 @@
     li
     {
         line-height: 20px;
-        text-align: justify;
     }
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
         ul li, b{font-size: 10px}
 
         h1 {
@@ -86,7 +86,7 @@
         }
         .modal-content {
           max-height: 90%;
-          padding: 20px;
+          padding: 20px 10px;
         }
     }
 

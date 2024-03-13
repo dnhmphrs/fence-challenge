@@ -12,18 +12,21 @@
     <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
       <button on:click={closeModal} on:keydown={closeModal}>Close</button>
       <h1> 👩🏾‍🔬 Research Team  </h1>
-      <ul class = 'instructions-list'>
+      <ul>
         <li>Ana Chávez Cáliz // Universität Heidelberg // artwork & design</li>
         <li>Manuel Estévez // Max Planck Institute & ScaDS.AI // software</li>
         <li>Alfredo Garcia-Collins // ScaDS.AI // software </li>
         <li>Johannes Haefner // ScaDS.AI // software</li>
-        <a href="https://danielniels.co.uk"><li>Daniel Humphries // UCL NPP // software</li></a>
-        <a href="https://aufbau.io"><li>Aufbau // London // Web Development</li></a>
+        <li>Daniel Humphries // UCL NPP // software</li>
         <li>Alexis Langlois-R.millard // Universität Bonn // software</li>
-        <li>Yaron Maïm // ScaDS.AI// Artwork & Design</li>
+        <li>Yaron Maïm // ScaDS.AI // Artwork & Design</li>
         <li>Mia Müßig // Ludwig-Maximilians-Universität München & ScaDS.AI // software </li>
         <li>Miguel O'Malley // Max Planck Institute & ScaDS.AI // software</li>
         <li>Érika Roldán-Roa // Max Planck Institute & ScaDS.AI // group head</li>
+      </ul>
+      <h1> 💻 Web Development  </h1>
+      <ul class = 'instructions-list'>
+        <a href="https://aufbau.io"><li>Aufbau // London // Web Development</li></a>
       </ul>
     </div>
   </div>
@@ -53,7 +56,7 @@
   
       width: 90%;
       height: auto;
-      max-width: 600px;
+      max-width: fit-content;
       max-height: 800px;
       
       display: flex;
@@ -67,18 +70,24 @@
     }
     ul{
         margin: 0;
+        width: 100%;
         display: flex;
         flex-flow: column nowrap;
         gap: 20px;
-        padding: 20px;
+        padding: 20px 20px;
         overflow: auto;
+        align-items: center;
     }
     li
     {
         line-height: 12px;
+        text-align: justify;
+        width: 100%;
     }
-    @media (max-width: 1024px) {
-        ul li, b{font-size: 10px}
+    @media (max-width: 768px) {
+        ul li, b{
+          font-size: 10px;
+        }
 
         h1 {
           font-size: 20px;

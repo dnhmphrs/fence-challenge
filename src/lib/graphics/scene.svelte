@@ -91,7 +91,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 if ($screenType == 1) {
-  camera.position.set(0, 0, 4);
+  camera.position.set(0, 0, window.innerWidth / 85);
 } else {
   camera.position.set(0, 0, 2.5);
 }

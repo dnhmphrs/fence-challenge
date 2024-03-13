@@ -394,7 +394,7 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
-    width: 100%;
+    width: 80%;
   }
 
   .ID-input-box{
@@ -466,12 +466,16 @@
     color: var(--background);
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
         /* ul li, b{font-size: 10px}
 
         h1 {
           font-size: 22px;
         } */
+
+        .input-row {
+         width: 100%; 
+        }
         .modal-inner {
           padding: 0;
         

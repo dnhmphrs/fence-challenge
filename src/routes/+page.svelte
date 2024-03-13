@@ -255,12 +255,17 @@
 			width: 100%;
 			margin-top: 5px;
 			margin-bottom: 5px;
-			height: 30%;
-			top: 62%;
-			bottom: 15%;
+			height: calc(30% + 60px);
+			/* top: 100%; */
+			top:auto;
+			padding-bottom: 60px;
+			bottom: 0%;
 			gap: 5px;
 			border-right: none;
 			border-top: 1px solid #000000;
+			background-color: var(--background-50);
+			backdrop-filter: blur(10px);
+			z-index: 10;
 		}
 
 		.sidebar.right button {
@@ -268,7 +273,7 @@
 		}
 
 		.sidebar.right.hidden {
-			top: calc(100% - 75px);
+			top: calc(100% - 80px);
 
 		}
 
