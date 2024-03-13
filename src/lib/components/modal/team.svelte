@@ -11,12 +11,19 @@
   <div class="modal-overlay" on:click={closeModal} on:keydown={closeModal}>
     <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
       <button on:click={closeModal} on:keydown={closeModal}>Close</button>
-      <h1>👩‍🔬 Research Team  </h1>
+      <h1> 👩🏾‍🔬 Research Team  </h1>
       <ul class = 'instructions-list'>
-        <li>Erika</li>
-        <li>Miguel</li>
+        <li>Ana Chávez Cáliz // Universität Heidelberg // artwork & design</li>
+        <li>Manuel Estévez // Max Planck Institute & ScaDS.AI // software</li>
+        <li>Alfredo Garcia-Collins // ScaDS.AI // software </li>
+        <li>Johannes Haefner // ScaDS.AI // software</li>
         <a href="https://danielniels.co.uk"><li>Daniel Humphries // UCL NPP // software</li></a>
         <a href="https://aufbau.io"><li>Aufbau // London // Web Development</li></a>
+        <li>Alexis Langlois-R.millard // Universität Bonn // software</li>
+        <li>Yaron Maïm // ScaDS.AI// Artwork & Design</li>
+        <li>Mia Müßig // Ludwig-Maximilians-Universität München & ScaDS.AI // software </li>
+        <li>Miguel O'Malley // Max Planck Institute & ScaDS.AI // software</li>
+        <li>Érika Roldán-Roa // Max Planck Institute & ScaDS.AI // group head</li>
       </ul>
     </div>
   </div>
@@ -68,19 +75,19 @@
     }
     li
     {
-        line-height: 20px;
+        line-height: 12px;
     }
     @media (max-width: 1024px) {
         ul li, b{font-size: 10px}
 
         h1 {
           font-size: 20px;
-          padding-bottom: 10px;
-          margin-bottom: -20px;
+          padding-bottom: 8px;
+          margin-bottom: -16px;
         }
         .modal-content {
           max-height: 90%;
-          padding: 20px;
+          padding: 3px;
         }
     }
 
