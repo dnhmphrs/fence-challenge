@@ -89,6 +89,7 @@
           font-size: 10px;
         }
 
+
         h1 {
           font-size: 20px;
           padding-bottom: 8px;
@@ -96,7 +97,7 @@
         }
         .modal-content {
           max-height: 90%;
-          padding: 3px;
+          padding: 20px 10px;
         }
     }
 
