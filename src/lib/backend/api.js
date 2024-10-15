@@ -39,6 +39,29 @@ async function fetchLeaderboard(orderID) {
 		return leaderboard;
 }
 
+async function fetchOptimals(orderNums) {
+	if (orderNums.length == 12)
+	{
+	let { data: optimals, error } = await supabase
+		.from('optimals')
+		.select('Area, id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12')
+		.eq('id1', parseInt(orderNums[0]))
+		.eq('id2', parseInt(orderNums[1]))
+		.eq('id3', parseInt(orderNums[2]))
+		.eq('id4', parseInt(orderNums[3]))
+		.eq('id5', parseInt(orderNums[4]))
+		.eq('id6', parseInt(orderNums[5]))
+		.eq('id7', parseInt(orderNums[6]))
+		.eq('id8', parseInt(orderNums[7]))
+		.eq('id9', parseInt(orderNums[8]))
+		.eq('id10', parseInt(orderNums[9]))
+		.eq('id11', parseInt(orderNums[10]))
+		.eq('id12', parseInt(orderNums[11]));
+		return optimals;
+	}
+	else return []
+}
+
 /*
 async function postResults(experiment, orderID, area) {
 	const payload = {
@@ -68,7 +91,7 @@ async function postResults(experiment, orderID, area) {
 }
 */
 
-async function postResults(orderID, area, playerID, country, resultString) {
+async function postResults(orderID, area, playerID, country, resultString, theEvent) {
 
 	let payload = { 
 		orderID: orderID, 
@@ -77,7 +100,8 @@ async function postResults(orderID, area, playerID, country, resultString) {
 		name: 'Unknown', 
 		country: country,
 		playerID: playerID,
-		resultString: resultString
+		resultString: resultString,
+		event: theEvent
 	}
 
 	console.log(payload);
@@ -118,7 +142,7 @@ async function setNewPlayerID()
 }
 
 
-export { fetchLeaderboard, postResults, setNewPlayerID };
+export { fetchLeaderboard, postResults, setNewPlayerID, fetchOptimals };
 
 
 

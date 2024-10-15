@@ -489,7 +489,7 @@ window.addEventListener('resize', function() {
 {#if !$hideProcess}
 <div class="buttons">
   <button class="button half" on:click={openInstructions}>ℹ️ Info</button>
-  <button class="button" on:click={onProcessFrame}><p>{buttonText}</p></button>
+  <button class="button cap" on:click={onProcessFrame}><p>{buttonText}</p></button>
   <button class="button half" on:click={openTeam}>👩🏾‍🔬 Team</button>
 </div>
 {/if}
@@ -534,6 +534,10 @@ window.addEventListener('resize', function() {
     justify-content: center;
     gap: 20px;
 	}
+
+  button.cap {
+    background-color: darkred;
+  }
 
   button.half {
     opacity: .5 !important;

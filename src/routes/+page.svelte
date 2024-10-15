@@ -2,7 +2,7 @@
 	import { isCvMode, screenType, hideProcess } from '$lib/store/store';
 	import PentominoSelection from '../lib/components/pentominoSelection.svelte';
 	import QualityButtons from '../lib/graphics/qualityButtons.svelte';
-	import {toRotatePentominos, toFlipPentominos, pyodideRan, pIDs} from '$lib/store/pentominos';
+	import {toRotatePentominos, toFlipPentominos, pyodideRan, pIDs, optimalArea, optimalAreaKnown} from '$lib/store/pentominos';
 	import { leaderboard } from '$lib/store/data';
 
 	function rotateEvent()
@@ -49,6 +49,8 @@
 		}
 	}
 
+	$: optimalText = ($optimalAreaKnown) ? 'Optimal: '+ $optimalArea : 'test';
+
 	//$: leaderboardLength = ($pyodideRan) ? Math.max($leaderboard.length, 30) : 0;
 	
 </script>
@@ -62,6 +64,9 @@
 	<div class="leaderboard-title">
 		<h2>Leaderboard</h2>
 		<h4>{order}</h4>
+		{#if $optimalAreaKnown}
+		<h6>{optimalText}</h6>
+		{/if}
 	</div>
 	<div class="leaderboard no-scrollbar">
 		{#each Array(leaderboardLength) as _, i}

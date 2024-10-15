@@ -1,7 +1,7 @@
 <script>
     import { isLeaderboardOpen } from '$lib/store/store.js';
     import { leaderboard } from '$lib/store/data';
-    import { pIDs, pyodideRan } from '$lib/store/pentominos.js';
+    import { pIDs, pyodideRan, optimalArea, optimalAreaKnown } from '$lib/store/pentominos.js';
 
   
     function closeLeaderboard() {
@@ -21,6 +21,8 @@
 		}
 	}
 
+  $: optimalText = ($optimalAreaKnown) ? 'Optimal: '+ $optimalArea : '';
+
   // Function to convert country codes to flag emoji
   function countryCodeToFlagEmoji(countryCode) {
     // Check if the countryCode is "NONE" and return an appropriate response
@@ -31,6 +33,7 @@
     return countryCode.toUpperCase().replace(/./g, char => 
         String.fromCodePoint(127397 + char.charCodeAt()));
 }
+  
 </script>
   
   {#if $isLeaderboardOpen}
@@ -41,6 +44,9 @@
             <div class="leaderboard-title">
                 <h2>🏅 Leaderboard</h2>
                 <h1>{order}</h1>
+                {#if $optimalAreaKnown}
+                <h6>{optimalText}</h6>
+                {/if}
             </div>
             <div class="leaderboard no-scrollbar">
                 {#each Array(leaderboardLength) as _, i}

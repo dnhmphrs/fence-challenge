@@ -30,7 +30,7 @@
 	$: {
 		if($appReady)
 			{
-				$isInstructionsOpen = true;
+				//$isInstructionsOpen = true;
 			}
 		}
 

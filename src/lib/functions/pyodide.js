@@ -1,9 +1,10 @@
-import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles, pResultString } from '$lib/store/pentominos';
+import { pArea, pIDs, pFencedTiles, pyodideRan, boardOccupiedTiles, pResultString, optimalArea, optimalAreaKnown } from '$lib/store/pentominos';
 import { isModalOpen } from '$lib/store/store';
 import { pentominosKey } from '$lib/graphics/pentominos';
 
 import { fetchLeaderboard, setNewPlayerID } from '$lib/backend/api';
 import { leaderboard } from '$lib/store/data';
+import { fetchOptimals } from '../backend/api';
 
 // load pyodide on site load
 export async function handleLoadPyodide() {
@@ -78,9 +79,26 @@ export async function processFrame(videoElement, actualVideoWidth, actualVideoHe
 			//pFencedTiles.set(pOut.get('fencedTiles'));
 			pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
 			let pIDNums = window.pyodide.globals.get('ids').toJs();
+			let optimal = await fetchOptimals(pIDNums);
+			if (optimal.length > 0)
+			{
+				optimalArea.set(optimal[0].Area);
+				optimalAreaKnown.set(true);
+			}
+			else if (pIDNums.length == 12 && optimal.length == 0)
+			{
+				optimalArea.set(125);
+				optimalAreaKnown.set(true);
+				console.log('125 set');
+			}
+			else{optimalAreaKnown.set(false);}
 			let pIDLets = '';
+			let newAdd = '';
 			for (let i = 0; i < pIDNums.length; i++) {
-				pIDLets += pentominosKey[pIDNums[i]];
+				newAdd = pentominosKey[pIDNums[i]];
+				if (newAdd != undefined){
+					pIDLets += newAdd;
+				}
 			}
 			pIDs.set(pIDLets);
 			
@@ -144,9 +162,29 @@ export async function processBoard(
 			//pFencedTiles.set(pOut.get('fencedTiles'));
 			pFencedTiles.set(window.pyodide.globals.get('fencedAreas').toJs());
 			let pIDNums = pOut.get('id');
+			let optimal = await fetchOptimals(pIDNums);
+			if (optimal.length > 0)
+			{
+				console.log(optimal)
+				console.log(pIDNums)
+				console.log('optimal is '+ optimal[0].Area)
+				optimalArea.set(optimal[0].Area);
+				optimalAreaKnown.set(true);
+			}
+			else if (pIDNums.length == 12 && optimal.length == 0)
+			{
+				optimalArea.set(125);
+				optimalAreaKnown.set(true);
+				console.log('125 set');
+			}
+			else{optimalAreaKnown.set(false);}
 			let pIDLets = '';
+			let newAdd = '';
 			for (let i = 0; i < pIDNums.length; i++) {
-				pIDLets += pentominosKey[pIDNums[i]];
+				newAdd = pentominosKey[pIDNums[i]];
+				if (newAdd != undefined){
+					pIDLets += newAdd;
+				}
 			}
 			pIDs.set(pIDLets);
 			setNewPlayerID();

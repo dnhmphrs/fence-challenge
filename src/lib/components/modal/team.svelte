@@ -11,22 +11,27 @@
   <div class="modal-overlay" on:click={closeModal} on:keydown={closeModal}>
     <div class="modal-content" on:click|stopPropagation on:keydown|stopPropagation>
       <button on:click={closeModal} on:keydown={closeModal}>Close</button>
-      <h1> 👩🏾‍🔬 Research Team  </h1>
+      <h1> Project Head  </h1>
       <ul>
-        <li>Ana Chávez Cáliz // Universität Heidelberg // artwork & design</li>
-        <li>Manuel Estévez // Max Planck Institute & ScaDS.AI // software</li>
-        <li>Alfredo Garcia-Collins // ScaDS.AI // software </li>
-        <li>Johannes Haefner // ScaDS.AI // software</li>
-        <li>Daniel Humphries // UCL NPP // software</li>
-        <li>Alexis Langlois-R.millard // Universität Bonn // software</li>
-        <li>Yaron Maïm // ScaDS.AI // Artwork & Design</li>
-        <li>Mia Müßig // Ludwig-Maximilians-Universität München & ScaDS.AI // software </li>
-        <li>Miguel O'Malley // Max Planck Institute & ScaDS.AI // software</li>
-        <li>Érika Roldán-Roa // Max Planck Institute & ScaDS.AI // group head</li>
+        <li><a href = "https://erikaroldan.net">Érika Roldán-Roa // Max Planck Institute & ScaDS.AI</a></li>
       </ul>
-      <h1> 💻 Web Development  </h1>
-      <ul class = 'instructions-list'>
-        <a href="https://aufbau.io"><li>Aufbau // London // Web Development</li></a>
+      <h1> Web Development </h1>
+      <ul>
+        <li>Alfredo Garcia-Collins // ScaDS.AI</li>
+        <li><a href = "https://aufbau.io">Daniel Humphries // UCL NPP</a></li>
+        <li>Miguel O'Malley // Max Planck Institute & ScaDS.AI</li>
+      </ul>
+      <h1> Computational Technology </h1>
+      <ul>
+        <li>Manuel Estévez // Max Planck Institute & ScaDS.AI</li>
+        <li>Johannes Haefner // ScaDS.AI</li>
+        <li>Alexis Langlois-R.millard // Universität Bonn</li>
+        <li>Mia Müßig // Ludwig-Maximilians-Universität München & ScaDS.AI</li>
+      </ul>
+      <h1> Art & Design</h1>
+      <ul>
+        <li>Ana Chávez Cáliz // Universität Heidelberg</li>
+        <li>Yaron Maïm // ScaDS.AI </li>
       </ul>
     </div>
   </div>
@@ -84,11 +89,17 @@
         text-align: justify;
         width: 100%;
     }
+    a
+    {
+      font-size: 14px;
+      line-height: 12px;
+      text-align: justify;
+      width: 100%;
+    }
     @media (max-width: 768px) {
-        ul li, b{
+        ul li, b, a{
           font-size: 10px;
         }
-
 
         h1 {
           font-size: 20px;
@@ -97,7 +108,7 @@
         }
         .modal-content {
           max-height: 90%;
-          padding: 20px 10px;
+          padding: 3px;
         }
     }
 

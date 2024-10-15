@@ -7,12 +7,16 @@ export const pentominosStore = writable([]);
 
 export const pArea = writable('');
 export const pIDs = writable('');
+export const pIDMaxKnown = writable(false);
 export const pFencedTiles = writable([]);
 export const pyodideSays = writable([]);
 export const pyodideRan = writable(false);
+export const optimalArea = writable('');
+export const optimalAreaKnown = writable(false);
 export const sessionID = readable(Math.random());
 export const playerID = writable(0);
 export const country = writable("");
+export const theEvent = writable("");
 
 export const boardOccupiedTiles = writable([]);
 export const pResultString = writable('');
